@@ -1,4 +1,5 @@
-# OmniDB 3.0.3 Beta
+# OmniDB 3.0.3 cn
+基于开源版本做了本地化和特性增强,see: omnidb.mapcoding.cn
 
 ## Release Date: *December 17, 2020*
 
