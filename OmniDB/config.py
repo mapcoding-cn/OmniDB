@@ -1,5 +1,5 @@
 # What address the webserver listens to, 0.0.0.0 listens to all addresses bound to the machine
-LISTENING_ADDRESS    = '127.0.0.1'
+LISTENING_ADDRESS    = '0.0.0.0'
 
 # Webserver port, if port is in use another random port will be selected
 LISTENING_PORT       = 8000
