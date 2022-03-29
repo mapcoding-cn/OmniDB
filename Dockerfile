@@ -1,8 +1,8 @@
-FROM python:latest
+FROM python:3.6
 
 LABEL maintainer="OmniDB team"
 
-ARG OMNIDB_VERSION=3.0.3b
+ARG OMNIDB_VERSION=3.0.3-cn
 
 SHELL ["/bin/bash", "-c"]
 
@@ -13,24 +13,27 @@ RUN addgroup --system omnidb \
     && apt-get update \
     && apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev vim -y
 
-USER omnidb:omnidb
-ENV HOME /home/omnidb
-WORKDIR ${HOME}
+#USER omnidb:omnidb
 
-RUN wget https://github.com/OmniDB/OmniDB/archive/${OMNIDB_VERSION}.tar.gz \
-    && tar -xvzf ${OMNIDB_VERSION}.tar.gz \
-    && mv OmniDB-${OMNIDB_VERSION} OmniDB
+ENV HOME /home/omnidb
+
+COPY . ${HOME}/OmniDB
+
 
 WORKDIR ${HOME}/OmniDB
-
-RUN pip install -r requirements.txt
+RUN pip config set global.index-url http://mirrors.cloud.tencent.com/pypi/simple \
+    && pip config set global.trusted-host mirrors.cloud.tencent.com \
+    && ls -a \
+    && pip install -r requirements.txt
 
 WORKDIR ${HOME}/OmniDB/OmniDB
 
-RUN sed -i "s/LISTENING_ADDRESS    = '127.0.0.1'/LISTENING_ADDRESS    = '0.0.0.0'/g" config.py \
-    && python omnidb-server.py --init \
-    && python omnidb-server.py --dropuser=admin
+RUN python omnidb-server.py --init \
 
 EXPOSE 8000
+
+ENV HOME /omnidb/data
+
+RUN mkdir -p ${HOME}
 
 CMD python omnidb-server.py

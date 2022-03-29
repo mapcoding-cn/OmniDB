@@ -38,7 +38,7 @@ PyJWT==2.3.0
 PyMySQL==1.0.2
 PyNaCl==1.5.0
 pyscrypt==1.6.2
-python-ldap==3.4.0
+python-ldap==3.3.1
 python3-openid==3.2.0
 pytz==2021.3
 requests==2.27.1
