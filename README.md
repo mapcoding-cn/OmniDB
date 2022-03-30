@@ -1,4 +1,5 @@
 # OmniDB 3.0.3-CN
+**如果对你有帮助,请start一下,感谢支持**
 **基于开源版本做了本地化和特性增强** \
 OmniDB是一个开源的基于浏览器的DMS工具，它简化了专注于交互性的数据库管理,旨在实现在Web端强大的数据库管理功能,支持PostgreSQL/Oracle/ MySQL/MariaDB / SQLite等多种数据库,对于PostgreSQL的支持尤为完善. 
 
