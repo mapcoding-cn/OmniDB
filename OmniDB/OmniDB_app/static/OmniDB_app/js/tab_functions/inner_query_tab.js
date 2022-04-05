@@ -31,7 +31,7 @@ var v_createQueryTabFunction = function(p_table, p_tab_db_id) {
   v_connTabControl.selectedTab.tag.tabControl.removeLastTab();
 
   // Updating inner tab_name.
-  var v_name = 'Query';
+  var v_name = '查询';
   if (p_table) {
     v_name = p_table;
   }
@@ -84,7 +84,7 @@ var v_createQueryTabFunction = function(p_table, p_tab_db_id) {
       "<div class='modal-content'>" +
         "<div class='modal-header'>" +
           "<h5 class='modal-title'>" +
-            "Command history" +
+            "运行历史" +
           "</h5>" +
           "<button type='button' class='close' data-dismiss='modal' aria-label='Close' onclick='closeCommandHistory()'>" +
             "<span aria-hidden='true'>&times;</span>" +
@@ -102,31 +102,31 @@ var v_createQueryTabFunction = function(p_table, p_tab_db_id) {
 
   // Creating the template for the inner_query_tab.
   var v_html =
-  '<div id="txt_query_' + v_tab.id + '" style="width: 100%; height: 200px;"></div>' +
+  '<div id="txt_query_' + v_tab.id + '" style="width: 100%; height: 600px;"></div>' +
   '<div class="omnidb__resize-line__container" onmousedown="resizeVertical(event)" style="width: 100%; height: 5px; cursor: ns-resize;"><div class="resize_line_horizontal" style="height: 0px; border-bottom: 1px dashed #acc4e8;"></div><div style="height:5px;"></div></div>' +
   command_history_modal +
   '<div class="row mb-1">' +
     '<div class="tab_actions omnidb__tab-actions col-12">' +
-      '<button id="bt_start_' + v_tab.id + '" class="btn btn-sm omnidb__theme__btn--primary omnidb__tab-actions__btn" title="Run" onclick="querySQL(0);"><i class="fas fa-play fa-light"></i></button>' +
-      '<button id="bt_indent_' + v_tab.id + '" class="btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" title="Indent SQL" onclick="indentSQL();"><i class="fas fa-indent fa-light"></i></button>' +
-      '<button id="bt_history_' + v_tab.id + '" class="btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" title="Command History" onclick="showCommandList();"><i class="fas fa-list fa-light"></i></button>' +
-      '<button id="bt_explain_' + v_tab.id + '" class="dbms_object postgresql_object btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" onclick="getExplain(0)" title="Explain" style="display: none;"><i class="fas fa-search fa-light"></i></button>' +
-      '<button id="bt_analyze_' + v_tab.id + '" class="dbms_object postgresql_object btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" onclick="getExplain(1)" title="Explain Analyze" style="display: none;"><i class="fas fa-search-plus fa-light"></i></button>' +
-      '<div class="dbms_object postgresql_object omnidb__form-check form-check form-check-inline"><input id="check_autocommit_' + v_tab.id + '" class="form-check-input" type="checkbox" checked="checked"><label class="form-check-label dbms_object postgresql_object custom_checkbox query_info" for="check_autocommit_' + v_tab.id + '">Autocommit</label></div>' +
-      '<div class="dbms_object postgresql_object omnidb__tab-status"><i id="query_tab_status_' + v_tab.id + '" title="Not connected" class="fas fa-dot-circle tab-status tab-status-closed dbms_object postgresql_object omnidb__tab-status__icon"></i><span id="query_tab_status_text_' + v_tab.id + '" title="Not connected" class="tab-status-text query_info dbms_object postgresql_object ml-1">Not connected</span></div>' +
-      '<button id="bt_fetch_more_' + v_tab.id + '" class="btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" title="Run" style="display: none;" onclick="querySQL(1);">Fetch more</button>' +
-      '<button id="bt_fetch_all_' + v_tab.id + '" class="btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" title="Run" style="margin-left: 5px; display: none;" onclick="querySQL(2);">Fetch all</button>' +
-      '<button id="bt_commit_' + v_tab.id + '" class="dbms_object dbms_object_hidden postgresql_object btn btn-sm omnidb__theme__btn--primary omnidb__tab-actions__btn" title="Run" style="margin-left: 5px; display: none;" onclick="querySQL(3);">Commit</button>' +
-      '<button id="bt_rollback_' + v_tab.id + '" class="dbms_object dbms_object_hidden postgresql_object btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" title="Run" style="margin-left: 5px; display: none;" onclick="querySQL(4);">Rollback</button>' +
+      '<button id="bt_start_' + v_tab.id + '" class="btn btn-sm omnidb__theme__btn--primary omnidb__tab-actions__btn" title="运行" onclick="querySQL(0);"><i class="fas fa-play fa-light"></i></button>' +
+      '<button id="bt_indent_' + v_tab.id + '" class="btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" title="格式化" onclick="indentSQL();"><i class="fas fa-indent fa-light"></i></button>' +
+      '<button id="bt_history_' + v_tab.id + '" class="btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" title="运行历史" onclick="showCommandList();"><i class="fas fa-list fa-light"></i></button>' +
+      '<button id="bt_explain_' + v_tab.id + '" class="dbms_object postgresql_object btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" onclick="getExplain(0)" title="执行计划" style="display: none;"><i class="fas fa-search fa-light"></i></button>' +
+      '<button id="bt_analyze_' + v_tab.id + '" class="dbms_object postgresql_object btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" onclick="getExplain(1)" title="运行并解释" style="display: none;"><i class="fas fa-search-plus fa-light"></i></button>' +
+      '<div class="dbms_object postgresql_object omnidb__form-check form-check form-check-inline"><input id="check_autocommit_' + v_tab.id + '" class="form-check-input" type="checkbox" checked="checked"><label class="form-check-label dbms_object postgresql_object custom_checkbox query_info" for="check_autocommit_' + v_tab.id + '">自动提交事务</label></div>' +
+      '<div class="dbms_object postgresql_object omnidb__tab-status"><i id="query_tab_status_' + v_tab.id + '" title="Not connected" class="fas fa-dot-circle tab-status tab-status-closed dbms_object postgresql_object omnidb__tab-status__icon"></i><span id="query_tab_status_text_' + v_tab.id + '" title="Not connected" class="tab-status-text query_info dbms_object postgresql_object ml-1">未连接</span></div>' +
+      '<button id="bt_fetch_more_' + v_tab.id + '" class="btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" title="Run" style="display: none;" onclick="querySQL(1);">展示更多</button>' +
+      '<button id="bt_fetch_all_' + v_tab.id + '" class="btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" title="Run" style="margin-left: 5px; display: none;" onclick="querySQL(2);">展示全部</button>' +
+      '<button id="bt_commit_' + v_tab.id + '" class="dbms_object dbms_object_hidden postgresql_object btn btn-sm omnidb__theme__btn--primary omnidb__tab-actions__btn" title="Run" style="margin-left: 5px; display: none;" onclick="querySQL(3);">提交</button>' +
+      '<button id="bt_rollback_' + v_tab.id + '" class="dbms_object dbms_object_hidden postgresql_object btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn" title="Run" style="margin-left: 5px; display: none;" onclick="querySQL(4);">回滚</button>' +
       '<button id="bt_cancel_' + v_tab.id + '" class="btn btn-sm btn-danger omnidb__tab-actions__btn" title="Cancel" style="display: none;" onclick="cancelSQL();">Cancel</button>' +
       '<div id="div_query_info_' + v_tab.id + '" class="omnidb__query-info"></div>' +
-      '<button class="btn btn-sm omnidb__theme__btn--primary omnidb__tab-actions__btn ml-auto" title="Export Data" onclick="v_connTabControl.selectedTab.tag.tabControl.selectedTab.tag.exportData();"><i class="far fa-file fa-light"></i></button>' +
+      '<button class="btn btn-sm omnidb__theme__btn--primary omnidb__tab-actions__btn ml-auto" title="导出数据" onclick="v_connTabControl.selectedTab.tag.tabControl.selectedTab.tag.exportData();"><i class="far fa-file fa-light"></i></button>' +
       '<select id="sel_export_type_' + v_tab.id + '" class="form-control omnidb__tab-actions__select" style="width: 80px;"><option selected="selected" value="csv">CSV</option><option value="xlsx">XLSX</option></select>' +
     '</div>' +
   '</div>' +
   '<div id="query_result_tabs_container' + v_tab.id + '" class="omnidb__query-result-tabs">' +
     '<div style="position:absolute;top:0.25rem;right:2.5rem;">' +
-      '<div class="omnidb__switch--explain omnidb__switch--explain--sm float-right" data-toggle="tooltip" data-placement="left" data-html="true" title="" data-original-title="<h5>Toggle explain component.</h5><div>Switch between old and new explain visualizer (experimental).</div>">' +
+      '<div class="omnidb__switch--explain omnidb__switch--explain--sm float-right" data-toggle="tooltip" data-placement="left" data-html="true" title="" data-original-title="<h5>切换解释视图.</h5><div>Switch between old and new explain visualizer (experimental).</div>">' +
         '<input id="explainContextToggler' + v_tab.id + '" type="checkbox" class="omnidb__switch--explain--input" onclick="toggleExplainContext()">' +
         '<label for="explainContextToggler' + v_tab.id + '" class="omnidb__switch--explain--label">' +
           '<span><i class="fas fa-th"></i></span>' +
@@ -170,7 +170,7 @@ var v_createQueryTabFunction = function(p_table, p_tab_db_id) {
 
   // Creating the `data` tab.
   var v_data_tab = v_curr_tabs.createTab({
-    p_name: 'Data',
+    p_name: '数据',
     p_close: false,
     p_clickFunction: function(e) {
       v_selectDataTabFunc();
@@ -183,7 +183,7 @@ var v_createQueryTabFunction = function(p_table, p_tab_db_id) {
 
   // Creating the `message` tab.
   var v_messages_tab = v_curr_tabs.createTab({
-    p_name: "Messages <div id='query_result_tabs_count_notices_" + v_tab.id + "' class='count_notices' style='display: none;'></div>",
+    p_name: "信息 <div id='query_result_tabs_count_notices_" + v_tab.id + "' class='count_notices' style='display: none;'></div>",
     p_close: false,
     p_clickFunction: function(e) {
       v_selectMessageTabFunc();
@@ -198,7 +198,7 @@ var v_createQueryTabFunction = function(p_table, p_tab_db_id) {
 
   // Creating the `explain` tab.
   var v_explain_tab = v_curr_tabs .createTab({
-    p_name: "Explain",
+    p_name: "解释",
     p_close: false,
     p_clickFunction: function(e) {
       v_selectExplainTabFunc();
@@ -241,7 +241,7 @@ var v_createQueryTabFunction = function(p_table, p_tab_db_id) {
 
     var v_option_list = [
       {
-        text: 'Copy',
+        text: '复制',
         icon: 'fas cm-all fa-terminal',
         action: function() {
           // Getting the value
@@ -251,7 +251,7 @@ var v_createQueryTabFunction = function(p_table, p_tab_db_id) {
         }
       },
       {
-        text: 'Save as snippet',
+        text: '保存到常用SQL',
         icon: 'fas cm-all fa-save',
         submenu: {
           elements: buildSnippetContextMenuObjects('save', v_connTabControl.tag.globalSnippets, v_editor)
@@ -262,7 +262,7 @@ var v_createQueryTabFunction = function(p_table, p_tab_db_id) {
     if (v_connTabControl.tag.globalSnippets.files.length != 0 || v_connTabControl.tag.globalSnippets.folders.length != 0)
       v_option_list.push(
         {
-          text: 'Use snippet',
+          text: '从常用SQL选择',
           icon: 'fas cm-all fa-book',
           submenu: {
             elements: buildSnippetContextMenuObjects('load', v_connTabControl.tag.globalSnippets, v_editor)
@@ -308,7 +308,7 @@ var v_createQueryTabFunction = function(p_table, p_tab_db_id) {
   var v_export_data = function() {
     var v_exp_callback = function(p_data) {
     	v_connTabControl.selectedTab.tag.tabControl.selectedTab.tag.selectDataTabFunc();
-    	var v_text = '<div style="font-size: 14px;">The file is ready. <a class="link_text" href="' + p_data.v_data.v_filename + '" download="'+ p_data.v_data.v_downloadname + '">Save</a></div>';
+    	var v_text = '<div style="font-size: 14px;">文件生成完毕. <a class="link_text" href="' + p_data.v_data.v_filename + '" download="'+ p_data.v_data.v_downloadname + '">下载</a></div>';
     	v_connTabControl.selectedTab.tag.tabControl.selectedTab.tag.div_result.innerHTML = v_text;
     }
 

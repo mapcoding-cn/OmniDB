@@ -155,7 +155,7 @@ function querySQL(p_mode,
 		var v_tab_close_span = v_connTabControl.selectedTab.tag.tabControl.selectedTab.tag.tab_close_span;
 
 		if (v_sql_value.trim()=='') {
-			showAlert('Please provide a string.');
+			showAlert('请选择一个SQL.');
 		}
 		else {
 
@@ -291,15 +291,15 @@ function querySQLReturn(p_data,p_context) {
 
 function setTabStatus(p_tab_tag, p_con_status) {
 	if (p_con_status==0) {
-		p_tab_tag.query_tab_status_text.innerHTML = 'Not connected';
+		p_tab_tag.query_tab_status_text.innerHTML = '未连接';
 		p_tab_tag.query_tab_status.className = 'fas fa-dot-circle tab-status tab-status-closed';
-		p_tab_tag.query_tab_status.title = 'Not connected';
+		p_tab_tag.query_tab_status.title = '未连接';
 		p_tab_tag.query_tab_status.innerHTML = '';
 	}
 	else if (p_con_status==1) {
-		p_tab_tag.query_tab_status_text.innerHTML = 'Idle';
+		p_tab_tag.query_tab_status_text.innerHTML = '已连接';
 		p_tab_tag.query_tab_status.className = 'fas fa-dot-circle tab-status tab-status-idle position-relative';
-		p_tab_tag.query_tab_status.title = 'Idle';
+		p_tab_tag.query_tab_status.title = '已连接';
 		p_tab_tag.query_tab_status.innerHTML =
 		'<div style="position: absolute; width: 12px; height: 12px; overflow: visible; left: 0px; top: 0px; display: block;">' +
 			'<span class="omnis__circle-waves omnis__circle-waves--idle">' +
@@ -496,8 +496,8 @@ function querySQLReturnRender(p_message,p_context) {
 									}
 								},
 								items: {
-									"copy": {name: '<div style=\"position: absolute;\"><i class=\"fas fa-copy cm-all\" style=\"vertical-align: middle;\"></i></div><div style=\"padding-left: 30px;\">Copy</div>'},
-									"view_data": {name: '<div style=\"position: absolute;\"><i class=\"fas fa-edit cm-all\" style=\"vertical-align: middle;\"></i></div><div style=\"padding-left: 30px;\">View Content</div>'}
+									"copy": {name: '<div style=\"position: absolute;\"><i class=\"fas fa-copy cm-all\" style=\"vertical-align: middle;\"></i></div><div style=\"padding-left: 30px;\">复制</div>'},
+									"view_data": {name: '<div style=\"position: absolute;\"><i class=\"fas fa-edit cm-all\" style=\"vertical-align: middle;\"></i></div><div style=\"padding-left: 30px;\">查看</div>'}
 								}
 					    },
 			        cells: function (row, col, prop) {

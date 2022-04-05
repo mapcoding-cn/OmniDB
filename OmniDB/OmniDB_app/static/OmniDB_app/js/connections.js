@@ -83,19 +83,20 @@ function showConnectionList(p_open_modal, p_change_group) {
 
 			v_row.innerHTML =
 			'<div id="connections_management_empty_all" class="my-4 text-center w-100" style="display:none;">' +
-				'<h5 class="">No connections available.</h5>' +
-				'<button type="button" class="mt-4 btn omnidb__theme__btn--primary" onclick="newConnection();">New Connection</button>' +
+				'<h5 class="">没有可用连接.</h5>' +
+				'<button type="button" class="mt-4 btn omnidb__theme__btn--primary" onclick="newConnection();">连接管理</button>' +
 			'</div>' +
 			'<div id="connections_management_empty_with_public" class="my-4 text-center w-100" style="display:none;">' +
 				'<i class="fas fa-arrow-up text-info"></i>' +
-				'<h5 class="">Your user has no connections configured yet, but there are <i class="fas fa-users text-info mx-2"></i> public connections.</h5>' +
-				'<h5 class="d-inline-block mt-4 mr-2">You can also create your own</h5>' +
-				'<button type="button" class="mt-2 btn omnidb__theme__btn--primary" onclick="newConnection();">New Connection</button>' +
-			'</div>' +
-			'<div id="connections_management_empty_group" class="my-4 text-center w-100" style="display:none;">' +
-				'<h5 class="">No connections assigned to this group yet.</h5>' +
-				'<button type="button" class="mt-4 btn omnidb__theme__btn--primary" onclick="manageGroup();">Manage Groups</button>' +
-			'</div>';
+				'<h5 class="">你没有自己的连接,但是这里有 <i class="fas fa-users text-info mx-2"></i> 个公共连接.</h5>' +
+				'<h5 class="d-inline-block mt-4 mr-2">你可以创建自己的连接</h5>' +
+				'<button type="button" class="mt-2 btn omnidb__theme__btn--primary" onclick="newConnection();">连接管理</button>' +
+			'</div>' ;
+			// 	+
+			// '<div id="connections_management_empty_group" class="my-4 text-center w-100" style="display:none;">' +
+			// 	'<h5 class="">这个组里没有连接</h5>' +
+			// 	'<button type="button" class="mt-4 btn omnidb__theme__btn--primary" onclick="manageGroup();">Manage Groups</button>' +
+			// '</div>'
 
       for (var i=0; i<p_return.v_data.v_conn_list.length; i++) {
         var v_conn_obj = p_return.v_data.v_conn_list[i];
@@ -588,7 +589,7 @@ function testConnection(p_password = null) {
 	execAjax('/test_connection/',
 		input,
 		function(p_return) {
-			if (p_return.v_data=="Connection successful.")
+			if (p_return.v_data=="连接成功.")
 				showAlert(p_return.v_data);
 			else
         showError(p_return.v_data);
@@ -874,7 +875,7 @@ function newConnection() {
   document.getElementById('conn_form_ssh_password').value = '';
   document.getElementById('conn_form_ssh_key').value = '';
 	document.getElementById('conn_form_ssh_key_input').value = null;
-	document.getElementById('conn_form_ssh_key_input_label').innerHTML = 'Click to select';
+	document.getElementById('conn_form_ssh_key_input_label').innerHTML = '点击选择文件';
 
 	$('#conn_form_user_pass_check_icon').remove();
 	$('#conn_form_ssh_password_check_icon').remove();
@@ -1167,7 +1168,7 @@ function updateConnectionKey(e) {
 	var v_input = document.getElementById('conn_form_ssh_key');
   if (!file) {
 		v_input.value = null;
-		document.getElementById('conn_form_ssh_key_input_label').innerHTML = 'Click to select';
+		document.getElementById('conn_form_ssh_key_input_label').innerHTML = '点击选择文件';
 		updateModalEditConnectionState({target:document.getElementById('conn_form_ssh_key_input')});
     return;
   }

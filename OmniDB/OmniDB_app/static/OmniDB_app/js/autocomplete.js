@@ -763,7 +763,7 @@ function build_autocomplete_elements(p_data, p_value) {
 function renew_autocomplete(p_new_value) {
   var v_search_regex = null;
 
-  v_search_regex = new RegExp('^(' + p_new_value + ')', 'i');
+  v_search_regex = new RegExp(p_new_value,'i');
 
   //v_search_regex = new RegExp('^' + p_new_value.split('').join('.*'), 'i');
 
@@ -1263,7 +1263,7 @@ function autocomplete_start(editor, mode, event, force = null) {
         var v_last_word = v_last_word_object.last_word;
         var v_character_position = v_last_word_object.character_position;
 
-        if (v_last_word != '' && v_last_word[0]!="'" && (v_last_word.length>2 || (v_last_word.length==2 && v_last_word[1]=='.') || force)) {
+        if (v_last_word != '' && v_last_word[0]!="'" && (v_last_word.length>0 || (v_last_word.length>=2 && v_last_word[1]=='.') || force)) {
 
           v_autocomplete_object.editor = editor;
           v_autocomplete_object.active = true;

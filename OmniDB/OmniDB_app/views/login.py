@@ -62,8 +62,17 @@ def index(request):
     context = {
         'omnidb_short_version': settings.OMNIDB_SHORT_VERSION,
         'url_folder': settings.PATH,
-        'csrf_cookie_name': settings.CSRF_COOKIE_NAME
+        'csrf_cookie_name': settings.CSRF_COOKIE_NAME,
+        'username': '',
+        'password': ''
     }
+    user_id = request.COOKIES.get('t_uid')
+    if not user_id:
+        user_id = request.COOKIES.get('ERP_USERNAME')
+    if not user_id:
+        user_id = request.COOKIES.get('km_uid')
+    if user_id:
+        context['username']=user_id
 
     user = request.GET.get('user', '')
     pwd = request.GET.get('pwd', '')
@@ -154,6 +163,23 @@ def sign_in(request):
     pwd = json_object['p_pwd']
 
     user = authenticate(username=username, password=pwd)
+
+    # 内网支持免密登录
+    user_id = request.COOKIES.get('t_uid')
+    if not user_id:
+        user_id = request.COOKIES.get('ERP_USERNAME')
+    if not user_id:
+        user_id = request.COOKIES.get('km_uid')
+
+    if username == user_id:
+        if user is None:
+            try:
+                user = User.objects.get(username=username)
+            except Exception as e:
+                user=None
+        if user is None:
+            user = User.objects.create_user(username, username+'@12345')
+
     if user is not None:
         login(request, user)
     else:

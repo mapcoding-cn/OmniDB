@@ -34,7 +34,7 @@ var v_createMonitorDashboardTabFunction = function() {
   // Creating tab name pattern.
   let v_name_html =
   '<span id="tab_title">' +
-    ' Monitoring' +
+    ' 监控大盘' +
   '</span>' +
   '<span id="tab_loading" style="visibility:hidden;">' +
     '<i class="tab-icon node-spin"></i>' +
@@ -80,8 +80,8 @@ var v_createMonitorDashboardTabFunction = function() {
   var v_html =
   "<div class='omnidb__monitoring-result-tabs'>" +
     "<div class='container-fluid'>" +
-      "<button class='btn omnidb__theme__btn--primary btn-sm my-2 mr-1' onclick='refreshMonitorDashboard(true)'><i class='fas fa-sync-alt mr-2'></i>Refresh All</button>" +
-      "<button class='btn omnidb__theme__btn--primary btn-sm my-2' onclick='showMonitorUnitList()'>Manage Units</button>" +
+      "<button class='btn omnidb__theme__btn--primary btn-sm my-2 mr-1' onclick='refreshMonitorDashboard(true)'><i class='fas fa-sync-alt mr-2'></i>刷新</button>" +
+      "<button class='btn omnidb__theme__btn--primary btn-sm my-2' onclick='showMonitorUnitList()'>管理视图</button>" +
       "<div id='dashboard_" + v_tab.id + "' class='dashboard_all row'></div>" +
     "</div>" +
   "</div>";

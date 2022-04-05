@@ -317,7 +317,7 @@ function getUsers(p_options = false) {
 						"<input tabIndex='-1' style='opacity:0;height:0px;overflow:hidden;pointer-events:none;' autofill='false' autocomplete='disabled' name='no-autofill' id='no-autofill-autofill-name' type='text' class='m-0 p-0' placeholder='Username' value=''>" +
 						"<input tabIndex='-1' style='opacity:0;height:0px;overflow:hidden;pointer-events:none;' autofill='false' autocomplete='disabled' name='no-autofill' id='no-autofill-password' type='password' class='m-0 p-0' placeholder='Password' value=''>" +
 						"<div class='form-inline mb-4'>" +
-							"<h5 class='mr-2'>Select an user</h5>" +
+							"<h5 class='mr-2'>选择用户</h5>" +
 							"<select id='omnidb_user_select' onchange='renderSelectedUser(event)' class='form-control'>";
 							if (p_options.focus_last)
 								v_user_list_html += "<option value=''> </option>";
@@ -341,13 +341,13 @@ function getUsers(p_options = false) {
 							}
 							v_user_list_html +=
 							"</select>" +
-							"<button id='omnidb_utilities_menu_btn_new_user' type='button' class='btn omnidb__theme__btn--primary ml-2' onclick='newUser()'><i class='fas fa-user-plus'></i><span class='ml-2'>Add new user</span></button>" +
+							"<button id='omnidb_utilities_menu_btn_new_user' type='button' class='btn omnidb__theme__btn--primary ml-2' onclick='newUser()'><i class='fas fa-user-plus'></i><span class='ml-2'>新增用户</span></button>" +
 						"</div>" +
 						"<div id='omnidb_user_content' class='row'>" +
 							v_users_update_html +
 						"</div>" +
 						"<div class='text-center'>" +
-							"<button type='button' id='div_save_users' class='btn btn-success ml-1' style='visibility: hidden;' onclick='saveUsers()'>Save</button>" +
+							"<button type='button' id='div_save_users' class='btn btn-success ml-1' style='visibility: hidden;' onclick='saveUsers()'>保存</button>" +
 						"</div>" +
 						"<button type='submit' disabled style='display: none' aria-hidden='true'></button>" +
 					"</div>";
@@ -415,7 +415,7 @@ function renderSelectedUser(event) {
 	var v_index = event.target.value;
 	var v_user_div_content = document.getElementById('omnidb_user_content');
 	if (v_index == "") {
-		v_user_div_content.innerHTML = "<div class='col-12 text-center'><h5 class='my-4'>No users selected, select an user or click add new user.</h5></div>";
+		v_user_div_content.innerHTML = "<div class='col-12 text-center'><h5 class='my-4'>选择一个用户修改或者创建新用户.</h5></div>";
 	}
 	else {
 		var v_user_count = 0;
@@ -435,7 +435,7 @@ function renderSelectedUser(event) {
 						"</div>" +
 						"<input autofill='false' autocomplete='disabled' name='notChromeUsername' id='user_item_username_" + i  + "' type='text' class='form-control my-0' placeholder='User name' value='" + v_user_item[0] + "' onchange='changeUser(event," + i + ",0)'>" +
 					"</div>" +
-					"<span class='ml-2'>Superuser?</span>" +
+					"<span class='ml-2'>管理员</span>" +
 					"<div class='ml-2 mb-2'>" +
 						"<div class='omnidb__switch mr-2' data-toggle='tooltip' data-placement='bottom' data-html='true' title='<h5>Toggle superuser status. To enable again, simply turn the switch on.</h5>'>" +
 							"<input type='checkbox' id='user_item_superuser_" + i  + "' class='omnidb__switch--input' " + v_superuser_checked + " onchange='changeUser(event," + i + ",2)'>" +
@@ -477,7 +477,7 @@ function renderSelectedUser(event) {
 						"</div>" +
 						"<input autofill='false' autocomplete='off' name='off' id='new_user_item_username_" + i  + "' type='text' class='form-control my-0' placeholder='User name' value='" + v_user_item[0] + "' onchange='changeNewUser(event," + i + ",0)'>" +
 					"</div>" +
-					"<span class='ml-2'>Superuser?</span>" +
+					"<span class='ml-2'>管理员</span>" +
 					"<div class='ml-2 mb-2'>" +
 						"<div class='omnidb__switch mr-2' data-toggle='tooltip' data-placement='bottom' data-html='true' title='<h5>Toggle superuser status. To enable again, simply turn the switch on.</h5>'>" +
 							"<input type='checkbox' id='new_user_item_superuser_" + i  + "' class='omnidb__switch--input' " + v_superuser_checked + " onchange='changeNewUser(event," + i + ",2)'>" +

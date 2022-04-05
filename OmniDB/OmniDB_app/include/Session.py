@@ -161,7 +161,7 @@ class Session(object):
                     self.v_databases[p_database_index]['database'].v_connection.v_password = ''
                     v_test = self.v_databases[p_database_index]['database'].TestConnection()
 
-                    if v_test=='Connection successful.':
+                    if v_test=='连接成功.':
                         s = SessionStore(session_key=self.v_user_key)
                         s['omnidb_session'].v_databases[p_database_index]['prompt_timeout'] = datetime.now()
                         s['omnidb_session'].v_databases[p_database_index]['database'].v_connection.v_password = ''

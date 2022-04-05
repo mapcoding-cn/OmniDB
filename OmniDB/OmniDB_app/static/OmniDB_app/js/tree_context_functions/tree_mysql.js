@@ -34,7 +34,7 @@ function getTreeMysql(p_div) {
     var context_menu = {
         'cm_server': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -48,7 +48,7 @@ function getTreeMysql(p_div) {
         },
         'cm_databases': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -59,10 +59,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Database',
+                text: '创建数据库',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Database', node.tree
+                    tabSQLTemplate('创建数据库', node.tree
                         .tag.create_database);
                 }
             }/*, {
@@ -80,14 +80,14 @@ function getTreeMysql(p_div) {
         'cm_database': {
             elements: [
               {
-                  text: 'Render Graph',
+                  text: '渲染图',
                   icon: 'fab cm-all fa-hubspot',
                   action: function(node) {
 
                   },
                   submenu: {
                       elements: [{
-                          text: 'Simple Graph',
+                          text: '简单结构图',
                           icon: 'fab cm-all fa-hubspot',
                           action: function(node) {
                               v_connTabControl.tag.createGraphTab(
@@ -95,7 +95,7 @@ function getTreeMysql(p_div) {
                               drawGraph(false, node.text);
                           }
                       }, {
-                          text: 'Complete Graph',
+                          text: '完整结构图',
                           icon: 'fab cm-all fa-hubspot',
                           action: function(node) {
                               v_connTabControl.tag.createGraphTab(
@@ -106,18 +106,18 @@ function getTreeMysql(p_div) {
                   }
               },
               {
-                  text: 'Alter Database',
+                  text: '修改数据库',
                   icon: 'fas cm-all fa-edit',
                   action: function(node) {
-                      tabSQLTemplate('Alter Database', node.tree.tag
+                      tabSQLTemplate('修改数据库', node.tree.tag
                           .alter_database.replace(
                               '#database_name#', node.text));
                   }
               }, {
-                  text: 'Drop Database',
+                  text: '删除数据库',
                   icon: 'fas cm-all fa-times',
                   action: function(node) {
-                      tabSQLTemplate('Drop Database', node.tree.tag
+                      tabSQLTemplate('删除数据库', node.tree.tag
                           .drop_database.replace(
                               '#database_name#', node.text));
                   }
@@ -126,7 +126,7 @@ function getTreeMysql(p_div) {
         },
         'cm_roles': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -137,10 +137,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Role',
+                text: '创建Role',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Role', node.tree.tag
+                    tabSQLTemplate('创建Role', node.tree.tag
                         .create_role);
                 }
             }/*, {
@@ -157,24 +157,24 @@ function getTreeMysql(p_div) {
         },
         'cm_role': {
             elements: [{
-                text: 'Alter Role',
+                text: '修改 Role',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Role', node.tree.tag.alter_role
+                    tabSQLTemplate('修改 Role', node.tree.tag.alter_role
                         .replace('#role_name#', node.text));
                 }
             }, {
-                text: 'Drop Role',
+                text: '删除 Role',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Role', node.tree.tag.drop_role
+                    tabSQLTemplate('删除 Role', node.tree.tag.drop_role
                         .replace('#role_name#', node.text));
                 }
             }]
         },
         'cm_tables': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -185,10 +185,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Table',
+                text: '创建Table',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Table', node.tree.tag
+                    tabSQLTemplate('创建表', node.tree.tag
                         .create_table.replace(
                             '#schema_name#', node.parent.text));
                 }
@@ -226,7 +226,7 @@ function getTreeMysql(p_div) {
         },
         'cm_table': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -237,18 +237,18 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Data Actions',
+                text: '数据操作',
                 icon: 'fas cm-all fa-list',
                 submenu: {
                     elements: [{
-                        text: 'Query Data',
+                        text: '查询数据',
                         icon: 'fas cm-all fa-search',
                         action: function(node) {
                             TemplateSelectMysql(node.parent
                               .parent.text, node.text);
                         }
                     }, {
-                        text: 'Edit Data',
+                        text: '修改数据',
                         icon: 'fas cm-all fa-table',
                         action: function(node) {
                             v_startEditData(node.text,
@@ -256,25 +256,25 @@ function getTreeMysql(p_div) {
                             );
                         }
                     }, {
-                        text: 'Insert Record',
+                        text: '插入记录',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
                             TemplateInsertMysql(node.parent
                               .parent.text, node.text);
                         }
                     }, {
-                        text: 'Update Records',
+                        text: '修改记录',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
                             TemplateUpdateMysql(node.parent
                               .parent.text, node.text);
                         }
                     }, {
-                        text: 'Delete Records',
+                        text: '删除记录',
                         icon: 'fas cm-all fa-times',
                         action: function(node) {
                           tabSQLTemplate(
-                              'Delete Records',
+                              '删除记录',
                               node.tree.tag.delete
                               .replace(
                                   '#table_name#',
@@ -285,11 +285,11 @@ function getTreeMysql(p_div) {
                     }]
                 }
             }, {
-                text: 'Table Actions',
+                text: '表操作',
                 icon: 'fas cm-all fa-list',
                 submenu: {
                     elements: [{
-                        text: 'Alter Table',
+                        text: '修改表',
                         icon: 'fas cm-all fa-table',
                         action: function(node) {
                             startAlterTable(true,
@@ -298,19 +298,19 @@ function getTreeMysql(p_div) {
                             );
                         }
                     }, {
-                        text: 'Alter Table (SQL)',
+                        text: '修改 Table (SQL)',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
-                            tabSQLTemplate('Alter Table', node.tree.tag
+                            tabSQLTemplate('修改表', node.tree.tag
                                 .alter_table.replace(
                                     '#table_name#', node.parent.parent.text
                                     + '.' + node.text));
                         }
                     }, {
-                        text: 'Drop Table',
+                        text: '删除表',
                         icon: 'fas cm-all fa-times',
                         action: function(node) {
-                            tabSQLTemplate('Drop Table',
+                            tabSQLTemplate('删除表',
                                 node.tree.tag.drop_table
                                 .replace(
                                     '#table_name#',
@@ -322,10 +322,10 @@ function getTreeMysql(p_div) {
         },
         'cm_columns': {
             elements: [{
-                text: 'Create Column',
+                text: '创建Column',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Field', node.tree.tag
+                    tabSQLTemplate('创建Field', node.tree.tag
                         .create_column.replace(
                             '#table_name#', node.parent.parent.parent.text + '.' + node.parent
                             .text));
@@ -334,20 +334,20 @@ function getTreeMysql(p_div) {
         },
         'cm_column': {
             elements: [{
-                text: 'Alter Column',
+                text: '修改列',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Column', node.tree.tag
+                    tabSQLTemplate('修改列', node.tree.tag
                         .alter_column.replace(
                             '#table_name#', node.parent.parent.parent.parent.text + '.' +
                             node.parent.parent.text).replace(
                             /#column_name#/g, node.text));
                 }
             }, {
-                text: 'Drop Column',
+                text: '删除列',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Column', node.tree.tag
+                    tabSQLTemplate('删除列', node.tree.tag
                         .drop_column.replace('#table_name#',
                             node.parent.parent.parent.parent.text + '.' + node.parent.parent
                             .text).replace(/#column_name#/g,
@@ -357,7 +357,7 @@ function getTreeMysql(p_div) {
         },
         'cm_pks': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -368,10 +368,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Primary Key',
+                text: '创建Primary Key',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Primary Key', node.tree
+                    tabSQLTemplate('创建Primary Key', node.tree
                         .tag.create_primarykey.replace(
                             '#table_name#', node.parent.parent.parent.text + '.' + node.parent
                             .text));
@@ -380,7 +380,7 @@ function getTreeMysql(p_div) {
         },
         'cm_pk': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -391,10 +391,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Drop Primary Key',
+                text: '删除 Primary Key',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Primary Key', node.tree
+                    tabSQLTemplate('删除 Primary Key', node.tree
                         .tag.drop_primarykey.replace(
                             '#table_name#', node.parent.parent.parent.parent.text + '.' +
                             node.parent.parent.text).replace(
@@ -405,7 +405,7 @@ function getTreeMysql(p_div) {
         },
         'cm_fks': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -416,10 +416,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Foreign Key',
+                text: '创建Foreign Key',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Foreign Key', node.tree
+                    tabSQLTemplate('创建Foreign Key', node.tree
                         .tag.create_foreignkey.replace(
                             '#table_name#', node.parent.parent.parent.text + '.' + node.parent
                             .text));
@@ -428,7 +428,7 @@ function getTreeMysql(p_div) {
         },
         'cm_fk': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -439,10 +439,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Drop Foreign Key',
+                text: '删除 Foreign Key',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Foreign Key', node.tree
+                    tabSQLTemplate('删除 Foreign Key', node.tree
                         .tag.drop_foreignkey.replace(
                             '#table_name#', node.parent.parent.parent.parent.text + '.' +
                             node.parent.parent.text).replace(
@@ -453,7 +453,7 @@ function getTreeMysql(p_div) {
         },
         'cm_uniques': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -464,10 +464,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Unique',
+                text: '创建Unique',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Unique', node.tree.tag
+                    tabSQLTemplate('创建Unique', node.tree.tag
                         .create_unique.replace(
                             '#table_name#', node.parent.parent.parent.text + '.' + node.parent
                             .text));
@@ -476,7 +476,7 @@ function getTreeMysql(p_div) {
         },
         'cm_unique': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -487,10 +487,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Drop Unique',
+                text: '删除 Unique',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Unique', node.tree.tag
+                    tabSQLTemplate('删除 Unique', node.tree.tag
                         .drop_unique.replace('#table_name#',
                             node.parent.parent.parent.parent.text + '.' + node.parent.parent
                             .text).replace(
@@ -501,7 +501,7 @@ function getTreeMysql(p_div) {
         },
         'cm_indexes': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -512,10 +512,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Index',
+                text: '创建Index',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Index', node.tree.tag
+                    tabSQLTemplate('创建Index', node.tree.tag
                         .create_index.replace(
                             '#table_name#', node.parent.parent.parent.text + '.' + node.parent
                             .text));
@@ -534,7 +534,7 @@ function getTreeMysql(p_div) {
         },
         'cm_index': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -545,10 +545,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Drop Index',
+                text: '删除 Index',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Index', node.tree.tag.drop_index
+                    tabSQLTemplate('删除 Index', node.tree.tag.drop_index
                         .replace('#index_name#', node.parent.parent.parent.parent.text + '.' + node.text.replace(
                                 ' (Unique)', '').replace(
                                 ' (Non Unique)', '')));
@@ -557,7 +557,7 @@ function getTreeMysql(p_div) {
         },
         'cm_views': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -568,10 +568,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Create View',
+                text: '创建View',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create View', node.tree.tag
+                    tabSQLTemplate('创建View', node.tree.tag
                         .create_view.replace(
                             '#schema_name#', node.parent.text
                         ));
@@ -590,7 +590,7 @@ function getTreeMysql(p_div) {
         },
         'cm_view': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -601,7 +601,7 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Query Data',
+                text: '查询数据',
                 icon: 'fas cm-all fa-search',
                 action: function(node) {
 
@@ -634,10 +634,10 @@ function getTreeMysql(p_div) {
                     getViewDefinitionMysql(node);
                 }
             }, {
-                text: 'Drop View',
+                text: '删除 View',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop View', node.tree.tag.drop_view
+                    tabSQLTemplate('删除 View', node.tree.tag.drop_view
                         .replace('#view_name#', node.parent.parent.text + '.' + node.text)
                     );
                 }
@@ -645,7 +645,7 @@ function getTreeMysql(p_div) {
         },
         /*'cm_triggers': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -656,10 +656,10 @@ function getTreeMysql(p_div) {
                     }
                 },
             }, {
-                text: 'Create Trigger',
+                text: '创建Trigger',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Trigger', node.tree.tag
+                    tabSQLTemplate('创建Trigger', node.tree.tag
                         .create_trigger.replace(
                             '#table_name#', node.tree.tag.v_database + '.' + node.parent
                             .text));
@@ -678,7 +678,7 @@ function getTreeMysql(p_div) {
         },
         'cm_view_triggers': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -689,10 +689,10 @@ function getTreeMysql(p_div) {
                     }
                 },
             }, {
-                text: 'Create Trigger',
+                text: '创建Trigger',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Trigger', node.tree.tag
+                    tabSQLTemplate('创建Trigger', node.tree.tag
                         .create_view_trigger.replace(
                             '#table_name#', node.tree.tag.v_database + '.' + node.parent
                             .text));
@@ -711,10 +711,10 @@ function getTreeMysql(p_div) {
         },
         'cm_trigger': {
             elements: [{
-                text: 'Alter Trigger',
+                text: '修改 Trigger',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Trigger', node.tree.tag
+                    tabSQLTemplate('修改 Trigger', node.tree.tag
                         .alter_trigger.replace(
                             '#table_name#', node.tree.tag.v_database + '.' +
                             node.parent.parent.text).replace(
@@ -741,10 +741,10 @@ function getTreeMysql(p_div) {
                             '#trigger_name#', node.text));
                 }
             }, {
-                text: 'Drop Trigger',
+                text: '删除 Trigger',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Trigger', node.tree.tag
+                    tabSQLTemplate('删除 Trigger', node.tree.tag
                         .drop_trigger.replace(
                             '#table_name#', node.tree.tag.v_database + '.' +
                             node.parent.parent.text).replace(
@@ -754,7 +754,7 @@ function getTreeMysql(p_div) {
         },
         'cm_partitions': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -765,10 +765,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Partition',
+                text: '创建Partition',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Partition', node.tree
+                    tabSQLTemplate('创建Partition', node.tree
                         .tag.create_partition.replace(
                             '#table_name#', node.tree.tag.v_database + '.' + node.parent
                             .text));
@@ -797,10 +797,10 @@ function getTreeMysql(p_div) {
                             '#partition_name#', node.text));
                 }
             }, {
-                text: 'Drop Partition',
+                text: '删除 Partition',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Partition', node.tree.tag
+                    tabSQLTemplate('删除 Partition', node.tree.tag
                         .drop_partition.replace(
                             '#partition_name#', node.text));
                 }
@@ -808,7 +808,7 @@ function getTreeMysql(p_div) {
         },*/
         'cm_functions': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -819,10 +819,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Function',
+                text: '创建Function',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Function', node.tree
+                    tabSQLTemplate('创建Function', node.tree
                         .tag.create_function.replace(
                             '#schema_name#', node.parent.text
                         ));
@@ -841,7 +841,7 @@ function getTreeMysql(p_div) {
         },
         'cm_function': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -860,10 +860,10 @@ function getTreeMysql(p_div) {
                     getFunctionDefinitionMysql(node);
                 }
             }, {
-                text: 'Drop Function',
+                text: '删除 Function',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Function', node.tree.tag
+                    tabSQLTemplate('删除 Function', node.tree.tag
                         .drop_function.replace(
                             '#function_name#', node.tag.id)
                     );
@@ -872,7 +872,7 @@ function getTreeMysql(p_div) {
         },
         'cm_procedures': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -883,10 +883,10 @@ function getTreeMysql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Procedure',
+                text: '创建Procedure',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Procedure', node.tree
+                    tabSQLTemplate('创建Procedure', node.tree
                         .tag.create_procedure.replace(
                             '#schema_name#', node.parent.text
                         ));
@@ -905,7 +905,7 @@ function getTreeMysql(p_div) {
         },
         'cm_procedure': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -924,10 +924,10 @@ function getTreeMysql(p_div) {
                     getProcedureDefinitionMysql(node);
                 }
             }, {
-                text: 'Drop Procedure',
+                text: '删除 Procedure',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Procedure', node.tree.tag
+                    tabSQLTemplate('删除 Procedure', node.tree.tag
                         .drop_procedure.replace(
                             '#function_name#', node.tag.id)
                     );
@@ -936,7 +936,7 @@ function getTreeMysql(p_div) {
         },
         'cm_refresh': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -953,9 +953,9 @@ function getTreeMysql(p_div) {
     v_connTabControl.selectedTab.tag.tree = tree;
     let v_autocomplete_switch_status = (v_connTabControl.selectedTab.tag.enable_autocomplete !== false) ? ' checked ' : '';
     v_connTabControl.selectedTab.tag.divDetails.innerHTML =
-    '<i class="fas fa-server mr-1"></i>selected DB: ' +
+    '<i class="fas fa-server mr-1"></i>当前数据库: ' +
     '<b>' + v_connTabControl.selectedTab.tag.selectedDatabase + '</b>' +
-    '<div class="omnidb__switch omnidb__switch--sm float-right" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<h5>Toggle autocomplete.</h5><div>Switch OFF <b>disables the autocomplete</b> on the inner tabs for this connection.</div>">' +
+    '<div class="omnidb__switch omnidb__switch--sm float-right" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<h5>自动语法补全</h5><div>Switch OFF <b>disables the autocomplete</b> on the inner tabs for this connection.</div>">' +
 			'<input type="checkbox" ' + v_autocomplete_switch_status + ' id="autocomplete_toggler_' + v_connTabControl.selectedTab.tag.tab_id + '" class="omnidb__switch--input" onchange="toggleConnectionAutocomplete(\'autocomplete_toggler_' + v_connTabControl.selectedTab.tag.tab_id + '\')">' +
 			'<label for="autocomplete_toggler_' + v_connTabControl.selectedTab.tag.tab_id + '" class="omnidb__switch--label"><span><i class="fas fa-spell-check"></i></span></label>' +
 		'</div>';
@@ -1134,7 +1134,7 @@ function getTreeDetailsMysql(node) {
 
             node.tree.contextMenu.cm_server.elements = []
             node.tree.contextMenu.cm_server.elements.push({
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1231,12 +1231,12 @@ function getTreeDetailsMysql(node) {
             }
 
             node.tree.contextMenu.cm_server.elements.push({
-                text: 'Monitoring',
+                text: '监控',
                 icon: 'fas cm-all fa-chart-line',
                 action: function(node) {},
                 submenu: {
                     elements: [/*{
-                        text: 'Dashboard',
+                        text: '大盘',
                         icon: 'fas cm-all fa-chart-line',
                         action: function(node) {
                             v_connTabControl.tag.createMonitorDashboardTab();

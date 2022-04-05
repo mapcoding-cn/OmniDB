@@ -87,7 +87,7 @@ function terminalContextMenu(e,p_tab) {
 		      },
 		      [
 		        {
-		          text: 'Confirm',
+		          text: '确认',
 		          icon: 'fas cm-all fa-check',
 		          action: function() {
 								createRequest(v_queryRequestCodes.CloseTab, [{ tab_id: v_tag.tab_id, tab_db_id: null }]);
@@ -97,7 +97,7 @@ function terminalContextMenu(e,p_tab) {
 		          }
 		        },
 		        {
-		          text: 'Cancel',
+		          text: '取消',
 		          icon: 'fas cm-all fa-times',
 		          action: function() {
 		          }

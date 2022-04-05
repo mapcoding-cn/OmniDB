@@ -67,7 +67,7 @@ function getTreeSnippets(p_div) {
           }
         },
         {
-          text : 'New Snippet',
+          text : '新的片段',
           icon: 'fas cm-all fa-align-left',
           action : function(node) {
             newNodeSnippet(node,'snippet');
@@ -97,7 +97,7 @@ function getTreeSnippets(p_div) {
           }
         },
         {
-          text : 'New Snippet',
+          text : '新的片段',
           icon: 'fas cm-all fa-align-left',
           action : function(node) {
             newNodeSnippet(node,'snippet');
@@ -155,7 +155,7 @@ function getTreeSnippets(p_div) {
     refreshTreeSnippets(node);
   }
 
-  var node1 = tree.createNode('Snippets',false,'fas node-all fa-list-alt node-snippet-list',null,{ type: 'node', id:null},'cm_node_root');
+  var node1 = tree.createNode('片段',false,'fas node-all fa-list-alt node-snippet-list',null,{ type: 'node', id:null},'cm_node_root');
   node1.createChildNode('',true,'node-spin',null,null);
 
   tree.drawTree();
@@ -468,7 +468,7 @@ function buildSnippetContextMenuObjects(p_mode, p_object, p_editor, p_callback) 
   if (p_mode == 'save') {
     v_elements.push(
       {
-        text: 'New Snippet',
+        text: '新的片段',
         icon: 'fas cm-all fa-save',
         action: function() {
           showConfirm(
@@ -510,7 +510,7 @@ function buildSnippetContextMenuObjects(p_mode, p_object, p_editor, p_callback) 
     if (p_mode == 'save')
       v_elements.push(
         {
-          text: '<b>OVERWRITE</b> ' + v_file.name,
+          text: '<b>覆盖</b> ' + v_file.name,
           icon: 'fas cm-all fa-align-left',
           action: function() {
             showConfirm("<b>WARNING</b>, are you sure you want to overwrite file '" + v_file.name + "'?",

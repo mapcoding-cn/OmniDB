@@ -787,7 +787,7 @@ class PostgreSQL:
             self.v_connection.Open()
             v_schema = self.QuerySchemas()
             if len(v_schema.Rows) > 0:
-                v_return = 'Connection successful.'
+                v_return = '连接成功.'
             self.v_connection.Close()
         except Exception as exc:
             v_return = str(exc)
@@ -6048,9 +6048,9 @@ EXECUTE PROCEDURE function_name()
             v_pk = self.QueryTablesPrimaryKeys(p_table, False, p_schema)
             if len(v_pk.Rows) > 0:
                 v_fields = self.QueryTablesPrimaryKeysColumns(v_pk.Rows[0]['constraint_name'], p_table, False, p_schema)
-                if len(v_fields.Rows) > 0:
-                    v_sql += '\nORDER BY t.'
-                    v_sql += '\n       , t.'.join([r['column_name'] for r in v_fields.Rows])
+                # if len(v_fields.Rows) > 0:
+                #      v_sql += '\nORDER BY t.'
+                #      v_sql += '\n       , t.'.join([r['column_name'] for r in v_fields.Rows])
         elif p_kind == 'v':
             v_sql = 'SELECT t.'
             v_fields = self.QueryViewFields(p_table, False, p_schema)

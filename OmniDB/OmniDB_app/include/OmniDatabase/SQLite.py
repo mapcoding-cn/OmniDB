@@ -180,7 +180,7 @@ class SQLite:
         v_return = ''
         try:
             if os.path.isfile(self.v_service):
-                v_return = 'Connection successful.'
+                v_return = '连接成功.'
             else:
                 v_return = 'File does not exist, if you try to manage this connection a database file will be created.'
         except Exception as exc:

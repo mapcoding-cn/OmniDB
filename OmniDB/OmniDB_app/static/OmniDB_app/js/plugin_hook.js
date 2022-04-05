@@ -286,7 +286,7 @@ function reloadPlugins() {
 
 function getPluginPath(p_name) {
   try {
-    if (p_name == 'OmniDB') {
+    if (p_name == 'OmniDB CN') {
       return '/static/OmniDB_app/'
     } else {
       return v_plugins[p_name].folder;

@@ -1,6 +1,6 @@
 <html>
 <head runat="server">
-	<title>OmniDB</title>
+	<title>OmniDB CN</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link rel="shortcut icon" type="image/x-icon" href="{{url_folder}}/static/OmniDB_app/images/favicon.ico" />
 
@@ -11,27 +11,27 @@
 </head>
 <body class="omnidb--theme-light">
 
-	<div class="omnidb__login" autofill="false">
+	<div class="omnidb__login" autofill="true">
 		<div class="omnidb__login__wrapper">
 			<div class="omnidb__login__logo">
-				{% include 'OmniDB_app/animated_assets/animated_logo_omnidb.svg' %}
-				<div class="omnidb__login__version">
-					<small>v{{ omnidb_short_version }}</small>
+				{% include 'OmniDB_app/animated_assets/tencent.svg' %}
+                <div class="omnidb__login__version">
+					<small>技术支持 @rangobai</small>
 				</div>
 			</div>
+            <div class="loginWrap-body">
+                <div class="omnidb__login__input-wrapper">
+                    <input id="txt_user" type="text" style = "text-align:center" {% if username %}disabled="disabled"{% endif %} placeholder="user" onchange="validateField(this)" onkeydown="if (event.keyCode == 13) signIn();" value={{ username }} >
+                </div>
+                <div class="omnidb__login__input-wrapper" {% if username %}style="Display: none;"{% endif %} >
+                    <input id="txt_pwd" type="password" style = "text-align:center" placeholder="password" onchange="validateField(this)" onkeydown="if (event.keyCode == 13) signIn();" value={{ password }} >
+                </div>
+                <button type="button" onclick="signIn()">{% if username %}免密登录{% else %}点击登录{% endif %}</button>
+            </div>
+            <a href="https://github.com/mapcoding-cn/omnidb-cn" class="small" >Get Support</a>
 
-			<div class="loginWrap-body">
-				<div class="omnidb__login__input-wrapper">
-					<label id="user_title">user</label>
-					<input id="txt_user" type="text" placeholder="user" onchange="validateField(this)" onkeydown="if (event.keyCode == 13) signIn();">
-				</div>
-				<div class="omnidb__login__input-wrapper">
-					<label id="pwd_title">pwd</label>
-					<input id="txt_pwd" type="password" placeholder="password" onchange="validateField(this)" onkeydown="if (event.keyCode == 13) signIn();">
-				</div>
-				<button type="button" onclick="signIn()">Sign in</button>
-			</div>
 		</div>
+
 	</div>
 
 <div id="div_error" class="isModal">

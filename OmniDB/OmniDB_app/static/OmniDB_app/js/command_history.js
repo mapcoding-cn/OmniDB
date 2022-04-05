@@ -31,7 +31,7 @@ SOFTWARE.
 /// </summary>
 function deleteCommandList() {
 	showConfirm(
-		'Are you sure you want to clear command history corresponding to applied filters?',
+		'确定清除当前条件下所有运行历史?',
 		function() {
 			execAjax(
 				'/clear_command_list/',
@@ -64,7 +64,7 @@ function showCommandList() {
 		// "<label class='mr-1'>to:</label>" +
 		// "<input type='date' id='cl_input_to_" + v_tabTag.tab_id + "' class='mr-2 form-control' onchange='refreshCommandList(); '/>" +
 		"<div class='input-group w-auto mr-2'>" +
-			"<span class='my-auto'>Select a daterange:</span>&nbsp;" +
+			"<span class='my-auto'>选择时间段:</span>&nbsp;" +
 			"<input type='text' class='form-control form-control-sm d-none' placeholder='Start Time' id='cl_input_from_" + v_tabTag.tab_id + "'>" +
 			"<input type='text' class='form-control form-control-sm d-none' placeholder='End Time' id='cl_input_to_" + v_tabTag.tab_id + "'>" +
 			"<button type='button' class='btn btn-sm omnidb__theme__btn--primary' id='cl_time_range_" + v_tabTag.tab_id + "'>" +
@@ -72,18 +72,18 @@ function showCommandList() {
 				"<span>Last 6 Hours</span> <i class='fa fa-caret-down'></i>" +
 			"</button>" +
 		"</div>" +
-		"<label class='mr-1'>Command contains:</label>" +
-		"<input type='text' id='cl_input_contains_" + v_tabTag.tab_id + "' class='mr-2 form-control' onchange='refreshCommandList();' />" +
+		"<label class='mr-1'>关键字:</label>" +
+		"<input type='text' id='cl_input_contains_his_" + v_tabTag.tab_id + "' class='mr-2 form-control' onchange='refreshCommandList();' autofill='off' autocomplete='off'/>" +
 	"</div>" +
 	"<div id='command_history_daterangepicker_container_" + v_tabTag.id  + "' style='position:relative;'></div>" +
 	"<div class='mb-2 d-flex justify-content-center align-items-center'>" +
-		"<button id='bt_first_" + v_tabTag.tab_id + "' onclick='commandHistoryFirstPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='First'>First</button>" +
-		"<button id='bt_previous_" + v_tabTag.tab_id + "' onclick='commandHistoryPreviousPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='Previous'>Previous</button>" +
+		"<button id='bt_first_" + v_tabTag.tab_id + "' onclick='commandHistoryFirstPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='First'>第一页</button>" +
+		"<button id='bt_previous_" + v_tabTag.tab_id + "' onclick='commandHistoryPreviousPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='Previous'>往前</button>" +
 		"<span id='cl_curr_page_" + v_tabTag.tab_id + "'></span> / <span id='cl_num_pages_" + v_tabTag.tab_id + "'></span>" +
-		"<button id='bt_next_" + v_tabTag.tab_id + "' onclick='commandHistoryNextPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='Next'>Next</button>" +
-		"<button id='bt_last_" + v_tabTag.tab_id + "' onclick='commandHistoryLastPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='Last'>Last</button>" +
-		"<button id='bt_refresh_" + v_tabTag.tab_id + "' onclick='refreshCommandList()' class='bt_execute btn btn-sm omnidb__theme__btn--primary mx-1' title='Refresh'><i class='fas fa-sync-alt mr-1'></i>Refresh</button>" +
-		"<button id='bt_clear_" + v_tabTag.tab_id + "' onclick='deleteCommandList()' class='bt_execute btn btn-sm btn-danger mx-1' title='Clear List'><i class='fas fa-broom mr-1'></i>Clear List</button>" +
+		"<button id='bt_next_" + v_tabTag.tab_id + "' onclick='commandHistoryNextPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='Next'>往后</button>" +
+		"<button id='bt_last_" + v_tabTag.tab_id + "' onclick='commandHistoryLastPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='Last'>最后页</button>" +
+		"<button id='bt_refresh_" + v_tabTag.tab_id + "' onclick='refreshCommandList()' class='bt_execute btn btn-sm omnidb__theme__btn--primary mx-1' title='Refresh'><i class='fas fa-sync-alt mr-1'></i>刷新</button>" +
+		"<button id='bt_clear_" + v_tabTag.tab_id + "' onclick='deleteCommandList()' class='bt_execute btn btn-sm btn-danger mx-1' title='Clear List'><i class='fas fa-broom mr-1'></i>清除</button>" +
 	"</div>";
 
 	var v_gridDiv = v_tabTag.commandHistory.gridDiv;
@@ -194,7 +194,7 @@ function showCommandList() {
 	v_tabTag.commandHistory.inputStartedFrom.value = moment().subtract(6, 'hour').toISOString();
 	v_tabTag.commandHistory.inputStartedTo = document.getElementById('cl_input_to_' + v_tabTag.tab_id);
 	v_tabTag.commandHistory.inputStartedTo.value = moment().toISOString();
-	v_tabTag.commandHistory.inputCommandContains = document.getElementById('cl_input_contains_' + v_tabTag.tab_id);
+	v_tabTag.commandHistory.inputCommandContains = document.getElementById('cl_input_contains_his_' + v_tabTag.tab_id);
 	v_tabTag.commandHistory.inputCommandContains.value = v_tabTag.commandHistory.inputCommandContainsLastValue;
 
 	// Setting daterangepicker

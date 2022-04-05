@@ -261,7 +261,7 @@ var v_createDebuggerTabFunction = function(p_function) {
   //   if (v_connTabControl.tag.globalSnippets.files.length != 0 || v_connTabControl.tag.globalSnippets.folders.length != 0)
   //     v_option_list.push(
   //       {
-  //         text: 'Use snippet',
+  //         text: '从常用SQL选择',
   //         icon: 'fas cm-all fa-book',
   //         submenu: {
   //           elements: buildSnippetContextMenuObjects('load', v_connTabControl.tag.globalSnippets, v_editor)

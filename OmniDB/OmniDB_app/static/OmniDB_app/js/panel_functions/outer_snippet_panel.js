@@ -50,13 +50,13 @@ var v_createSnippetPanelFunction = function(p_index) {
 
   var v_tab = v_connTabControl.createTab({
     p_icon: `<i class="fas fa-book"></i>`,
-    p_name: `Snippets`,
+    p_name: `常用SQL`,
     p_close: false,
     p_selectable: false,
     p_clickFunction: function() {
       toggleSnippetPanel();
     },
-    p_omnidb_tooltip_name: '<h5 class="my-1">Snippets Panel</h5>'
+    p_omnidb_tooltip_name: '<h5 class="my-1">展示常用sql片段</h5>'
   });
 
   v_connTabControl.selectTab(v_tab);

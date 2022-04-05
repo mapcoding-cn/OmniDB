@@ -68,7 +68,7 @@ var v_createConsoleTabFunction = function() {
       "<div class='modal-content'>" +
         "<div class='modal-header'>" +
           "<h5 class='modal-title'>" +
-            "Console commands history" +
+            "Console运行历史" +
           "</h5>" +
           "<button type='button' class='close' data-dismiss='modal' aria-label='Close' onclick='closeConsoleHistory()'>" +
             "<span aria-hidden='true'>&times;</span>" +
@@ -90,22 +90,22 @@ var v_createConsoleTabFunction = function() {
   console_history_modal +
   "<div class='row mb-1'>" +
     "<div class='tab_actions omnidb__tab-actions col-12'>" +
-      "<button id='bt_start_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--primary omnidb__tab-actions__btn' title='Run' onclick='consoleSQL(false);'><i class='fas fa-play fa-light'></i></button>" +
-      "<button id='bt_indent_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='Indent SQL' onclick='indentSQL();'><i class='fas fa-indent fa-light'></i></button>" +
-      "<button id='bt_clear_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='Clear Console' onclick='clearConsole();'><i class='fas fa-broom fa-light'></i></button>" +
-      "<button id='bt_history_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='Command History' onclick='showConsoleHistory();'><i class='fas fa-list fa-light'></i></button>" +
-      "<div class='dbms_object postgresql_object omnidb__form-check form-check form-check-inline'><input id='check_autocommit_" + v_tab.id + "' class='form-check-input' type='checkbox' checked='checked'><label class='form-check-label dbms_object postgresql_object custom_checkbox query_info' for='check_autocommit_" + v_tab.id + "'>Autocommit</label></div>" +
-      "<div class='dbms_object postgresql_object omnidb__tab-status'><i id='query_tab_status_" + v_tab.id + "' title='Not connected' class='fas fa-dot-circle tab-status tab-status-closed dbms_object postgresql_object omnidb__tab-status__icon'></i><span id='query_tab_status_text_" + v_tab.id + "' title='Not connected' class='tab-status-text query_info dbms_object postgresql_object ml-1'>Not connected</span></div>" +
-      "<button id='bt_fetch_more_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='Fetch More' style='display: none; ' onclick='consoleSQL(false,1);'>Fetch more</button>" +
-      "<button id='bt_fetch_all_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='Fetch All' style='margin-left: 5px; display: none; ' onclick='consoleSQL(false,2);'>Fetch all</button>" +
-      "<button id='bt_skip_fetch_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='Skip Fetch' style='margin-left: 5px; display: none; ' onclick='consoleSQL(false,3);'>Skip Fetch</button>" +
-      "<button id='bt_commit_" + v_tab.id + "' class='dbms_object dbms_object_hidden postgresql_object btn btn-sm omnidb__theme__btn--primary omnidb__tab-actions__btn' title='Run' style='margin-left: 5px; display: none; ' onclick='querySQL(3);'>Commit</button>" +
-      "<button id='bt_rollback_" + v_tab.id + "' class='dbms_object dbms_object_hidden postgresql_object btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='Run' style='margin-left: 5px; display: none; ' onclick='querySQL(4);'>Rollback</button>" +
-      "<button id='bt_cancel_" + v_tab.id + "' class='btn btn-sm btn-danger omnidb__tab-actions__btn' title='Cancel' style=' display: none;' onclick='cancelConsole();'>Cancel</button>" +
+      "<button id='bt_start_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--primary omnidb__tab-actions__btn' title='运行' onclick='consoleSQL(false);'><i class='fas fa-play fa-light'></i></button>" +
+      "<button id='bt_indent_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='格式化' onclick='indentSQL();'><i class='fas fa-indent fa-light'></i></button>" +
+      "<button id='bt_clear_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='清除屏幕' onclick='clearConsole();'><i class='fas fa-broom fa-light'></i></button>" +
+      "<button id='bt_history_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='运行历史' onclick='showConsoleHistory();'><i class='fas fa-list fa-light'></i></button>" +
+      "<div class='dbms_object postgresql_object omnidb__form-check form-check form-check-inline'><input id='check_autocommit_" + v_tab.id + "' class='form-check-input' type='checkbox' checked='checked'><label class='form-check-label dbms_object postgresql_object custom_checkbox query_info' for='check_autocommit_" + v_tab.id + "'>自动提交事务</label></div>" +
+      "<div class='dbms_object postgresql_object omnidb__tab-status'><i id='query_tab_status_" + v_tab.id + "' title='未连接' class='fas fa-dot-circle tab-status tab-status-closed dbms_object postgresql_object omnidb__tab-status__icon'></i><span id='query_tab_status_text_" + v_tab.id + "' title='未连接' class='tab-status-text query_info dbms_object postgresql_object ml-1'>未连接</span></div>" +
+      "<button id='bt_fetch_more_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='展示更多' style='display: none; ' onclick='consoleSQL(false,1);'>展示更多</button>" +
+      "<button id='bt_fetch_all_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='展示全部' style='margin-left: 5px; display: none; ' onclick='consoleSQL(false,2);'>展示全部</button>" +
+      "<button id='bt_skip_fetch_" + v_tab.id + "' class='btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='取消展示' style='margin-left: 5px; display: none; ' onclick='consoleSQL(false,3);'>终止查询</button>" +
+      "<button id='bt_commit_" + v_tab.id + "' class='dbms_object dbms_object_hidden postgresql_object btn btn-sm omnidb__theme__btn--primary omnidb__tab-actions__btn' title='运行' style='margin-left: 5px; display: none; ' onclick='querySQL(3);'>提交</button>" +
+      "<button id='bt_rollback_" + v_tab.id + "' class='dbms_object dbms_object_hidden postgresql_object btn btn-sm omnidb__theme__btn--secondary omnidb__tab-actions__btn' title='运行' style='margin-left: 5px; display: none; ' onclick='querySQL(4);'>回滚</button>" +
+      "<button id='bt_cancel_" + v_tab.id + "' class='btn btn-sm btn-danger omnidb__tab-actions__btn' title='取消' style=' display: none;' onclick='cancelConsole();'>Cancel</button>" +
       "<div id='div_query_info_" + v_tab.id + "' class='omnidb__query-info'></div>" +
     "</div>" +
   "</div>" +
-  "<div id='txt_input_" + v_tab.id + "' class='omnidb__console__text-input' style=' width: 100%; height: 150px; border: 1px solid #c3c3c3;'></div>";
+  "<div id='txt_input_" + v_tab.id + "' class='omnidb__console__text-input' style=' width: 100%; height: 600px; border: 1px solid #c3c3c3;'></div>";
 
   var v_div = document.getElementById('div_' + v_tab.id);
   v_tab.elementDiv.innerHTML = v_html;
@@ -154,7 +154,7 @@ var v_createConsoleTabFunction = function() {
 
     var v_option_list = [
       {
-        text: 'Copy',
+        text: '复制',
         icon: 'fas cm-all fa-terminal',
         action: function() {
           // Getting the value
@@ -164,7 +164,7 @@ var v_createConsoleTabFunction = function() {
         }
       },
       {
-        text: 'Save as snippet',
+        text: '保存到常用SQL',
         icon: 'fas cm-all fa-save',
         submenu: {
           elements: buildSnippetContextMenuObjects('save', v_connTabControl.tag.globalSnippets, v_editor1)
@@ -175,7 +175,7 @@ var v_createConsoleTabFunction = function() {
     if (v_connTabControl.tag.globalSnippets.files.length != 0 || v_connTabControl.tag.globalSnippets.folders.length != 0)
       v_option_list.push(
         {
-          text: 'Use snippet',
+          text: '从常用SQL选择',
           icon: 'fas cm-all fa-book',
           submenu: {
             elements: buildSnippetContextMenuObjects('load', v_connTabControl.tag.globalSnippets, v_editor1)

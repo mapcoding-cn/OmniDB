@@ -237,7 +237,7 @@ class Oracle:
         try:
             self.v_connection.Open()
             self.v_connection.Close()
-            v_return = 'Connection successful.'
+            v_return = '连接成功.'
         except Exception as exc:
             v_return = str(exc)
         return v_return

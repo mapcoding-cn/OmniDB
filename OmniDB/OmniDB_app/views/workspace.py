@@ -28,6 +28,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from OmniDB_app.views.memory_objects import *
+from OmniDB_app.views.sql_table_parse import extract_tables
+
 
 @login_required
 def index(request):
@@ -420,7 +422,7 @@ def renew_password(request):
 
     v_test = v_database_object['database'].TestConnection()
 
-    if v_test=='Connection successful.':
+    if v_test=='连接成功.':
         v_database_object['prompt_timeout'] = datetime.now()
     else:
         v_return['v_error'] = True
@@ -1194,6 +1196,41 @@ def get_autocomplete_results(request, v_database):
                     v_result.append(v_current_group)
             except Exception as exc:
                 None
+
+    tables = extract_tables(v_sql,False)
+    alias_values = extract_tables(v_sql,True)
+    if not v_alias and tables and len(tables) > 0 :
+        v_alias = tables[0]
+        if alias_values and len(alias_values) > 0:
+            alias_value = alias_values[0]
+        if v_alias:
+            try:
+                v_data1 = v_database.v_connection.GetFields("select x.* from " + v_alias + " x where 1 = 0")
+                v_current_group = {'type': 'column', 'elements': []}
+                max_result_length = 0
+                max_complement_length = 0
+                for v_type in v_data1:
+                    curr_result_length = len(v_type.v_truename)
+                    curr_complement_length = len(v_type.v_dbtype)
+                    curr_result_word = v_type.v_truename
+                    curr_complement_word = v_type.v_dbtype
+
+                    if curr_result_length > max_result_length:
+                        max_result_length = curr_result_length
+                        max_result_word = curr_result_word
+                    if curr_complement_length > max_complement_length:
+                        max_complement_length = curr_complement_length
+                        max_complement_word = curr_complement_word
+                    if alias_value:
+                        v_current_group['elements'].append({ 'value': alias_value+'.' + v_type.v_truename, 'select_value': alias_value+'.' + v_type.v_truename, 'complement': v_type.v_dbtype})
+                    else:
+                        v_current_group['elements'].append({'value': v_type.v_truename, 'select_value': v_type.v_truename,'complement': v_type.v_dbtype})
+                if len(v_current_group['elements']) > 0:
+                    v_result.append(v_current_group)
+            except Exception as exc:
+                None
+        # 清空再算一次
+        v_alias=None
 
     if not v_alias:
         v_filter = '''where search.result like '{0}%' '''.format(v_value)

@@ -91,13 +91,13 @@ function tabAdvancedObjectSearch(node) {
                 x: e.clientX + 5,
                 y: e.clientY + 5
             }, [{
-                text: 'Confirm',
+                text: '确认',
                 icon: 'fas cm-all fa-check',
                 action: function() {
                     removeTab(v_current_tab);
                 }
             }, {
-                text: 'Cancel',
+                text: '取消',
                 icon: 'fas cm-all fa-times',
                 action: function() {}
             }],
@@ -1005,7 +1005,7 @@ function getTreePostgresql(p_div) {
     var context_menu = {
         'cm_server': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1019,7 +1019,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_databases': {
             elements: [{
-                    text: 'Refresh',
+                    text: '刷新',
                     icon: 'fas cm-all fa-sync-alt',
                     action: function(node) {
                         if (node.childNodes == 0)
@@ -1030,46 +1030,45 @@ function getTreePostgresql(p_div) {
                         }
                     }
                 }, {
-                    text: 'Create Database',
+                    text: '创建数据库',
                     icon: 'fas cm-all fa-edit',
                     action: function(node) {
-                        tabSQLTemplate('Create Database', node.tree
+                        tabSQLTemplate('创建数据库', node.tree
                             .tag.create_database);
                     }
                 }
                 , {
-                    text: 'Doc: Databases',
+                    text: '查看文档: Databases',
                     icon: 'fas cm-all fa-globe-americas',
                     action: function(node) {
-                        v_connTabControl.tag.createWebsiteTab(
-                            'Documentation: Databases',
-                            'https://www.postgresql.org/docs/' +
+                        window.open(
+                            'http://www.postgresql.cn/docs/' +
                             getMajorVersionPostgresql(node.tree.tag.version) +
-                            '/static/managing-databases.html');
+                            '/managing-databases.html');
                     }
                 }
             ]
         },
         'cm_database': {
             elements: [{
-                text: 'Alter Database',
+                text: '修改数据库',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Database', node.tree.tag
+                    tabSQLTemplate('修改数据库', node.tree.tag
                         .alter_database.replace(
                             '#database_name#', node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Database',
+                text: '删除数据库',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Database', node.tree.tag
+                    tabSQLTemplate('删除数据库', node.tree.tag
                         .drop_database.replace(
                             '#database_name#', node.text));
                 }
@@ -1088,7 +1087,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_tablespaces': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1099,46 +1098,45 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Tablespace',
+                text: '创建 Tablespace',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Tablespace', node.tree
+                    tabSQLTemplate('创建 Tablespace', node.tree
                         .tag.create_tablespace);
                 }
             }, {
-                text: 'Doc: Tablespaces',
+                text: '查看文档: Tablespaces',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Tablespaces',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/manage-ag-tablespaces.html'
+                        '/manage-ag-tablespaces.html'
                     );
                 }
             }]
         },
         'cm_tablespace': {
             elements: [{
-                text: 'Alter Tablespace',
+                text: '修改 Tablespace',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Tablespace', node.tree
+                    tabSQLTemplate('修改 Tablespace', node.tree
                         .tag.alter_tablespace.replace(
                             '#tablespace_name#', node.text)
                     );
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Tablespace',
+                text: '删除 Tablespace',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Tablespace', node.tree
+                    tabSQLTemplate('删除 Tablespace', node.tree
                         .tag.drop_tablespace.replace(
                             '#tablespace_name#', node.text)
                     );
@@ -1147,7 +1145,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_roles': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1158,21 +1156,20 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Role',
+                text: '创建 Role',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Role', node.tree.tag
+                    tabSQLTemplate('创建 Role', node.tree.tag
                         .create_role);
                 }
             }, {
-                text: 'Doc: Roles',
+                text: '查看文档: Roles',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Roles',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/user-manag.html');
+                        '/user-manag.html');
                 }
             }]
         },
@@ -1235,30 +1232,30 @@ function getTreePostgresql(p_div) {
                     )
                 }
             }, {
-                text: 'Alter Role',
+                text: '修改 Role',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Role', node.tree.tag.alter_role
+                    tabSQLTemplate('修改 Role', node.tree.tag.alter_role
                         .replace('#role_name#', node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Role',
+                text: '删除 Role',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Role', node.tree.tag.drop_role
+                    tabSQLTemplate('删除 Role', node.tree.tag.drop_role
                         .replace('#role_name#', node.text));
                 }
             }]
         },
         'cm_extensions': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1269,44 +1266,43 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Extension',
+                text: '创建 Extension',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Extension', node.tree
+                    tabSQLTemplate('创建 Extension', node.tree
                         .tag.create_extension);
                 }
             }, {
-                text: 'Doc: Extensions',
+                text: '查看文档: Extensions',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Extensions',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/extend-extensions.html');
+                        '/extend-extensions.html');
                 }
             }]
         },
         'cm_extension': {
             elements: [{
-                text: 'Alter Extension',
+                text: '修改 Extension',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Extension', node.tree
+                    tabSQLTemplate('修改 Extension', node.tree
                         .tag.alter_extension.replace(
                             '#extension_name#', node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Extension',
+                text: '删除 Extension',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Role', node.tree.tag.drop_extension
+                    tabSQLTemplate('删除 Role', node.tree.tag.drop_extension
                         .replace('#extension_name#', node.text)
                     );
                 }
@@ -1314,7 +1310,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_schemas': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1325,34 +1321,33 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Schema',
+                text: '创建Schema',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Schema', node.tree.tag
+                    tabSQLTemplate('创建Schema', node.tree.tag
                         .create_schema);
                 }
             }, {
-                text: 'Doc: Schemas',
+                text: '查看文档: Schemas',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Schemas',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/ddl-schemas.html');
+                        '/ddl-schemas.html');
                 }
             }]
         },
         'cm_schema': {
             elements: [{
-                text: 'Render Graph',
+                text: '渲染图',
                 icon: 'fab cm-all fa-hubspot',
                 action: function(node) {
 
                 },
                 submenu: {
                     elements: [{
-                        text: 'Simple Graph',
+                        text: '简单结构图',
                         icon: 'fab cm-all fa-hubspot',
                         action: function(node) {
                             v_connTabControl.tag.createGraphTab(
@@ -1360,7 +1355,7 @@ function getTreePostgresql(p_div) {
                             drawGraph(false, node.text);
                         }
                     }, {
-                        text: 'Complete Graph',
+                        text: '完整结构图',
                         icon: 'fab cm-all fa-hubspot',
                         action: function(node) {
                             v_connTabControl.tag.createGraphTab(
@@ -1370,24 +1365,24 @@ function getTreePostgresql(p_div) {
                     }]
                 }
             }, {
-                text: 'Alter Schema',
+                text: '修改 Schema',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Schema', node.tree.tag
+                    tabSQLTemplate('修改 Schema', node.tree.tag
                         .alter_schema.replace(
                             '#schema_name#', node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Schema',
+                text: '删除 Schema',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Schema', node.tree.tag
+                    tabSQLTemplate('删除 Schema', node.tree.tag
                         .drop_schema.replace(
                             '#schema_name#', node.text));
                 }
@@ -1395,7 +1390,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_tables': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1406,48 +1401,45 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Table',
+                text: '创建表',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Table', node.tree.tag
+                    tabSQLTemplate('创建表', node.tree.tag
                         .create_table.replace(
                             '#schema_name#', node.tag.schema));
                 }
             }, {
-                text: 'Doc: Basics',
+                text: '查看文档: Basics',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Table Basics',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/ddl-basics.html');
+                        '/ddl-basics.html');
                 }
             }, {
-                text: 'Doc: Constraints',
+                text: '查看文档: Constraints',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Table Constraints',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/ddl-constraints.html');
+                        '/ddl-constraints.html');
                 }
             }, {
-                text: 'Doc: Modifying',
+                text: '查看文档: Modifying',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Modifying Tables',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/ddl-alter.html');
+                        '/ddl-alter.html');
                 }
             }]
         },
         'cm_table': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1458,17 +1450,17 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Data Actions',
+                text: '数据操作',
                 icon: 'fas cm-all fa-list',
                 submenu: {
                     elements: [{
-                        text: 'Query Data',
+                        text: '查询数据',
                         icon: 'fas cm-all fa-search',
                         action: function(node) {
                             TemplateSelectPostgresql(node.tag.schema, node.text, 't');
                         }
                     }, {
-                        text: 'Edit Data',
+                        text: '修改数据',
                         icon: 'fas cm-all fa-table',
                         action: function(node) {
                             v_startEditData(node.text,
@@ -1476,23 +1468,23 @@ function getTreePostgresql(p_div) {
                             );
                         }
                     }, {
-                        text: 'Insert Record',
+                        text: '插入记录',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
                             TemplateInsertPostgresql(node.tag.schema, node.text);
                         }
                     }, {
-                        text: 'Update Records',
+                        text: '修改记录',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
                             TemplateUpdatePostgresql(node.tag.schema, node.text);
                         }
                     }, {
-                        text: 'Delete Records',
+                        text: '删除记录',
                         icon: 'fas cm-all fa-times',
                         action: function(node) {
                           tabSQLTemplate(
-                              'Delete Records',
+                              '删除记录',
                               node.tree.tag.delete
                               .replace(
                                   '#table_name#',
@@ -1500,11 +1492,11 @@ function getTreePostgresql(p_div) {
                                   node.text));
                         }
                     }, {
-                        text: 'Truncate Table',
+                        text: '清空全表',
                         icon: 'fas cm-all fa-cut',
                         action: function(node) {
                             tabSQLTemplate(
-                                'Truncate Table',
+                                '清空全表',
                                 node.tree.tag.truncate
                                 .replace(
                                     '#table_name#',
@@ -1514,15 +1506,15 @@ function getTreePostgresql(p_div) {
                     }]
                 }
             }, {
-                text: 'Table Actions',
+                text: '表操作',
                 icon: 'fas cm-all fa-list',
                 submenu: {
                     elements: [{
-                        text: 'Vacuum Table',
+                        text: '真空分析',
                         icon: 'fas cm-all fa-broom',
                         action: function(node) {
                             tabSQLTemplate(
-                                'Vacuum Table',
+                                '真空分析',
                                 node.tree.tag.vacuum_table
                                 .replace(
                                     '#table_name#',
@@ -1530,11 +1522,11 @@ function getTreePostgresql(p_div) {
                                     node.text));
                         }
                     }, {
-                        text: 'Analyze Table',
+                        text: '分析表',
                         icon: 'fas cm-all fa-search-plus',
                         action: function(node) {
                             tabSQLTemplate(
-                                'Analyze Table',
+                                '分析表',
                                 node.tree.tag.analyze_table
                                 .replace(
                                     '#table_name#',
@@ -1542,25 +1534,25 @@ function getTreePostgresql(p_div) {
                                     node.text));
                         }
                     }, {
-                        text: 'Alter Table',
+                        text: '修改表',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
-                            tabSQLTemplate('Alter Table', node.tree.tag
+                            tabSQLTemplate('修改表', node.tree.tag
                                 .alter_table.replace(
                                     '#table_name#', node.tag.schema
                                     + '.' + node.text));
                         }
                     }, {
-                        text: 'Edit Comment',
+                        text: '修改注释',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
                             getObjectDescriptionPostgresql(node);
                         }
                     }, {
-                        text: 'Drop Table',
+                        text: '删除表',
                         icon: 'fas cm-all fa-times',
                         action: function(node) {
-                            tabSQLTemplate('Drop Table',
+                            tabSQLTemplate('删除表',
                                 node.tree.tag.drop_table
                                 .replace(
                                     '#table_name#',
@@ -1573,7 +1565,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_inherited_tables': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1584,20 +1576,19 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Doc: Inheritance',
+                text: '查看文档: Inheritance',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Table Inheritance',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/tutorial-inheritance.html');
+                        '/tutorial-inheritance.html');
                 }
             }]
         },
         'cm_partitioned_tables': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1608,23 +1599,22 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Doc: Partitioning',
+                text: '查看文档: Partitioning',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Table Partitioning',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/ddl-partitioning.html.html');
+                        '/ddl-partitioning.html.html');
                 }
             }]
         },
         'cm_columns': {
             elements: [{
-                text: 'Create Column',
+                text: '创建列',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Column', node.tree.tag
+                    tabSQLTemplate('创建列', node.tree.tag
                         .create_column.replace(
                             '#table_name#', node.tag.schema + '.' + node.parent
                             .text));
@@ -1633,26 +1623,26 @@ function getTreePostgresql(p_div) {
         },
         'cm_column': {
             elements: [{
-                text: 'Alter Column',
+                text: '修改列',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Column', node.tree.tag
+                    tabSQLTemplate('修改列', node.tree.tag
                         .alter_column.replace(
                             '#table_name#', node.tag.schema + '.' +
                             node.parent.parent.text).replace(
                             /#column_name#/g, node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Column',
+                text: '删除列',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Column', node.tree.tag
+                    tabSQLTemplate('删除列', node.tree.tag
                         .drop_column.replace('#table_name#',
                             node.tag.schema + '.' + node.parent.parent
                             .text).replace(/#column_name#/g,
@@ -1662,7 +1652,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_pks': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1673,10 +1663,10 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Primary Key',
+                text: '创建 Primary Key',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Primary Key', node.tree
+                    tabSQLTemplate('创建 Primary Key', node.tree
                         .tag.create_primarykey.replace(
                             '#table_name#', node.tag.schema + '.' + node.parent
                             .text));
@@ -1685,7 +1675,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_pk': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1696,16 +1686,16 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Primary Key',
+                text: '删除 Primary Key',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Primary Key', node.tree
+                    tabSQLTemplate('删除 Primary Key', node.tree
                         .tag.drop_primarykey.replace(
                             '#table_name#', node.tag.schema + '.' +
                             node.parent.parent.text).replace(
@@ -1716,7 +1706,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_fks': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1727,10 +1717,10 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Foreign Key',
+                text: '创建 Foreign Key',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Foreign Key', node.tree
+                    tabSQLTemplate('创建 Foreign Key', node.tree
                         .tag.create_foreignkey.replace(
                             '#table_name#', node.tag.schema + '.' + node.parent
                             .text));
@@ -1739,7 +1729,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_fk': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1750,16 +1740,16 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Foreign Key',
+                text: '删除 Foreign Key',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Foreign Key', node.tree
+                    tabSQLTemplate('删除 Foreign Key', node.tree
                         .tag.drop_foreignkey.replace(
                             '#table_name#', node.tag.schema + '.' +
                             node.parent.parent.text).replace(
@@ -1770,7 +1760,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_uniques': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1781,10 +1771,10 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Unique',
+                text: '创建 Unique',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Unique', node.tree.tag
+                    tabSQLTemplate('创建 Unique', node.tree.tag
                         .create_unique.replace(
                             '#table_name#', node.tag.schema + '.' + node.parent
                             .text));
@@ -1793,7 +1783,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_unique': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1804,16 +1794,16 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Unique',
+                text: '删除 Unique',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Unique', node.tree.tag
+                    tabSQLTemplate('删除 Unique', node.tree.tag
                         .drop_unique.replace('#table_name#',
                             node.tag.schema + '.' + node.parent.parent
                             .text).replace(
@@ -1824,7 +1814,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_indexes': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1835,29 +1825,28 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Index',
+                text: '创建 Index',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Index', node.tree.tag
+                    tabSQLTemplate('创建 Index', node.tree.tag
                         .create_index.replace(
                             '#table_name#', node.tag.schema + '.' + node.parent
                             .text));
                 }
             }, {
-                text: 'Doc: Indexes',
+                text: '查看文档: Indexes',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Indexes',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/indexes.html');
+                        '/indexes.html');
                 }
             }]
         },
         'cm_index': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1868,10 +1857,10 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Alter Index',
+                text: '修改 Index',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Index', node.tree.tag
+                    tabSQLTemplate('修改 Index', node.tree.tag
                         .alter_index.replace('#index_name#',
                             node.tag.schema + '.' +
                             node.text.replace(' (Unique)',
@@ -1888,16 +1877,16 @@ function getTreePostgresql(p_div) {
                                 ' (Non Unique)', '')));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Index',
+                text: '删除 Index',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Index', node.tree.tag.drop_index
+                    tabSQLTemplate('删除 Index', node.tree.tag.drop_index
                         .replace('#index_name#', node.tag.schema + '.' + node.text.replace(
                                 ' (Unique)', '').replace(
                                 ' (Non Unique)', '')));
@@ -1906,7 +1895,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_checks': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1917,10 +1906,10 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Check',
+                text: '创建 Check',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Check', node.tree.tag
+                    tabSQLTemplate('创建 Check', node.tree.tag
                         .create_check.replace(
                             '#table_name#', node.tag.schema + '.' + node.parent
                             .text));
@@ -1929,16 +1918,16 @@ function getTreePostgresql(p_div) {
         },
         'cm_check': {
             elements: [{
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Check',
+                text: '删除 Check',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Check', node.tree.tag.drop_check
+                    tabSQLTemplate('删除 Check', node.tree.tag.drop_check
                         .replace('#table_name#', node.tag.schema +
                             '.' + node.parent.parent.text).replace(
                             '#constraint_name#', node.text)
@@ -1948,7 +1937,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_excludes': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -1959,10 +1948,10 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Exclude',
+                text: '创建 Exclude',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Exclude', node.tree.tag
+                    tabSQLTemplate('创建 Exclude', node.tree.tag
                         .create_exclude.replace(
                             '#table_name#', node.tag.schema + '.' + node.parent
                             .text));
@@ -1971,16 +1960,16 @@ function getTreePostgresql(p_div) {
         },
         'cm_exclude': {
             elements: [{
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Exclude',
+                text: '删除 Exclude',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Exclude', node.tree.tag
+                    tabSQLTemplate('删除 Exclude', node.tree.tag
                         .drop_exclude
                         .replace('#table_name#', node.tag.schema +
                             '.' + node.parent.parent.text).replace(
@@ -1991,7 +1980,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_rules': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2002,32 +1991,31 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Rule',
+                text: '创建 Rule',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Rule', node.tree.tag
+                    tabSQLTemplate('创建 Rule', node.tree.tag
                         .create_rule.replace('#table_name#',
                             node.tag.schema +
                             '.' + node.parent.text));
                 }
             }, {
-                text: 'Doc: Rules',
+                text: '查看文档: Rules',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Rules',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/rules.html');
+                        '/rules.html');
                 }
             }]
         },
         'cm_rule': {
             elements: [{
-                text: 'Alter Rule',
+                text: '修改 Rule',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Rule', node.tree.tag.alter_rule
+                    tabSQLTemplate('修改 Rule', node.tree.tag.alter_rule
                         .replace('#table_name#', node.tag.schema +
                             '.' + node.parent.parent.text).replace(
                             '#rule_name#', node.text));
@@ -2041,16 +2029,16 @@ function getTreePostgresql(p_div) {
                     getRuleDefinitionPostgresql(node);
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Rule',
+                text: '删除 Rule',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Rule', node.tree.tag.drop_rule
+                    tabSQLTemplate('删除 Rule', node.tree.tag.drop_rule
                         .replace('#table_name#', node.tag.schema +
                             '.' + node.parent.parent.text).replace(
                             '#rule_name#', node.text));
@@ -2059,7 +2047,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_triggers': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2070,29 +2058,28 @@ function getTreePostgresql(p_div) {
                     }
                 },
             }, {
-                text: 'Create Trigger',
+                text: '创建 Trigger',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Trigger', node.tree.tag
+                    tabSQLTemplate('创建 Trigger', node.tree.tag
                         .create_trigger.replace(
                             '#table_name#', node.tag.schema + '.' + node.parent
                             .text));
                 }
             }, {
-                text: 'Doc: Triggers',
+                text: '查看文档: Triggers',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Triggers',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/trigger-definition.html');
+                        '/trigger-definition.html');
                 }
             }]
         },
         'cm_view_triggers': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2103,32 +2090,31 @@ function getTreePostgresql(p_div) {
                     }
                 },
             }, {
-                text: 'Create Trigger',
+                text: '创建 Trigger',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Trigger', node.tree.tag
+                    tabSQLTemplate('创建 Trigger', node.tree.tag
                         .create_view_trigger.replace(
                             '#table_name#', node.tag.schema + '.' + node.parent
                             .text));
                 }
             }, {
-                text: 'Doc: Triggers',
+                text: '查看文档: Triggers',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Triggers',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/trigger-definition.html');
+                        '/trigger-definition.html');
                 }
             }]
         },
         'cm_trigger': {
             elements: [{
-                text: 'Alter Trigger',
+                text: '修改 Trigger',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Trigger', node.tree.tag
+                    tabSQLTemplate('修改 Trigger', node.tree.tag
                         .alter_trigger.replace(
                             '#table_name#', node.tag.schema + '.' +
                             node.parent.parent.text).replace(
@@ -2155,16 +2141,16 @@ function getTreePostgresql(p_div) {
                             '#trigger_name#', node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Trigger',
+                text: '删除 Trigger',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Trigger', node.tree.tag
+                    tabSQLTemplate('删除 Trigger', node.tree.tag
                         .drop_trigger.replace(
                             '#table_name#', node.tag.schema + '.' +
                             node.parent.parent.text).replace(
@@ -2174,7 +2160,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_eventtriggers': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2185,30 +2171,29 @@ function getTreePostgresql(p_div) {
                     }
                 },
             }, {
-                text: 'Create Event Trigger',
+                text: '创建 Event Trigger',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Event Trigger', node.tree.tag
+                    tabSQLTemplate('创建 Event Trigger', node.tree.tag
                         .create_eventtrigger);
                 }
             }, {
-                text: 'Doc: Event Triggers',
+                text: '查看文档: Event Triggers',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Event Triggers',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/event-triggers.html');
+                        '/event-triggers.html');
                 }
             }]
         },
         'cm_eventtrigger': {
             elements: [{
-                text: 'Alter Event Trigger',
+                text: '修改 Event Trigger',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Trigger', node.tree.tag
+                    tabSQLTemplate('修改 Trigger', node.tree.tag
                         .alter_eventtrigger.replace(
                             '#trigger_name#', node.text));
                 }
@@ -2229,16 +2214,16 @@ function getTreePostgresql(p_div) {
                             '#trigger_name#', node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Event Trigger',
+                text: '删除 Event Trigger',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Event Trigger', node.tree.tag
+                    tabSQLTemplate('删除 Event Trigger', node.tree.tag
                         .drop_eventtrigger.replace(
                             '#trigger_name#', node.text));
                 }
@@ -2246,7 +2231,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_inheriteds': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2257,29 +2242,28 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Inherited',
+                text: '创建 Inherited',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Inherited', node.tree
+                    tabSQLTemplate('创建 Inherited', node.tree
                         .tag.create_inherited.replace(
                             '#table_name#', node.tag.schema + '.' + node.parent
                             .text));
                 }
             }, {
-                text: 'Doc: Partitioning',
+                text: '查看文档: Partitioning',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Partitioning',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/ddl-partitioning.html');
+                        '/ddl-partitioning.html');
                 }
             }]
         },
         'cm_inherited': {
             elements: [{
-                text: 'No Inherit Table',
+                text: 'No Inherit表',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate('No Inherit Partition', node
@@ -2289,10 +2273,10 @@ function getTreePostgresql(p_div) {
                             '#partition_name#', node.text));
                 }
             }, {
-                text: 'Drop Inherited',
+                text: '删除 Inherited',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Partition', node.tree.tag
+                    tabSQLTemplate('删除 Partition', node.tree.tag
                         .drop_partition.replace(
                             '#partition_name#', node.text));
                 }
@@ -2300,7 +2284,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_partitions': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2311,23 +2295,22 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Partition',
+                text: '创建 Partition',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Partition', node.tree
+                    tabSQLTemplate('创建 Partition', node.tree
                         .tag.create_partition.replace(
                             '#table_name#', node.tag.schema + '.' + node.parent
                             .text));
                 }
             }, {
-                text: 'Doc: Partitioning',
+                text: '查看文档: Partitioning',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Partitioning',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/ddl-partitioning.html');
+                        '/ddl-partitioning.html');
                 }
             }]
         },
@@ -2343,10 +2326,10 @@ function getTreePostgresql(p_div) {
                             '#partition_name#', node.text));
                 }
             }, {
-                text: 'Drop Partition',
+                text: '删除 Partition',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Partition', node.tree.tag
+                    tabSQLTemplate('删除 Partition', node.tree.tag
                         .drop_partition.replace(
                             '#partition_name#', node.text));
                 }
@@ -2354,7 +2337,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_statistics': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2365,11 +2348,11 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Statistics',
+                text: '创建 Statistics',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Create Statistics',
+                        '创建 Statistics',
                         node.tree.tag.create_statistics.replace(
                             '#table_name#',
                             node.tag.schema + '.' + node.parent.text
@@ -2380,21 +2363,20 @@ function getTreePostgresql(p_div) {
                     );
                 }
             }, {
-                text: 'Doc: Statistics',
+                text: '查看文档: Statistics',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Statistics',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/planner-stats.html'
+                        '/planner-stats.html'
                     );
                 }
             }]
         },
         'cm_statistic': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2405,11 +2387,11 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Alter Statistics',
+                text: '修改 Statistics',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Alter Statistics',
+                        '修改 Statistics',
                         node.tree.tag.alter_statistics.replace(
                             '#statistics_name#',
                             node.text
@@ -2417,17 +2399,17 @@ function getTreePostgresql(p_div) {
                     );
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Statistics',
+                text: '删除 Statistics',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Drop Statistics',
+                        '删除 Statistics',
                         node.tree.tag.drop_statistics.replace(
                             '#statistics_name#',
                             node.text
@@ -2438,7 +2420,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_functions': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2449,29 +2431,28 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Function',
+                text: '创建 Function',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Function', node.tree
+                    tabSQLTemplate('创建 Function', node.tree
                         .tag.create_function.replace(
                             '#schema_name#', node.tag.schema
                         ));
                 }
             }, {
-                text: 'Doc: Functions',
+                text: '查看文档: Functions',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Functions',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/sql-createfunction.html');
+                        '/sql-createfunction.html');
                 }
             }]
         },
         'cm_function': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2496,11 +2477,11 @@ function getTreePostgresql(p_div) {
                     getFunctionDefinitionPostgresql(node);
                 }
             }, {
-                text: 'Alter Function',
+                text: '修改 Function',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Alter Function', node.tree.tag.alter_function.replace(
+                        '修改 Function', node.tree.tag.alter_function.replace(
                             '#function_name#',
                             node.tag.id
                         )
@@ -2515,16 +2496,16 @@ function getTreePostgresql(p_div) {
                     setupDebug(node, 'f');
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Function',
+                text: '删除 Function',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Function', node.tree.tag
+                    tabSQLTemplate('删除 Function', node.tree.tag
                         .drop_function.replace(
                             '#function_name#', node.tag.id)
                     );
@@ -2533,7 +2514,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_procedures': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2544,29 +2525,28 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Procedure',
+                text: '创建 Procedure',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Procedure', node.tree
+                    tabSQLTemplate('创建 Procedure', node.tree
                         .tag.create_procedure.replace(
                             '#schema_name#', node.tag.schema
                         ));
                 }
             }, {
-                text: 'Doc: Procedures',
+                text: '查看文档: Procedures',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Procedures',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/sql-createprocedure.html');
+                        '/sql-createprocedure.html');
                 }
             }]
         },
         'cm_procedure': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2591,11 +2571,11 @@ function getTreePostgresql(p_div) {
                     getProcedureDefinitionPostgresql(node);
                 }
             }, {
-                text: 'Alter Procedure',
+                text: '修改 Procedure',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Alter Procedure',
+                        '修改 Procedure',
                         node.tree.tag.alter_procedure.replace(
                             '#procedure_name#',
                             node.tag.id
@@ -2611,16 +2591,16 @@ function getTreePostgresql(p_div) {
                     setupDebug(node, 'p');
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Procedure',
+                text: '删除 Procedure',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Procedure', node.tree.tag
+                    tabSQLTemplate('删除 Procedure', node.tree.tag
                         .drop_procedure.replace(
                             '#procedure_name#', node.tag.id)
                     );
@@ -2629,7 +2609,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_triggerfunctions': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2640,28 +2620,27 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Trigger Function',
+                text: '创建 Trigger Function',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Trigger Function',
+                    tabSQLTemplate('创建 Trigger Function',
                         node.tree.tag.create_triggerfunction
                         .replace('#schema_name#', node.tag.schema));
                 }
             }, {
-                text: 'Doc: Trigger Functions',
+                text: '查看文档: Trigger Functions',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Trigger Functions',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/plpgsql-trigger.html');
+                        '/plpgsql-trigger.html');
                 }
             }]
         },
         'cm_triggerfunction': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2680,11 +2659,11 @@ function getTreePostgresql(p_div) {
                     getTriggerFunctionDefinitionPostgresql(node);
                 }
             }, {
-                text: 'Alter Trigger Function',
+                text: '修改 Trigger Function',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Alter Trigger Function',
+                        '修改 Trigger Function',
                         node.tree.tag.alter_triggerfunction.replace(
                             '#function_name#',
                             node.tag.id
@@ -2692,16 +2671,16 @@ function getTreePostgresql(p_div) {
                     );
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Trigger Function',
+                text: '删除 Trigger Function',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Trigger Function',
+                    tabSQLTemplate('删除 Trigger Function',
                         node.tree.tag.drop_triggerfunction.replace(
                             '#function_name#', node.tag.id)
                     );
@@ -2710,7 +2689,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_direct_triggerfunction': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2729,11 +2708,11 @@ function getTreePostgresql(p_div) {
                     getTriggerFunctionDefinitionPostgresql(node);
                 }
             }, {
-                text: 'Alter Trigger Function',
+                text: '修改 Trigger Function',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Alter Trigger Function',
+                        '修改 Trigger Function',
                         node.tree.tag.alter_triggerfunction.replace(
                             '#function_name#',
                             node.tag.id
@@ -2741,16 +2720,16 @@ function getTreePostgresql(p_div) {
                     );
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Trigger Function',
+                text: '删除 Trigger Function',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Trigger Function',
+                    tabSQLTemplate('删除 Trigger Function',
                         node.tree.tag.drop_triggerfunction.replace(
                             '#function_name#', node.tag.id)
                     );
@@ -2759,7 +2738,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_eventtriggerfunctions': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2770,28 +2749,27 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Event Trigger Function',
+                text: '创建 Event Trigger Function',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Event Trigger Function',
+                    tabSQLTemplate('创建 Event Trigger Function',
                         node.tree.tag.create_eventtriggerfunction
                         .replace('#schema_name#', node.tag.schema));
                 }
             }, {
-                text: 'Doc: Event Trigger Functions',
+                text: '查看文档: Event Trigger Functions',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Event Trigger Functions',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/functions-event-triggers.html');
+                        '/functions-event-triggers.html');
                 }
             }]
         },
         'cm_eventtriggerfunction': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2810,11 +2788,11 @@ function getTreePostgresql(p_div) {
                     getEventTriggerFunctionDefinitionPostgresql(node);
                 }
             }, {
-                text: 'Alter Event Trigger Function',
+                text: '修改 Event Trigger Function',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Alter Event Trigger Function',
+                        '修改 Event Trigger Function',
                         node.tree.tag.alter_eventtriggerfunction.replace(
                             '#function_name#',
                             node.tag.id
@@ -2822,16 +2800,16 @@ function getTreePostgresql(p_div) {
                     );
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Event Trigger Function',
+                text: '删除 Event Trigger Function',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Event Trigger Function',
+                    tabSQLTemplate('删除 Event Trigger Function',
                         node.tree.tag.drop_eventtriggerfunction.replace(
                             '#function_name#', node.tag.id)
                     );
@@ -2840,7 +2818,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_direct_eventtriggerfunction': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2859,11 +2837,11 @@ function getTreePostgresql(p_div) {
                     getEventTriggerFunctionDefinitionPostgresql(node);
                 }
             }, {
-                text: 'Alter Event Trigger Function',
+                text: '修改 Event Trigger Function',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Alter Event Trigger Function',
+                        '修改 Event Trigger Function',
                         node.tree.tag.alter_eventtriggerfunction.replace(
                             '#function_name#',
                             node.tag.id
@@ -2871,16 +2849,16 @@ function getTreePostgresql(p_div) {
                     );
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Event Trigger Function',
+                text: '删除 Event Trigger Function',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Event Trigger Function',
+                    tabSQLTemplate('删除 Event Trigger Function',
                         node.tree.tag.drop_eventtriggerfunction.replace(
                             '#function_name#', node.tag.id)
                     );
@@ -2889,7 +2867,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_aggregates': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -2901,11 +2879,11 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Aggregate',
+                text: '创建 Aggregate',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Create Aggregate',
+                        '创建 Aggregate',
                         node.tree.tag.create_aggregate.replace(
                             '#schema_name#',
                             node.tag.schema
@@ -2913,18 +2891,17 @@ function getTreePostgresql(p_div) {
                     );
                 }
             }, {
-                text: 'Doc: Aggregates',
+                text: '查看文档: Aggregates',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Aggregates',
-                        'https://www.postgresql.org/docs/' + getMajorVersionPostgresql(node.tree.tag.version) + '/static/sql-createaggregate.html');
+                    window.open(
+                        'http://www.postgresql.cn/docs/' + getMajorVersionPostgresql(node.tree.tag.version) + '/sql-createaggregate.html');
                 }
             }]
         },
         'cm_aggregate': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -2936,11 +2913,11 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Alter Aggregate',
+                text: '修改 Aggregate',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Alter Aggregate',
+                        '修改 Aggregate',
                         node.tree.tag.alter_aggregate.replace(
                             '#aggregate_name#',
                             node.tag.id
@@ -2948,17 +2925,17 @@ function getTreePostgresql(p_div) {
                     );
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Aggregate',
+                text: '删除 Aggregate',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Drop Aggregate',
+                        '删除 Aggregate',
                         node.tree.tag.drop_aggregate.replace(
                             '#aggregate_name#',
                             node.tag.id
@@ -2969,7 +2946,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_sequences': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -2980,46 +2957,45 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Sequence',
+                text: '创建 Sequence',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Sequence', node.tree
+                    tabSQLTemplate('创建 Sequence', node.tree
                         .tag.create_sequence.replace(
                             '#schema_name#', node.tag.schema
                         ));
                 }
             }, {
-                text: 'Doc: Sequences',
+                text: '查看文档: Sequences',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Sequences',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/sql-createsequence.html');
+                        '/sql-createsequence.html');
                 }
             }]
         },
         'cm_sequence': {
             elements: [{
-                text: 'Alter Sequence',
+                text: '修改 Sequence',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Sequence', node.tree.tag
+                    tabSQLTemplate('修改 Sequence', node.tree.tag
                         .alter_sequence.replace(
                             '#sequence_name#', node.tag.schema + '.' + node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Sequence',
+                text: '删除 Sequence',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Sequence', node.tree.tag
+                    tabSQLTemplate('删除 Sequence', node.tree.tag
                         .drop_sequence.replace(
                             '#sequence_name#', node.parent.parent
                             .text + '.' + node.text));
@@ -3028,7 +3004,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_views': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3039,29 +3015,28 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create View',
+                text: '创建 View',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create View', node.tree.tag
+                    tabSQLTemplate('创建 View', node.tree.tag
                         .create_view.replace(
                             '#schema_name#', node.tag.schema
                         ));
                 }
             }, {
-                text: 'Doc: Views',
+                text: '查看文档: Views',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Views',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/sql-createview.html');
+                        '/sql-createview.html');
                 }
             }]
         },
         'cm_view': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3072,7 +3047,7 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Query Data',
+                text: '查询数据',
                 icon: 'fas cm-all fa-search',
                 action: function(node) {
                     TemplateSelectPostgresql(node.parent
@@ -3087,11 +3062,11 @@ function getTreePostgresql(p_div) {
                     getViewDefinitionPostgresql(node);
                 }
             }, {
-                text: 'Alter View',
+                text: '修改 View',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Alter View',
+                        '修改 View',
                         node.tree.tag.alter_view.replace(
                             /#view_name#/g,
                             node.tag.schema + '.' + node.text
@@ -3099,16 +3074,16 @@ function getTreePostgresql(p_div) {
                     );
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop View',
+                text: '删除 View',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop View', node.tree.tag.drop_view
+                    tabSQLTemplate('删除 View', node.tree.tag.drop_view
                         .replace('#view_name#', node.tag.schema + '.' + node.text)
                     );
                 }
@@ -3116,7 +3091,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_mviews': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3127,31 +3102,30 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Mat. View',
+                text: '创建 Mat. View',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Materialized View',
+                    tabSQLTemplate('创建 Materialized View',
                         node.tree.tag
                         .create_mview.replace(
                             '#schema_name#', node.tag.schema
                         ));
                 }
             }, {
-                text: 'Doc: Mat. Views',
+                text: '查看文档: Mat. Views',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Materialized Views',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/sql-creatematerializedview.html'
+                        '/sql-creatematerializedview.html'
                     );
                 }
             }]
         },
         'cm_mview': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3162,7 +3136,7 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Query Data',
+                text: '查询数据',
                 icon: 'fas cm-all fa-search',
                 action: function(node) {
                     TemplateSelectPostgresql(node.tag.schema, node.text, 'm');
@@ -3177,11 +3151,11 @@ function getTreePostgresql(p_div) {
                         node);
                 }
             }, {
-                text: 'Alter Mat. View',
+                text: '修改 Mat. View',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Alter Materialized View',
+                        '修改 Materialized View',
                         node.tree.tag.alter_mview.replace(
                             '#view_name#',
                             node.tag.schema + '.' + node.text
@@ -3210,16 +3184,16 @@ function getTreePostgresql(p_div) {
                             node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Mat. View',
+                text: '删除 Mat. View',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Materialized View',
+                    tabSQLTemplate('删除 Materialized View',
                         node.tree.tag.drop_mview
                         .replace('#view_name#', node.tag.schema + '.' + node.text)
                     );
@@ -3228,7 +3202,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_physicalreplicationslots': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3239,34 +3213,33 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Slot',
+                text: '创建 Slot',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Create Physical Replication Slot',
+                        '创建 Physical Replication Slot',
                         node.tree.tag
                         .create_physicalreplicationslot);
                 }
             }, {
-                text: 'Doc: Replication Slots',
+                text: '查看文档: Replication Slots',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Physical Replication Slots',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/warm-standby.html#streaming-replication-slots'
+                        '/warm-standby.html#streaming-replication-slots'
                     );
                 }
             }]
         },
         'cm_physicalreplicationslot': {
             elements: [{
-                text: 'Drop Slot',
+                text: '删除 Slot',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Drop Physical Replication Slot',
+                        '删除 Physical Replication Slot',
                         node.tree.tag
                         .drop_physicalreplicationslot.replace(
                             '#slot_name#', node.text));
@@ -3275,7 +3248,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_logicalreplicationslots': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3286,34 +3259,33 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Slot',
+                text: '创建 Slot',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Create Logical Replication Slot',
+                        '创建 Logical Replication Slot',
                         node.tree.tag
                         .create_logicalreplicationslot);
                 }
             }, {
-                text: 'Doc: Replication Slots',
+                text: '查看文档: Replication Slots',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Logical Replication Slots',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/logicaldecoding-explanation.html#logicaldecoding-replication-slots'
+                        '/logicaldecoding-explanation.html#logicaldecoding-replication-slots'
                     );
                 }
             }]
         },
         'cm_logicalreplicationslot': {
             elements: [{
-                text: 'Drop Slot',
+                text: '删除 Slot',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Drop Logical Replication Slot',
+                        '删除 Logical Replication Slot',
                         node.tree.tag
                         .drop_logicalreplicationslot.replace(
                             '#slot_name#', node.text));
@@ -3322,7 +3294,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_publications': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3333,45 +3305,44 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Publication',
+                text: '创建 Publication',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Publication', node.tree
+                    tabSQLTemplate('创建 Publication', node.tree
                         .tag.create_publication);
                 }
             }, {
-                text: 'Doc: Publications',
+                text: '查看文档: Publications',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Publications',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/logical-replication-publication.html'
+                        '/logical-replication-publication.html'
                     );
                 }
             }]
         },
         'cm_publication': {
             elements: [{
-                text: 'Alter Publication',
+                text: '修改 Publication',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Publication', node.tree
+                    tabSQLTemplate('修改 Publication', node.tree
                         .tag.alter_publication
                         .replace('#pub_name#', node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Publication',
+                text: '删除 Publication',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Publication', node.tree
+                    tabSQLTemplate('删除 Publication', node.tree
                         .tag.drop_publication
                         .replace('#pub_name#', node.text));
                 }
@@ -3379,7 +3350,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_pubtables': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3390,10 +3361,10 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Add Table',
+                text: 'Add表',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Add Table', node.tree.tag.add_pubtable
+                    tabSQLTemplate('Add表', node.tree.tag.add_pubtable
                         .replace('#pub_name#', node.parent.text)
                     );
                 }
@@ -3401,10 +3372,10 @@ function getTreePostgresql(p_div) {
         },
         'cm_pubtable': {
             elements: [{
-                text: 'Drop Table',
+                text: '删除表',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Table', node.tree.tag.drop_pubtable
+                    tabSQLTemplate('删除表', node.tree.tag.drop_pubtable
                         .replace('#pub_name#', node.parent.parent
                             .text)
                         .replace('#table_name#', node.text)
@@ -3414,7 +3385,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_subscriptions': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3425,45 +3396,44 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Subscription',
+                text: '创建 Subscription',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Subscription', node.tree
+                    tabSQLTemplate('创建 Subscription', node.tree
                         .tag.create_subscription);
                 }
             }, {
-                text: 'Doc: Subscriptions',
+                text: '查看文档: Subscriptions',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Subscriptions',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/logical-replication-subscription.html'
+                        '/logical-replication-subscription.html'
                     );
                 }
             }]
         },
         'cm_subscription': {
             elements: [{
-                text: 'Alter Subscription',
+                text: '修改 Subscription',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Subscription', node.tree
+                    tabSQLTemplate('修改 Subscription', node.tree
                         .tag.alter_subscription
                         .replace('#sub_name#', node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Subscription',
+                text: '删除 Subscription',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Subscription', node.tree
+                    tabSQLTemplate('删除 Subscription', node.tree
                         .tag.drop_subscription
                         .replace('#sub_name#', node.text));
                 }
@@ -3471,7 +3441,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_fdws': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3482,45 +3452,44 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Foreign Data Wrapper',
+                text: '创建 Foreign Data Wrapper',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Foreign Data Wrapper', node.tree
+                    tabSQLTemplate('创建 Foreign Data Wrapper', node.tree
                         .tag.create_fdw);
                 }
             }, {
-                text: 'Doc: Foreign Data Wrappers',
+                text: '查看文档: Foreign Data Wrappers',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Foreign Data Wrappers',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/postgres-fdw.html'
+                        '/postgres-fdw.html'
                     );
                 }
             }]
         },
         'cm_fdw': {
             elements: [{
-                text: 'Alter Foreign Data Wrapper',
+                text: '修改 Foreign Data Wrapper',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Foreign Data Wrapper', node.tree
+                    tabSQLTemplate('修改 Foreign Data Wrapper', node.tree
                         .tag.alter_fdw
                         .replace('#fdwname#', node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Foreign Data Wrapper',
+                text: '删除 Foreign Data Wrapper',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Foreign Data Wrapper', node.tree
+                    tabSQLTemplate('删除 Foreign Data Wrapper', node.tree
                         .tag.drop_fdw
                         .replace('#fdwname#', node.text));
                 }
@@ -3528,7 +3497,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_foreign_servers': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3539,10 +3508,10 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Foreign Server',
+                text: '创建 Foreign Server',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Foreign Server', node.tree
+                    tabSQLTemplate('创建 Foreign Server', node.tree
                         .tag.create_foreign_server
                         .replace('#fdwname#', node.parent.text));
                 }
@@ -3550,10 +3519,10 @@ function getTreePostgresql(p_div) {
         },
         'cm_foreign_server': {
             elements: [{
-                text: 'Alter Foreign Server',
+                text: '修改 Foreign Server',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Foreign Server', node.tree
+                    tabSQLTemplate('修改 Foreign Server', node.tree
                         .tag.alter_foreign_server
                         .replace('#srvname#', node.text));
                 }
@@ -3566,16 +3535,16 @@ function getTreePostgresql(p_div) {
                         .replace('#srvname#', node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Foreign Server',
+                text: '删除 Foreign Server',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Foreign Server', node.tree
+                    tabSQLTemplate('删除 Foreign Server', node.tree
                         .tag.drop_foreign_server
                         .replace('#srvname#', node.text));
                 }
@@ -3583,7 +3552,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_user_mappings': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3594,10 +3563,10 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create User Mapping',
+                text: '创建 User Mapping',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create User Mapping', node.tree
+                    tabSQLTemplate('创建 User Mapping', node.tree
                         .tag.create_user_mapping
                         .replace('#srvname#', node.parent.text));
                 }
@@ -3605,19 +3574,19 @@ function getTreePostgresql(p_div) {
         },
         'cm_user_mapping': {
             elements: [{
-                text: 'Alter User Mapping',
+                text: '修改 User Mapping',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter User Mapping', node.tree
+                    tabSQLTemplate('修改 User Mapping', node.tree
                         .tag.alter_user_mapping
                         .replace('#user_name#', node.text)
                         .replace('#srvname#', node.parent.parent.text));
                 }
             }, {
-                text: 'Drop User Mapping',
+                text: '删除 User Mapping',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop User Mapping', node.tree
+                    tabSQLTemplate('删除 User Mapping', node.tree
                         .tag.drop_user_mapping
                         .replace('#user_name#', node.text)
                         .replace('#srvname#', node.parent.parent.text));
@@ -3626,7 +3595,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_foreign_tables': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3637,10 +3606,10 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Foreign Table',
+                text: '创建 Foreign表',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Foreign Table', node.tree
+                    tabSQLTemplate('创建 Foreign表', node.tree
                         .tag.create_foreign_table
                         .replace('#schema_name#', node.tag.schema));
                 }
@@ -3648,7 +3617,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_foreign_table': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3659,17 +3628,17 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Data Actions',
+                text: '数据操作',
                 icon: 'fas cm-all fa-list',
                 submenu: {
                     elements: [{
-                        text: 'Query Data',
+                        text: '查询数据',
                         icon: 'fas cm-all fa-search',
                         action: function(node) {
                             TemplateSelectPostgresql(node.tag.schema, node.text, 'f');
                         }
                     }, {
-                        text: 'Edit Data',
+                        text: '修改数据',
                         icon: 'fas cm-all fa-table',
                         action: function(node) {
                             v_startEditData(node.text,
@@ -3677,23 +3646,23 @@ function getTreePostgresql(p_div) {
                             );
                         }
                     }, {
-                        text: 'Insert Record',
+                        text: '插入记录',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
                             TemplateInsertPostgresql(node.tag.schema, node.text);
                         }
                     }, {
-                        text: 'Update Records',
+                        text: '修改记录',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
                             TemplateUpdatePostgresql(node.tag.schema, node.text);
                         }
                     }, {
-                        text: 'Delete Records',
+                        text: '删除记录',
                         icon: 'fas cm-all fa-times',
                         action: function(node) {
                           tabSQLTemplate(
-                              'Delete Records',
+                              '删除记录',
                               node.tree.tag.delete
                               .replace(
                                   '#table_name#',
@@ -3703,15 +3672,15 @@ function getTreePostgresql(p_div) {
                     }]
                 }
             }, {
-                text: 'Table Actions',
+                text: '表操作',
                 icon: 'fas cm-all fa-list',
                 submenu: {
                     elements: [{
-                        text: 'Analyze Foreign Table',
+                        text: 'Analyze Foreign表',
                         icon: 'fas cm-all fa-table',
                         action: function(node) {
                             tabSQLTemplate(
-                                'Analyze Foreign Table',
+                                'Analyze Foreign表',
                                 node.tree.tag.analyze_table
                                 .replace(
                                     '#table_name#',
@@ -3719,24 +3688,24 @@ function getTreePostgresql(p_div) {
                                     node.text));
                         }
                     }, {
-                        text: 'Alter Foreign Table',
+                        text: '修改 Foreign表',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
-                            tabSQLTemplate('Alter Foreign Table', node.tree
+                            tabSQLTemplate('修改 Foreign表', node.tree
                                 .tag.alter_foreign_table
                                 .replace('#table_name#', node.tag.schema + '.' + node.text));
                         }
                     }, {
-                        text: 'Edit Comment',
+                        text: '修改注释',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
                             getObjectDescriptionPostgresql(node);
                         }
                     }, {
-                        text: 'Drop Foreign Table',
+                        text: '删除 Foreign表',
                         icon: 'fas cm-all fa-times',
                         action: function(node) {
-                            tabSQLTemplate('Drop Foreign Table', node.tree
+                            tabSQLTemplate('删除 Foreign表', node.tree
                                 .tag.drop_foreign_table
                                 .replace('#table_name#', node.tag.schema + '.' + node.text));
                         }
@@ -3746,10 +3715,10 @@ function getTreePostgresql(p_div) {
         },
         'cm_foreign_columns': {
             elements: [{
-                text: 'Create Foreign Column',
+                text: '创建 Foreign列',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Foreign Column', node.tree.tag
+                    tabSQLTemplate('创建 Foreign列', node.tree.tag
                         .create_foreign_column.replace(
                             '#table_name#', node.tag.schema + '.' + node.parent
                             .text));
@@ -3758,20 +3727,20 @@ function getTreePostgresql(p_div) {
         },
         'cm_foreign_column': {
             elements: [{
-                text: 'Alter Foreign Column',
+                text: '修改 Foreign列',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Foreign Column', node.tree.tag
+                    tabSQLTemplate('修改 Foreign列', node.tree.tag
                         .alter_foreign_column.replace(
                             '#table_name#', node.tag.schema + '.' +
                             node.parent.parent.text).replace(
                             /#column_name#/g, node.text));
                 }
             }, {
-                text: 'Drop Foreign Column',
+                text: '删除 Foreign列',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Foreign Column', node.tree.tag
+                    tabSQLTemplate('删除 Foreign列', node.tree.tag
                         .drop_foreign_column.replace('#table_name#',
                             node.tag.schema + '.' + node.parent.parent
                             .text).replace(/#column_name#/g,
@@ -3781,7 +3750,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_types': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3792,46 +3761,45 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Type',
+                text: '创建 Type',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Type', node.tree
+                    tabSQLTemplate('创建 Type', node.tree
                         .tag.create_type.replace(
                             '#schema_name#', node.tag.schema
                         ));
                 }
             }, {
-                text: 'Doc: Types',
+                text: '查看文档: Types',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Types',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/sql-createtype.html');
+                        '/sql-createtype.html');
                 }
             }]
         },
         'cm_type': {
             elements: [{
-                text: 'Alter Type',
+                text: '修改 Type',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Type', node.tree.tag
+                    tabSQLTemplate('修改 Type', node.tree.tag
                         .alter_type.replace(
                             '#type_name#', node.tag.schema + '.' + node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Type',
+                text: '删除 Type',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Type', node.tree.tag
+                    tabSQLTemplate('删除 Type', node.tree.tag
                         .drop_type.replace(
                             '#type_name#', node.tag.schema + '.' + node.text));
                 }
@@ -3839,7 +3807,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_domains': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3850,46 +3818,45 @@ function getTreePostgresql(p_div) {
                     }
                 }
             }, {
-                text: 'Create Domain',
+                text: '创建 Domain',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Create Domain', node.tree
+                    tabSQLTemplate('创建 Domain', node.tree
                         .tag.create_domain.replace(
                             '#schema_name#', node.tag.schema
                         ));
                 }
             }, {
-                text: 'Doc: Domains',
+                text: '查看文档: Domains',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: Domains',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgresql.cn/docs/' +
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/sql-createdomain.html');
+                        '/sql-createdomain.html');
                 }
             }]
         },
         'cm_domain': {
             elements: [{
-                text: 'Alter Domain',
+                text: '修改 Domain',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
-                    tabSQLTemplate('Alter Domain', node.tree.tag
+                    tabSQLTemplate('修改 Domain', node.tree.tag
                         .alter_domain.replace(
                             '#domain_name#', node.tag.schema + '.' + node.text));
                 }
             }, {
-                text: 'Edit Comment',
+                text: '修改注释',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     getObjectDescriptionPostgresql(node);
                 }
             }, {
-                text: 'Drop Domain',
+                text: '删除 Domain',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
-                    tabSQLTemplate('Drop Domain', node.tree.tag
+                    tabSQLTemplate('删除 Domain', node.tree.tag
                         .drop_domain.replace(
                             '#domain_name#', node.tag.schema + '.' + node.text));
                 }
@@ -3897,7 +3864,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_partitioned_parent': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3911,7 +3878,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_inherited_parent': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3925,7 +3892,7 @@ function getTreePostgresql(p_div) {
         },
         'cm_refresh': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -3942,9 +3909,9 @@ function getTreePostgresql(p_div) {
     v_connTabControl.selectedTab.tag.tree = tree;
     let v_autocomplete_switch_status = (v_connTabControl.selectedTab.tag.enable_autocomplete !== false) ? ' checked ' : '';
     v_connTabControl.selectedTab.tag.divDetails.innerHTML =
-    '<i class="fas fa-server mr-1"></i>selected DB: ' +
+    '<i class="fas fa-server mr-1"></i>当前数据库: ' +
     '<b>' + v_connTabControl.selectedTab.tag.selectedDatabase + '</b>' +
-    '<div class="omnidb__switch omnidb__switch--sm float-right" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<h5>Toggle autocomplete.</h5><div>Switch OFF <b>disables the autocomplete</b> on the inner tabs for this connection.</div>">' +
+    '<div class="omnidb__switch omnidb__switch--sm float-right" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<h5>自动语法补全</h5><div>Switch OFF <b>disables the autocomplete</b> on the inner tabs for this connection.</div>">' +
 			'<input type="checkbox" ' + v_autocomplete_switch_status + ' id="autocomplete_toggler_' + v_connTabControl.selectedTab.tag.tab_id + '" class="omnidb__switch--input" onchange="toggleConnectionAutocomplete(\'autocomplete_toggler_' + v_connTabControl.selectedTab.tag.tab_id + '\')">' +
 			'<label for="autocomplete_toggler_' + v_connTabControl.selectedTab.tag.tab_id + '" class="omnidb__switch--label"><span><i class="fas fa-spell-check"></i></span></label>' +
 		'</div>';
@@ -4005,7 +3972,7 @@ function checkCurrentDatabase(p_node, p_complete_check, p_callback_continue,
                 'database'))) {
 
         showConfirm3(
-            'This node belongs to another database, change active database to <b>' +
+            '这个节点属于其他数据库, 是否切换到 <b>' +
             p_node.tag.database + '</b>?',
             function() {
                 var v_call_back_continue = p_callback_continue;
@@ -4029,7 +3996,7 @@ function checkCurrentDatabase(p_node, p_complete_check, p_callback_continue,
 
                                 v_connTabControl.selectedTab.tag.divDetails
                                     .innerHTML =
-                                    'Active database: <b>' + p_node
+                                    '当前数据库: <b>' + p_node
                                     .tag.database + '</b>';
 
                                 v_connTabControl.selectedTab.tag.selectedDatabaseNode
@@ -4052,9 +4019,9 @@ function checkCurrentDatabase(p_node, p_complete_check, p_callback_continue,
                                             v_list_database_nodes[i];
 
                                         if (v_connTabControl.selectedTab.tag.selectedTitle!='')
-                                  				v_connTabControl.selectedTab.tag.tabTitle.innerHTML = '<img src="' + v_url_folder + '/static/OmniDB_app/images/' + v_connTabControl.selectedTab.tag.selectedDBMS + '_medium.png"/> ' + v_connTabControl.selectedTab.tag.selectedTitle + ' - ' + v_connTabControl.selectedTab.tag.selectedDatabase;
+                                  				v_connTabControl.selectedTab.tag.tabTitle.innerHTML = '<img src="' + v_url_folder + '/OmniDB_app/images/' + v_connTabControl.selectedTab.tag.selectedDBMS + '_medium.png"/> ' + v_connTabControl.selectedTab.tag.selectedTitle + ' - ' + v_connTabControl.selectedTab.tag.selectedDatabase;
                                   			else
-                                  				v_connTabControl.selectedTab.tag.tabTitle.innerHTML = '<img src="' + v_url_folder + '/static/OmniDB_app/images/' + v_connTabControl.selectedTab.tag.selectedDBMS + '_medium.png"/> ' + v_connTabControl.selectedTab.tag.selectedDatabase;
+                                  				v_connTabControl.selectedTab.tag.tabTitle.innerHTML = '<img src="' + v_url_folder + '/OmniDB_app/images/' + v_connTabControl.selectedTab.tag.selectedDBMS + '_medium.png"/> ' + v_connTabControl.selectedTab.tag.selectedDatabase;
                                     }
 
                                 }
@@ -4564,7 +4531,7 @@ function getTreeDetailsPostgresql(node) {
 
             node.tree.contextMenu.cm_server.elements = []
             node.tree.contextMenu.cm_server.elements.push({
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0)
@@ -4576,19 +4543,19 @@ function getTreeDetailsPostgresql(node) {
                 }
             });
             node.tree.contextMenu.cm_server.elements.push({
-                text: 'Monitoring',
+                text: '监控',
                 icon: 'fas cm-all fa-chart-line',
                 action: function(node) {},
                 submenu: {
                     elements: [{
-                        text: 'Dashboard',
+                        text: '大盘',
                         icon: 'fas cm-all fa-chart-line',
                         action: function(node) {
                             v_connTabControl.tag.createMonitorDashboardTab();
                             startMonitorDashboard();
                         }
                     }, {
-                        text: 'Backends',
+                        text: '连接',
                         icon: 'fas cm-all fa-tasks',
                         action: function(node) {
                             v_connTabControl.tag.createMonitoringTab(
@@ -4603,36 +4570,24 @@ function getTreeDetailsPostgresql(node) {
                 }
             });
             node.tree.contextMenu.cm_server.elements.push({
-                text: 'Doc: PostgreSQL',
+                text: '查看文档: PostgreSQL',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: PostgreSQL',
-                        'https://www.postgresql.org/docs/' +
-                        getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/');
+                    window.open(
+                        'http://www.postgres.cn/docs/' +
+                        getMajorVersionPostgresql(node.tree.tag.version)
+                    );
                 }
             });
             node.tree.contextMenu.cm_server.elements.push({
-                text: 'Doc: SQL Language',
+                text: '查看文档: SQL Commands',
                 icon: 'fas cm-all fa-globe-americas',
                 action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: SQL Language',
-                        'https://www.postgresql.org/docs/' +
+                    window.open(
+                        'http://www.postgres.cn/docs/'+
                         getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/sql.html');
-                }
-            });
-            node.tree.contextMenu.cm_server.elements.push({
-                text: 'Doc: SQL Commands',
-                icon: 'fas cm-all fa-globe-americas',
-                action: function(node) {
-                    v_connTabControl.tag.createWebsiteTab(
-                        'Documentation: SQL Commands',
-                        'https://www.postgresql.org/docs/' +
-                        getMajorVersionPostgresql(node.tree.tag.version) +
-                        '/static/sql-commands.html');
+                        '/sql-commands.html'
+                    );
                 }
             });
 
@@ -9076,7 +9031,7 @@ function getExplain(p_mode) {
         .getValue();
 
     if (v_query.trim() == '') {
-        showAlert('Please provide a string.');
+        showAlert('请选择一个SQL.');
     }
     // else {
     //     if (p_mode == 0)

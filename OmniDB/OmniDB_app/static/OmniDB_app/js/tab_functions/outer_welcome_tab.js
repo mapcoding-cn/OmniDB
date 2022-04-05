@@ -171,17 +171,17 @@ var v_createWelcomeTabFunction = function(p_index,p_create_query_tab = true, p_n
   // let v_getting_started_buttons_list = [
   //   {
   //     icon: '<i class="fas fa-user-plus mr-2"></i>',
-  //     text: 'Create an omnidb user',
+  //     text: '创建an omnidb user',
   //     tutorial: "\'utilities_menu\'"
   //   },
   //   {
   //     icon: '<i class="fas fa-plug mr-2"></i>',
-  //     text: 'Create a database connection',
+  //     text: '创建a database connection',
   //     tutorial: "\'connections_menu\'"
   //   },
   //   {
   //     icon: '<i class="fas fa-terminal mr-2"></i>',
-  //     text: 'Create a terminal connection',
+  //     text: '创建a terminal connection',
   //     tutorial: "\'terminal_connection\'"
   //   },
   //   {

@@ -267,7 +267,7 @@ def test_connection(request):
                 client.connect(hostname=json_object['tunnel']['server'],username=json_object['tunnel']['user'],password=ssh_password,port=int(json_object['tunnel']['port']))
 
             client.close()
-            v_return['v_data'] = 'Connection successful.'
+            v_return['v_data'] = '连接成功.'
         except Exception as exc:
             v_return['v_data'] = str(exc)
             v_return['v_error'] = True
@@ -320,7 +320,7 @@ def test_connection(request):
                 message = database.TestConnection()
                 server.close()
                 v_return['v_data'] = message
-                if message != 'Connection successful.':
+                if message != '连接成功.':
                     v_return['v_error'] = True
 
             except Exception as exc:
@@ -330,7 +330,7 @@ def test_connection(request):
         else:
             message = database.TestConnection()
             v_return['v_data'] = message
-            if message != 'Connection successful.':
+            if message != '连接成功.':
                 v_return['v_error'] = True
 
     return JsonResponse(v_return)

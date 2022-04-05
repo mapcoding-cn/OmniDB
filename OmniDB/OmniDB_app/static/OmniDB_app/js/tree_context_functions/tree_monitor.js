@@ -77,7 +77,7 @@ function getTreeMonitor(p_div) {
           }
         },
         {
-          text : 'New Snippet',
+          text : '新的片段',
           icon: '/static/OmniDB_app/images/snippet_medium.png',
           action : function(node) {
             newNodeSnippet(node,'snippet');

@@ -1680,7 +1680,7 @@ textarea#HandsontableCopyPaste {
   overflow: hidden;
 }
 
-/* Column's number position */
+/*列's number position */
 .handsontable span.colHeader.columnSorting::after {
   /* Centering start */
   top: 50%;

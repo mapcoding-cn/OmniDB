@@ -30,7 +30,7 @@ var v_createConnTabFunction = function(p_index,p_create_query_tab = true, p_name
   // Creating the first outer tab without any connections created.
   if (v_connTabControl.tag.connections.length==0) {
     v_connTabControl.selectTabIndex(v_connTabControl.tabList.length-2);
-    showAlert('Create connections first.');
+    showAlert('创建connections first.');
   }
   else {
     // v_connTabControl.removeLastTab();
@@ -82,7 +82,7 @@ var v_createConnTabFunction = function(p_index,p_create_query_tab = true, p_name
       p_icon: v_icon,
       p_name: v_conn_name,
       p_selectFunction: function() {
-        document.title = 'OmniDB'
+        document.title = 'OmniDB CN'
         if(this.tag != null) {
           checkTabStatus(this);
           refreshHeights(true);
@@ -222,7 +222,7 @@ var v_createConnTabFunction = function(p_index,p_create_query_tab = true, p_name
 
     var v_properties_tab = v_treeTabs.createTab(
       {
-        p_name: 'Properties',
+        p_name: '属性',
         p_close: false,
         p_clickFunction: function(e) {
           v_selectPropertiesTabFunc();

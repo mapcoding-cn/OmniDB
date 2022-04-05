@@ -67,7 +67,7 @@
             <div class="navbar-nav flex-row">
               <a id="omnidb__utilities-menu__link-versioning" class="omnidb__menu__btn-text-visible nav-item nav-link d-flex align-items-center justify-content-center">
                 <i class="fas fa-code-branch"></i>
-                <span class="badge badge-info">{{ omnidb_short_version }}</span>
+{#                <span class="badge badge-info">{{ omnidb_short_version }}</span>#}
               </a>
               {% if not desktop_mode %}
               <a id="omnidb__utilities-menu__link-username" class="omnidb__menu__btn-user omnidb__menu__btn-text nav-item nav-link d-flex align-items-center justify-content-center">
@@ -75,15 +75,15 @@
                 <span>{{ user_name }}</span>
               </a>
               {% endif %}
-              <a id="omnidb__utilities-menu__link-connections" class="omnidb__menu__btn nav-item nav-link d-flex align-items-center justify-content-center" href="#" onclick="startConnectionManagement();"><i class="fas fa-plug" title="Connections"></i></a>
+{#              <a id="omnidb__utilities-menu__link-connections" class="omnidb__menu__btn nav-item nav-link d-flex align-items-center justify-content-center" href="#" onclick="startConnectionManagement();"><i class="fas fa-plug" title="Connections"></i></a>#}
               {% if not desktop_mode %}
               {% if super_user == 1 %}
               <a id="omnidb__utilities-menu__link-user" class="omnidb__menu__btn nav-item nav-link d-flex align-items-center justify-content-center" href="#" onclick="listUsers();"><i class="fas fa-user" title="Users"></i></a>
               {% endif %}
               {% endif %}
               <a id="omnidb__utilities-menu__link-config" class="omnidb__menu__btn nav-item nav-link d-flex align-items-center justify-content-center" href="#" onclick="showConfigUser();"><i class="fas fa-cog" title="Settings"></i></a>
-              <a id="omnidb__utilities-menu__link-plugins" class="omnidb__menu__btn nav-item nav-link d-flex align-items-center justify-content-center" href="#" onclick="showPlugins();"><i class="fas fa-cube" title="Plugins"></i></a>
-              <a id="omnidb__utilities-menu__link-about" class="omnidb__menu__btn nav-item nav-link d-flex align-items-center justify-content-center" href="#" onclick="showAbout();"><i class="fas fa-info-circle" title="About"></i></a>
+{#              <a id="omnidb__utilities-menu__link-plugins" class="omnidb__menu__btn nav-item nav-link d-flex align-items-center justify-content-center" href="#" onclick="showPlugins();"><i class="fas fa-cube" title="Plugins"></i></a>#}
+{#              <a id="omnidb__utilities-menu__link-about" class="omnidb__menu__btn nav-item nav-link d-flex align-items-center justify-content-center" href="#" onclick="showAbout();"><i class="fas fa-info-circle" title="About"></i></a>#}
               {% if not desktop_mode %}
               <a id="omnidb__utilities-menu__link-signout" class="omnidb__menu__btn nav-item nav-link d-flex align-items-center justify-content-center" href="#" onclick="confirmSignout()"><i class="fas fa-sign-out-alt" title="Sign out"></i></a>
               {% endif %}
@@ -116,8 +116,8 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
-              Connections
-              <button id="button_new_connection" type="button" class="btn omnidb__theme__btn--primary" onclick="newConnection();">New connection</button>
+              连接管理
+              <button id="button_new_connection" type="button" class="btn omnidb__theme__btn--primary" onclick="newConnection();">新建连接</button>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -125,12 +125,12 @@
           </div>
           <div class="modal-body">
             <div class='mb-3 d-flex align-items-center justify-content-start'>
-              <span id="group_actions_1" class="d-flex align-items-center justify-content-start">
-                <span>Groups</span>
-                <select id="group_selector" class="form-control mx-1" onchange="groupChange(this.value);" style='display: inline-block; width: 200px;'>
+              <span id="group_actions_1" class="d-flex align-items-center justify-content-start" >
+{#                <span>Groups</span>#}
+                <select id="group_selector" class="form-control mx-1" onchange="groupChange(this.value);" style='display: none;'>
                   <option value=-1 selected>Select Group</option>
                 </select>
-                <button id="button_new_group" type="button" class="btn ml-2 omnidb__theme__btn--primary" onclick="newGroup();">New group</button>
+                <button id="button_new_group" type="button" class="btn ml-2 omnidb__theme__btn--primary" style='display: none;' onclick="newGroup();">New group</button>
                 <button id="button_group_actions" type="button" class="btn ml-2 omnidb__theme__btn--secondary dropdown-toggle" style='display: none;' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Group Actions
                 </button>
@@ -144,8 +144,8 @@
                 <button id="button_new_group" type="button" class="btn btn-success ml-2" onclick="manageGroupSave();">Save changes</button>
               </span>
               <div class="d-inline-block ml-4">
-                <span>Show Public Connections (<span id="conn_list_public_counter">0</span>)</span>
-                <div class="d-inline-block omnidb__switch ml-2" data-toggle="tooltip" data-placement="right" data-html="true" title="<h5>Show Public Connections.</h5><div>Switch ON shows all public connections.</div>">
+                <span>展示公共连接 (<span id="conn_list_public_counter">0</span>)</span>
+                <div class="d-inline-block omnidb__switch ml-2" data-toggle="tooltip" data-placement="right" data-html="true" title="<h5>展示公共连接.</h5><div>展示所有已经公开的连接.</div>">
                   <input type="checkbox" id="conn_list_public" class="omnidb__switch--input" onchange="toggleConnectionsPublic(event)">
                   <label for="conn_list_public" class="omnidb__switch--label"><span><i class="fas fa-users"></i></span></label>
                 </div>
@@ -166,7 +166,7 @@
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit Connection</h5>
+            <h5 class="modal-title">编辑连接</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -175,19 +175,19 @@
 
               <div class="form-row">
                 <div class="col-md-4 mb-3 required">
-                  <label for="conn_form_type">Connection Type</label>
+                  <label for="conn_form_type">数据库类型</label>
                   <select id="conn_form_type" class="form-control" oninput="updateModalEditConnectionState(event)">
                     <option value=-1 selected>Select Type</option>
                   </select>
                 </div>
                 <div class="col-md-4 mb-3">
-                  <label for="conn_form_title">Title</label>
+                  <label for="conn_form_title">连接名称</label>
                   <input type="text" class="form-control" id="conn_form_title" placeholder="Title">
                 </div>
                 <div class="col-md-4 mt-auto mb-3">
-                  <span class="ml-2">Public connection?</span>
+                  <span class="ml-2">这是一个公共连接,所有人可见?</span>
         					<div class="d-inline-block ml-2">
-        						<div class="omnidb__switch mr-2" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<h5>Toggle public status.</h5><div>Switch ON sets connection as usable for all other omnidb users.</div>">
+        						<div class="omnidb__switch mr-2" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<h5>改变状态.</h5><div>该选项意味着所有登录用户都能看到并使用你的连接.</div>">
         							<input type="checkbox" id="conn_form_public" class="omnidb__switch--input">
         							<label for="conn_form_public" class="omnidb__switch--label"><span><i class="fas fa-users"></i></span></label>
         						</div>
@@ -197,28 +197,28 @@
 
               <div class="card">
                 <div class="card-header">
-                  <h6 class="mb-0">Host Connection Info</h6>
+                  <h6 class="mb-0">数据库连接信息</h6>
                 </div>
                 <div class="card-body">
                   <div class="form-row">
                     <div class="col-md-3 mb-3">
-                      <label for="conn_form_server">Server</label>
+                      <label for="conn_form_server">连接地址</label>
                       <input type="text" class="form-control" id="conn_form_server" placeholder="ex: 127.0.0.1" oninput="updateModalEditConnectionState(event)">
                     </div>
                     <div class="col-md-1 mb-3">
-                      <label for="conn_form_port">Port</label>
+                      <label for="conn_form_port">端口</label>
                       <input type="text" class="form-control" id="conn_form_port" placeholder="ex: 5432" oninput="updateModalEditConnectionState(event)">
                     </div>
                     <div class="col-md-3 mb-3">
-                      <label for="conn_form_database">Database</label>
+                      <label for="conn_form_database">初始数据库</label>
                       <input type="text" class="form-control" id="conn_form_database" placeholder="ex: postgres" oninput="updateModalEditConnectionState(event)">
                     </div>
                     <div class="col-md-3 mb-3">
-                      <label for="conn_form_user">User</label>
+                      <label for="conn_form_user">登录用户名</label>
                       <input type="text" class="form-control" id="conn_form_user" placeholder="ex: postgres" oninput="updateModalEditConnectionState(event)">
                     </div>
                     <div class="col-md-2 mb-3">
-                      <label for="conn_form_user_pass">User Password <i class="fas fa-question-circle text-info" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<h4 class=&quot;mb-0&quot;><h5 class=&quot;my-1&quot;>Optional user password</h5></h4><ul><li><strong>If provided:</strong> password will be stored to omnidb configuration's database and used when connecting to this connection.</li><li><strong>Leaving blank:</strong> No password will be saved and it will be requested to be manually type everytime the user tries to use this connection. If it's a <strong>PostgreSQL</strong> connection, OmniDB will try to retrieve password from <strong>.pgpass</strong>.</li></ul>"></i></label>
+                      <label for="conn_form_user_pass">密码 <i class="fas fa-question-circle text-info" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<h4 class=&quot;mb-0&quot;><h5 class=&quot;my-1&quot;>Optional user password</h5></h4><ul><li><strong>If provided:</strong> password will be stored to omnidb configuration's database and used when connecting to this connection.</li><li><strong>Leaving blank:</strong> No password will be saved and it will be requested to be manually type everytime the user tries to use this connection. If it's a <strong>PostgreSQL</strong> connection, OmniDB will try to retrieve password from <strong>.pgpass</strong>.</li></ul>"></i></label>
                       <input type="password" class="form-control" id="conn_form_user_pass" placeholder="User Password">
                     </div>
                   </div>
@@ -230,7 +230,7 @@
 
                   <div class="form-row">
                     <div class="col-md mb-3">
-                      <label for="conn_form_connstring">Connection string <i class="fas fa-question-circle text-info" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<h4 class=&quot;mb-0&quot;><h5 class=&quot;my-1&quot;>Optional connection string</h5></h4><ul><li><strong>If provided:</strong> OmniDB will use this as the default config, and single inputs for server should not be filled.</li><li><strong>If blank:</strong> In this case, if this is not a terminal connection, you should instead fill the required single inputs for server above.</li></ul>"></i></label>
+                      <label for="conn_form_connstring">通过协议地址连接 <i class="fas fa-question-circle text-info" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<h4 class=&quot;mb-0&quot;><h5 class=&quot;my-1&quot;>Optional connection string</h5></h4><ul><li><strong>If provided:</strong> OmniDB will use this as the default config, and single inputs for server should not be filled.</li><li><strong>If blank:</strong> In this case, if this is not a terminal connection, you should instead fill the required single inputs for server above.</li></ul>"></i></label>
                       <input type="text" class="form-control" id="conn_form_connstring" placeholder="ex: postgresql://postgres@localhost:5432/postgres" oninput="updateModalEditConnectionState(event)">
                     </div>
                   </div>
@@ -243,7 +243,7 @@
                     <div class="omnidb__form-check form-check form-check-inline">
                       <input class="form-check-input" type="checkbox" value="" id="conn_form_use_tunnel" oninput="updateModalEditConnectionState(event)">
                       <label class="form-check-label" for="conn_form_use_tunnel">
-                        <b style="vertical-align: middle;">Use SSH tunnel</b>
+                        <b style="vertical-align: middle;">使用 SSH tunnel</b>
                       </label>
                     </div>
                   </div>
@@ -251,20 +251,20 @@
                 <div class="card-body">
                   <div class="form-row">
                     <div class="col-md-4 mb-3">
-                      <label for="conn_form_ssh_server">SSH Server</label>
+                      <label for="conn_form_ssh_server">SSH 服务器</label>
                       <input type="text" class="form-control" id="conn_form_ssh_server" placeholder="SSH server" readonly oninput="updateModalEditConnectionState(event)">
                     </div>
                     <div class="col-md-2 mb-3">
-                      <label for="conn_form_ssh_port">SSH Port</label>
+                      <label for="conn_form_ssh_port">SSH 端口</label>
                       <input type="text" class="form-control" id="conn_form_ssh_port" placeholder="SSH port" readonly oninput="updateModalEditConnectionState(event)">
                     </div>
                     <div class="col-md-3 mb-3">
-                      <label for="conn_form_ssh_user">SSH User</label>
+                      <label for="conn_form_ssh_user">SSH 用户</label>
                       <input type="text" class="form-control" id="conn_form_ssh_user" placeholder="SSH user" readonly oninput="updateModalEditConnectionState(event)">
                     </div>
                     <div class="col-md-3 mb-3">
                       <label for="conn_form_ssh_password">
-                        Password / Passphrase
+                        密码 / 口令
                         <i
                           class="fas fa-question-circle text-info ml-2" data-toggle="tooltip" data-html="true" data-placement="bottom"
                           title="<h4 class=&quot;mb-0&quot;><h5 class=&quot;my-1&quot;>Optional ssh password / passphrase</h5></h4><div>Leave this blank if you dont want the password to be stored.</div><ul><li><strong>If provided:</strong> OmniDB will use this password when opening a SSH tunnel.</li><li><strong>Leaving blank:</strong> When the SSH tunnel is requested, OmniDB will prompt an input requesting for this password to be used exclusively to open the connection, but it wont be stored.</li></ul>"
@@ -276,7 +276,7 @@
                   <div class="form-row">
                     <div class="col-md mb-3">
                       <label for="conn_form_ssh_key">
-                        SSH Key Text File
+                        SSH 密钥文件
                         <i
                           class="fas fa-question-circle text-info ml-2" data-toggle="tooltip" data-html="true" data-placement="bottom"
                           title="<h4 class=&quot;mb-0&quot;><h5 class=&quot;my-1&quot;>Optional ssh key</h5></h4><div>Leave this blank if you dont want the key to be stored.</div><ul><li><strong>If provided:</strong> When saving this SSH tunnel, OmniDB will read the content of this file and store just the text, but not the file.</li></ul>"
@@ -285,7 +285,7 @@
                       <textarea style="display:none;" class="form-control" id="conn_form_ssh_key" rows="4" readonly></textarea>
                       <div class="ml-4 d-inline-block custom-file" style="width: 200px;">
                         <input type="file" id="conn_form_ssh_key_input" onchange="updateConnectionKey(event)" style="width: 200px;height: 100%;" disabled/>
-                        <label id="conn_form_ssh_key_input_label" class="custom-file-label" for="conn_form_ssh_key_input">Click to select</label>
+                        <label id="conn_form_ssh_key_input_label" class="custom-file-label" for="conn_form_ssh_key_input">点击选择文件</label>
                       </div>
                     </div>
                   </div>
@@ -293,8 +293,8 @@
               </div>
 
               <div class="mt-4">
-                <button id="conn_form_button_test_connection" class="btn omnidb__theme__btn--primary" onclick="testConnection();" disabled>Test</button>
-                <button id="conn_form_button_save_connection" class="btn btn-success" onclick="saveConnection();" disabled>Save</button>
+                <button id="conn_form_button_test_connection" class="btn omnidb__theme__btn--primary" onclick="testConnection();" disabled>测试连接</button>
+                <button id="conn_form_button_save_connection" class="btn btn-success" onclick="saveConnection();" disabled>保存</button>
               </div>
 
           </div>
@@ -330,11 +330,11 @@
               </div>
 
               <div class="text-center">
-                <button class="btn omnidb__theme__btn--secondary btn-sm mr-1">First</button>
-                <button class="btn omnidb__theme__btn--secondary btn-sm mr-1">Previous</button>
+                <button class="btn omnidb__theme__btn--secondary btn-sm mr-1">第一页</button>
+                <button class="btn omnidb__theme__btn--secondary btn-sm mr-1">往前</button>
                 <span class="mr-1"> 1 / 217 </span>
-                <button class="btn omnidb__theme__btn--secondary btn-sm mr-1">Next</button>
-                <button class="btn omnidb__theme__btn--secondary btn-sm mr-1">Last</button>
+                <button class="btn omnidb__theme__btn--secondary btn-sm mr-1">往后</button>
+                <button class="btn omnidb__theme__btn--secondary btn-sm mr-1">最后页</button>
               </div>
 
               <div id="query_history_grid" style="width: 100%; height: 300px; overflow: hidden;"></div>
@@ -397,7 +397,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4>User management</h4>
+            <h4>用户管理</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -423,91 +423,91 @@
 
               <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="config_shortcuts-tab" data-toggle="tab" href="#config_shortcuts" role="tab" aria-controls="config_shortcuts" aria-selected="true">Shortcuts</a>
+                  <a class="nav-link active" id="config_shortcuts-tab" data-toggle="tab" href="#config_shortcuts" role="tab" aria-controls="config_shortcuts" aria-selected="true">快捷键</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="config_options-tab" data-toggle="tab" href="#config_options" role="tab" aria-controls="config_options" aria-selected="false">Options</a>
+                  <a class="nav-link" id="config_options-tab" data-toggle="tab" href="#config_options" role="tab" aria-controls="config_options" aria-selected="false">外观</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="config_password-tab" data-toggle="tab" href="#config_password" role="tab" aria-controls="config_password" aria-selected="false">Password</a>
+                  <a class="nav-link" id="config_password-tab" data-toggle="tab" href="#config_password" role="tab" aria-controls="config_password" aria-selected="false">密码</a>
                 </li>
               </ul>
               <div class="tab-content p-2 omnidb__theme-border--primary">
 
                 <div class="tab-pane fade show active" id="config_shortcuts" role="tabpanel" aria-labelledby="config_shortcuts-tab">
-                  <div id="div_shortcut_background_dark"><div style="position: absolute; top: 50%; width: 100%;">Press key combination... (ESC to cancel)</div></div>
+                  <div id="div_shortcut_background_dark"><div style="position: absolute; top: 50%; width: 100%;">按下键盘... (ESC 取消)</div></div>
                   <div class="form-group row">
-                    <label for="shortcut_run_query" class="col-sm-6 col-form-label">Run Query</label>
+                    <label for="shortcut_run_query" class="col-sm-6 col-form-label">运行SQL</label>
                     <div class="col-sm-6">
                       <button id="shortcut_run_query" class='btn omnidb__theme__btn--secondary btn-sm btn-block' onclick="startSetShortcut(this)"></button>
                     </div>
                   </div>
 
                   <div class="form-group row">
-                    <label for="shortcut_explain" class="col-sm-6 col-form-label">Run Explain</label>
+                    <label for="shortcut_explain" class="col-sm-6 col-form-label">执行计划</label>
                     <div class="col-sm-6">
                       <button id="shortcut_explain" class='btn omnidb__theme__btn--secondary btn-sm btn-block' onclick="startSetShortcut(this)"></button>
                     </div>
                   </div>
 
                   <div class="form-group row">
-                    <label for="shortcut_explain_analyze" class="col-sm-6 col-form-label">Run Explain Analyze</label>
+                    <label for="shortcut_explain_analyze" class="col-sm-6 col-form-label">运行并解释</label>
                     <div class="col-sm-6">
                       <button id="shortcut_explain_analyze" class='btn omnidb__theme__btn--secondary btn-sm btn-block' onclick="startSetShortcut(this)"></button>
                     </div>
                   </div>
 
                   <div class="form-group row">
-                    <label for="shortcut_cancel_query" class="col-sm-6 col-form-label">Cancel Query</label>
+                    <label for="shortcut_cancel_query" class="col-sm-6 col-form-label">取消</label>
                     <div class="col-sm-6">
                       <button id="shortcut_cancel_query" class='btn omnidb__theme__btn--secondary btn-sm btn-block' onclick="startSetShortcut(this)"></button>
                     </div>
                   </div>
 
                   <div class="form-group row">
-                    <label for="shortcut_indent" class="col-sm-6 col-form-label">Indent</label>
+                    <label for="shortcut_indent" class="col-sm-6 col-form-label">格式化</label>
                     <div class="col-sm-6">
                       <button id="shortcut_indent" class='btn omnidb__theme__btn--secondary btn-sm btn-block' onclick="startSetShortcut(this)"></button>
                     </div>
                   </div>
 
                   <div class="form-group row">
-                    <label for="shortcut_autocomplete" class="col-sm-6 col-form-label">Autocomplete</label>
+                    <label for="shortcut_autocomplete" class="col-sm-6 col-form-label">自动语法补全</label>
                     <div class="col-sm-6">
                       <button id="shortcut_autocomplete" class='btn omnidb__theme__btn--secondary btn-sm btn-block' onclick="startSetShortcut(this)"></button>
                     </div>
                   </div>
 
                   <div class="form-group row">
-                    <label for="shortcut_new_inner_tab" class="col-sm-6 col-form-label">New Inner Tab</label>
+                    <label for="shortcut_new_inner_tab" class="col-sm-6 col-form-label">新建Tab</label>
                     <div class="col-sm-6">
                       <button id="shortcut_new_inner_tab" class='btn omnidb__theme__btn--secondary btn-sm btn-block' onclick="startSetShortcut(this)"></button>
                     </div>
                   </div>
 
                   <div class="form-group row">
-                    <label for="shortcut_remove_inner_tab" class="col-sm-6 col-form-label">Remove Current Inner Tab</label>
+                    <label for="shortcut_remove_inner_tab" class="col-sm-6 col-form-label">移除当前Tab</label>
                     <div class="col-sm-6">
                       <button id="shortcut_remove_inner_tab" class='btn omnidb__theme__btn--secondary btn-sm btn-block' onclick="startSetShortcut(this)"></button>
                     </div>
                   </div>
 
                   <div class="form-group row">
-                    <label for="shortcut_left_inner_tab" class="col-sm-6 col-form-label">Select Left Inner Tab</label>
+                    <label for="shortcut_left_inner_tab" class="col-sm-6 col-form-label">选择左侧Tab</label>
                     <div class="col-sm-6">
                       <button id="shortcut_left_inner_tab" class='btn omnidb__theme__btn--secondary btn-sm btn-block' onclick="startSetShortcut(this)"></button>
                     </div>
                   </div>
 
                   <div class="form-group row">
-                    <label for="shortcut_right_inner_tab" class="col-sm-6 col-form-label">Select Right Inner Tab</label>
+                    <label for="shortcut_right_inner_tab" class="col-sm-6 col-form-label">选择右侧Tab</label>
                     <div class="col-sm-6">
                       <button id="shortcut_right_inner_tab" class='btn omnidb__theme__btn--secondary btn-sm btn-block' onclick="startSetShortcut(this)"></button>
                     </div>
                   </div>
 
                   <div style="text-align:right;">
-                    <button class='btn btn-success' onclick='saveShortcuts()'>Save</button>
+                    <button class='btn btn-success' onclick='saveShortcuts()'>保存</button>
                   </div>
                 </div>
 
@@ -515,14 +515,14 @@
 
                   <div class="form-row">
                     <div class="col-md-6 mb-3">
-                      <label for="sel_editor_theme">Theme</label>
+                      <label for="sel_editor_theme">主题</label>
                       <select id="sel_editor_theme" class="form-control" oninput="changeTheme(this.value)">
   		                	<option value="light">Light</option>
   							        <option value="dark">Dark</option>
   		                </select>
                     </div>
                     <div class="col-md-6 mb-3">
-                      <label for="sel_interface_font_size">Font Size</label>
+                      <label for="sel_interface_font_size">字体大小</label>
                       <select id="sel_interface_font_size" class="form-control" oninput="changeInterfaceFontSize(this.value)">
   		                	<option value="10">10</option>
   		                	<option value="11">11</option>
@@ -540,7 +540,7 @@
                   </div>
                   <div class="form-row">
                     <div class="col-md-6 mb-3">
-                      <label for="sel_csv_encoding">CSV Encoding</label>
+                      <label for="sel_csv_encoding">CSV编码</label>
                       <select id="sel_csv_encoding" class="form-control">
                         <option value="ascii">ascii</option>
                         <option value="big5">big5</option>
@@ -644,12 +644,12 @@
                       </select>
                     </div>
                     <div class="col-md-6 mb-3">
-                      <label for="txt_csv_delimiter">CSV Delimiter</label>
+                      <label for="txt_csv_delimiter">CSV分隔符</label>
                       <input type="text" class="form-control" id="txt_csv_delimiter" placeholder="Delimiter">
                     </div>
                   </div>
                   <div style="text-align:right;">
-                    <button class='btn btn-success' onclick='saveConfigUser()'>Save</button>
+                    <button class='btn btn-success' onclick='saveConfigUser()'>保存</button>
                   </div>
 
                 </div>
@@ -657,16 +657,16 @@
                 <div class="tab-pane fade" id="config_password" role="tabpanel" aria-labelledby="config_password-tab">
                   <div class="form-row">
                     <div class="col-md-6 mb-3">
-                      <label for="txt_new_pwd">New Password</label>
+                      <label for="txt_new_pwd">新密码</label>
                       <input id="txt_new_pwd" type="password" class="form-control">
                     </div>
                     <div class="col-md-6 mb-3">
-                      <label for="txt_confirm_new_pwd">Confirm</label>
+                      <label for="txt_confirm_new_pwd">再次确认</label>
                       <input id="txt_confirm_new_pwd" type="password" class="form-control">
                     </div>
                   </div>
                   <div style="text-align:right;">
-                    <button class='btn btn-success' onclick='saveConfigUser()'>Save</button>
+                    <button class='btn btn-success' onclick='saveConfigUser()'>保存</button>
                   </div>
                 </div>
               </div>

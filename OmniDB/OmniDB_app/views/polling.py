@@ -1,3 +1,5 @@
+import re
+
 from django.http import HttpResponse
 from django.template import loader
 from django.http import JsonResponse
@@ -171,6 +173,9 @@ def create_request(request):
     v_session = request.session.get('omnidb_session')
 
     json_object = json.loads(request.POST.get('data', None))
+    logger.info('request log: {0}'.format(json_object))
+
+
     v_code = json_object['v_code']
     v_context_code = json_object['v_context_code']
     v_data = json_object['v_data']
@@ -182,6 +187,39 @@ def create_request(request):
         client_object['polling_lock'].release()
     except:
         None
+
+    v_response_error = {
+        'v_code': v_code,
+        'v_context_code': v_context_code,
+        'v_error': True,
+        'v_data': {}
+    }
+    # 这个地方进行高危权限管控
+    if v_data and isinstance(v_data, dict) and 'v_sql_cmd' in v_data:
+        cods = v_data['v_sql_cmd'][:-1]
+        cods_split = cods.split(';')
+        match_re = r'(update\s+\S+\s+set|delete\s+from|insert\s+into|select.*into\s+.*\s+from|alter|drop|create|truncate|grant)\s+'
+        match_head = r'(\s|\(|\)|;|^)+'
+        for cod in cods_split:
+            cod=cod.replace('\n',' ').replace('\r',' ')
+            update = re.search(match_head + r'(-force\s+)?' + match_re, cod, re.I | re.M)
+            if update and not v_session.v_super_user:
+                v_response_error ['v_data']['message']='OmniDB管理员才能进行更新操作'
+                queue_response(client_object, v_response_error)
+                return JsonResponse({})
+            force = re.search(match_head + r'(-force\s+)' + match_re, cods, re.I | re.M)
+            if update and not force:
+                v_response_error['v_data']['message'] = '需要在更新语句前加上-force ,eg: -force ' + cod
+                queue_response(client_object, v_response_error)
+                return JsonResponse({})
+        v_data['v_sql_cmd'] = v_data['v_sql_cmd'].replace('-force ', '')
+
+    if v_code == requestType.SaveEditData and not v_session.v_super_user:
+        error_msg = 'OmniDB管理员才能进行更新操作'
+        v_response_error = {'v_code': 3, 'v_context_code': 2, 'v_error': False, 'v_data': [
+            {'mode': -1, 'index': 0, 'command': error_msg, 'error': True, 'v_message': error_msg}]}
+        queue_response(client_object, v_response_error)
+        return JsonResponse({})
 
     #Cancel thread
     if v_code == requestType.CancelThread:
@@ -327,10 +365,8 @@ def create_request(request):
                 )
 
             except Exception as exc:
-                v_return['v_code'] = response.PasswordRequired
-                v_return['v_context_code'] = v_context_code
-                v_return['v_data'] = str(exc)
-                queue_response(client_object,v_return)
+                v_response_error['v_data']['message'] = 'session已经失效,请刷新页面: 不支持同时打开多个窗口'
+                queue_response(client_object,v_response_error)
                 return JsonResponse(
                 {}
                 )
@@ -436,9 +472,7 @@ def create_request(request):
                     tab_object['port'] = v_database_debug.v_connection.ExecuteScalar('show port')
                 except Exception as exc:
                     logger.error('''*** Exception ***\n{0}'''.format(traceback.format_exc()))
-                    v_response['v_code'] = response.MessageException
-                    v_response['v_data'] = traceback.format_exc().replace('\n','<br>')
-                    queue_response(v_client_object,v_response)
+                    return JsonResponse({})
 
             v_data['v_context_code'] = v_context_code
             v_data['v_tab_object'] = tab_object
@@ -991,6 +1025,9 @@ def thread_query(self,args):
                         else:
                             v_hasmorerecords = False
 
+                        if k >= 10:
+                            v_hasmorerecords = False
+
                         if self.cancel:
                             break
                         elif v_hasmorerecords:
@@ -1410,7 +1447,7 @@ def thread_save_edit_data(self,args):
 
         if v_database.v_has_schema:
             v_schema         = args['v_schema']
-        
+
         v_data_rows      = args['v_data_rows']
         v_rows_info      = args['v_rows_info']
         v_pk_info        = args['v_pk_info']

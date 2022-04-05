@@ -81,7 +81,7 @@ function startTutorial(p_tutorial_name) {
         <ul>
         <li>Username and versioning.</li>
         <li><i class="fas fa-plug omnidb__theme__text--primary mr-2"></i>Connection management.</li>
-        <li><i class="fas fa-user omnidb__theme__text--primary mr-2"></i>User management.</li>
+        <li><i class="fas fa-user omnidb__theme__text--primary mr-2"></i>用户管理.</li>
         <li><i class="fas fa-cog omnidb__theme__text--primary mr-2"></i>UI settings (shortcuts, theme, fonts...).</li>
         <li><i class="fas fa-cube omnidb__theme__text--primary mr-2"></i>Plugins management.</li>
         <li><i class="fas fa-sign-out-alt omnidb__theme__text--primary mr-2"></i>About.</li>
@@ -459,13 +459,13 @@ function startTutorial(p_tutorial_name) {
         <p>After running a query, this area will contain 3 special tabs.</p>
         <ol style="padding-left: 1.5rem;">
           <li class="mb-1">
-            <strong>Data</strong>: Contains a table with query results, when successful.
+            <strong>数据</strong>: Contains a table with query results, when successful.
           </li>
           <li class="mb-1">
-            <strong>Messages</strong>: Displays error messages.
+            <strong>信息</strong>: Displays error messages.
           </li>
           <li class="mb-1">
-            <strong>Explain</strong>: Contains a special component to display explain/explain analyze results.
+            <strong>执行计划</strong>: Contains a special component to display explain/explain analyze results.
           </li>
         </ol>
         `,

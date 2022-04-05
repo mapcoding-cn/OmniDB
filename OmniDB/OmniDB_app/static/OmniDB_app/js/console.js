@@ -70,7 +70,7 @@ function showConsoleHistory() {
 	v_tab_tag.consoleHistory.headerDiv.innerHTML =
 	"<div class='mb-2 form-inline justify-content-center'>" +
 		"<div class='input-group w-auto mr-2'>" +
-			"<span class='my-auto'>Select a daterange:</span>&nbsp;" +
+			"<span class='my-auto'>选择时间段:</span>&nbsp;" +
 			"<input type='text' class='form-control form-control-sm d-none' placeholder='Start Time' id='cl_input_from_" + v_tab_tag.tab_id + "'>" +
 			"<input type='text' class='form-control form-control-sm d-none' placeholder='End Time' id='cl_input_to_" + v_tab_tag.tab_id + "'>" +
 			"<button type='button' class='btn btn-sm omnidb__theme__btn--primary' id='cl_time_range_" + v_tab_tag.tab_id + "'>" +
@@ -78,18 +78,18 @@ function showConsoleHistory() {
 				"<span>Last 6 Hours</span> <i class='fa fa-caret-down'></i>" +
 			"</button>" +
 		"</div>" +
-		"<label class='mr-1'>Command contains:</label>" +
-		"<input type='text' id='cl_input_contains_" + v_tab_tag.tab_id + "' class='mr-2 form-control' onchange='refreshConsoleHistoryList();' />" +
+		"<label class='mr-1'>关键字:</label>" +
+		"<input type='text' id='cl_input_contains_his_" + v_tab_tag.tab_id + "' class='mr-2 form-control' onchange='refreshConsoleHistoryList();' autocomplete='off'/>" +
 	"</div>" +
 	"<div id='console_history_daterangepicker_container_" + v_tab_tag.id  + "' style='position:relative;'></div>" +
 	"<div class='mb-2 d-flex justify-content-center align-items-center'>" +
-		"<button id='bt_first_" + v_tab_tag.tab_id + "' onclick='consoleHistoryFirstPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='First'>First</button>" +
-		"<button id='bt_previous_" + v_tab_tag.tab_id + "' onclick='consoleHistoryPreviousPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='Previous'>Previous</button>" +
+		"<button id='bt_first_" + v_tab_tag.tab_id + "' onclick='consoleHistoryFirstPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='First'>第一页</button>" +
+		"<button id='bt_previous_" + v_tab_tag.tab_id + "' onclick='consoleHistoryPreviousPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='Previous'>往前</button>" +
 		"<span id='cl_curr_page_" + v_tab_tag.tab_id + "'></span> / <span id='cl_num_pages_" + v_tab_tag.tab_id + "'></span>" +
-		"<button id='bt_next_" + v_tab_tag.tab_id + "' onclick='consoleHistoryNextPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='Next'>Next</button>" +
-		"<button id='bt_last_" + v_tab_tag.tab_id + "' onclick='consoleHistoryLastPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='Last'>Last</button>" +
-		"<button id='bt_refresh_" + v_tab_tag.tab_id + "' onclick='refreshConsoleHistoryList()' class='bt_execute btn btn-sm omnidb__theme__btn--primary mx-1' title='Refresh'><i class='fas fa-sync-alt mr-1'></i>Refresh</button>" +
-		"<button id='bt_clear_" + v_tab_tag.tab_id + "' onclick='deleteConsoleHistoryList()' class='bt_execute btn btn-sm btn-danger mx-1' title='Clear List'><i class='fas fa-broom mr-1'></i>Clear List</button>" +
+		"<button id='bt_next_" + v_tab_tag.tab_id + "' onclick='consoleHistoryNextPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='Next'>往后</button>" +
+		"<button id='bt_last_" + v_tab_tag.tab_id + "' onclick='consoleHistoryLastPage()' class='bt_execute btn btn-sm omnidb__theme__btn--secondary mx-1' title='Last'>最后页</button>" +
+		"<button id='bt_refresh_" + v_tab_tag.tab_id + "' onclick='refreshConsoleHistoryList()' class='bt_execute btn btn-sm omnidb__theme__btn--primary mx-1' title='Refresh'><i class='fas fa-sync-alt mr-1'></i>刷新</button>" +
+		"<button id='bt_clear_" + v_tab_tag.tab_id + "' onclick='deleteConsoleHistoryList()' class='bt_execute btn btn-sm btn-danger mx-1' title='Clear List'><i class='fas fa-broom mr-1'></i>清除</button>" +
 	"</div>";
 
   var v_grid_div = v_tab_tag.consoleHistory.gridDiv;
@@ -180,7 +180,7 @@ function showConsoleHistory() {
 	v_tab_tag.consoleHistory.inputStartedFrom.value = moment().subtract(6, 'hour').toISOString();
 	v_tab_tag.consoleHistory.inputStartedTo = document.getElementById('cl_input_to_' + v_tab_tag.tab_id);
 	v_tab_tag.consoleHistory.inputStartedTo.value = moment().toISOString();
-	v_tab_tag.consoleHistory.inputCommandContains = document.getElementById('cl_input_contains_' + v_tab_tag.tab_id);
+	v_tab_tag.consoleHistory.inputCommandContains = document.getElementById('cl_input_contains_his_' + v_tab_tag.tab_id);
 	v_tab_tag.consoleHistory.inputCommandContains.value = v_tab_tag.consoleHistory.inputCommandContainsLastValue;
 
 	// Setting daterangepicker
@@ -376,7 +376,7 @@ function consoleSQL(p_check_command = true, p_mode = 0) {
   	else {
 
       if (v_content=='' && p_mode == 0) {
-  			showAlert('Please provide a string.');
+  			showAlert('请选择一个SQL.');
   		}
   		else {
 

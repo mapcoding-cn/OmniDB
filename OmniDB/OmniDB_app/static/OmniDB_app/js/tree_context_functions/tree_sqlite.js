@@ -33,7 +33,7 @@ function getTreeSqlite(p_div) {
     var context_menu = {
         'cm_server': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -48,7 +48,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_tables': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -60,11 +60,11 @@ function getTreeSqlite(p_div) {
                     }
                 }
             }, {
-                text: 'Create Table',
+                text: '创建Table',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Create Table',
+                        '创建表',
                         node.tree.tag.create_table
                     );
                 }
@@ -72,7 +72,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_table': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -84,11 +84,11 @@ function getTreeSqlite(p_div) {
                     }
                 }
             }, {
-                text: 'Data Actions',
+                text: '数据操作',
                 icon: 'fas cm-all fa-list',
                 submenu: {
                     elements: [{
-                        text: 'Query Data',
+                        text: '查询数据',
                         icon: 'fas cm-all fa-search',
                         action: function(node) {
                             TemplateSelectSqlite(
@@ -97,7 +97,7 @@ function getTreeSqlite(p_div) {
                             );
                         }
                     }, {
-                        text: 'Edit Data',
+                        text: '修改数据',
                         icon: 'fas cm-all fa-table',
                         action: function(node) {
                             v_startEditData(
@@ -105,7 +105,7 @@ function getTreeSqlite(p_div) {
                             );
                         }
                     }, {
-                        text: 'Insert Record',
+                        text: '插入记录',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
                             TemplateInsertSqlite(
@@ -113,7 +113,7 @@ function getTreeSqlite(p_div) {
                             );
                         }
                     }, {
-                        text: 'Update Records',
+                        text: '修改记录',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
                             TemplateUpdateSqlite(
@@ -121,11 +121,11 @@ function getTreeSqlite(p_div) {
                             );
                         }
                     }, {
-                        text: 'Delete Records',
+                        text: '删除记录',
                         icon: 'fas cm-all fa-times',
                         action: function(node) {
                           tabSQLTemplate(
-                              'Delete Records',
+                              '删除记录',
                               node.tree.tag.delete.replace(
                                   '#table_name#',
                                   node.text
@@ -135,15 +135,15 @@ function getTreeSqlite(p_div) {
                     }]
                 }
             }, {
-                text: 'Table Actions',
+                text: '表操作',
                 icon: 'fas cm-all fa-list',
                 submenu: {
                     elements: [{
-                        text: 'Alter Table',
+                        text: '修改表',
                         icon: 'fas cm-all fa-edit',
                         action: function(node) {
                             tabSQLTemplate(
-                                'Alter Table',
+                                '修改表',
                                 node.tree.tag.alter_table.replace(
                                     '#table_name#',
                                     node.text
@@ -151,11 +151,11 @@ function getTreeSqlite(p_div) {
                             );
                         }
                     }, {
-                        text: 'Drop Table',
+                        text: '删除表',
                         icon: 'fas cm-all fa-times',
                         action: function(node) {
                             tabSQLTemplate(
-                                'Drop Table',
+                                '删除表',
                                 node.tree.tag.drop_table.replace(
                                     '#table_name#',
                                     node.text
@@ -168,11 +168,11 @@ function getTreeSqlite(p_div) {
         },
         'cm_columns': {
             elements: [{
-                text: 'Create Column',
+                text: '创建Column',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Create Column',
+                        '创建Column',
                         node.tree.tag.create_column.replace(
                             '#table_name#',
                             node.parent.text
@@ -186,7 +186,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_pks': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -201,7 +201,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_pk': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -216,7 +216,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_fks': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -231,7 +231,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_fk': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -246,7 +246,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_uniques': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -261,7 +261,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_unique': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -276,7 +276,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_indexes': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -288,11 +288,11 @@ function getTreeSqlite(p_div) {
                     }
                 }
             }, {
-                text: 'Create Index',
+                text: '创建Index',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Create Index',
+                        '创建Index',
                         node.tree.tag.create_index.replace(
                             '#table_name#',
                             node.parent.text
@@ -303,7 +303,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_index': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -333,11 +333,11 @@ function getTreeSqlite(p_div) {
                     );
                 }
             }, {
-                text: 'Drop Index',
+                text: '删除 Index',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Drop Index',
+                        '删除 Index',
                         node.tree.tag.drop_index.replace(
                             '#index_name#',
                             node.text.replace(
@@ -354,7 +354,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_triggers': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -366,11 +366,11 @@ function getTreeSqlite(p_div) {
                     }
                 },
             }, {
-                text: 'Create Trigger',
+                text: '创建Trigger',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Create Trigger',
+                        '创建Trigger',
                         node.tree.tag.create_trigger.replace(
                             '#table_name#',
                             node.parent.text
@@ -381,11 +381,11 @@ function getTreeSqlite(p_div) {
         },
         'cm_trigger': {
             elements: [{
-                text: 'Alter Trigger',
+                text: '修改 Trigger',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Alter Trigger',
+                        '修改 Trigger',
                         node.tree.tag.alter_trigger.replace(
                             '#table_name#',
                             node.parent.parent.text
@@ -396,11 +396,11 @@ function getTreeSqlite(p_div) {
                     );
                 }
             }, {
-                text: 'Drop Trigger',
+                text: '删除 Trigger',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Drop Trigger',
+                        '删除 Trigger',
                         node.tree.tag.drop_trigger.replace(
                             '#table_name#',
                             node.parent.parent.text
@@ -414,7 +414,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_views': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -426,11 +426,11 @@ function getTreeSqlite(p_div) {
                     }
                 }
             }, {
-                text: 'Create View',
+                text: '创建View',
                 icon: 'fas cm-all fa-edit',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Create View',
+                        '创建View',
                         node.tree.tag.create_view
                     );
                 }
@@ -438,7 +438,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_view': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -450,7 +450,7 @@ function getTreeSqlite(p_div) {
                     }
                 }
             }, {
-                text: 'Query Data',
+                text: '查询数据',
                 icon: 'fas cm-all fa-search',
                 action: function(node) {
                     TemplateSelectSqlite(
@@ -459,11 +459,11 @@ function getTreeSqlite(p_div) {
                     );
                 }
             }, {
-                text: 'Drop View',
+                text: '删除 View',
                 icon: 'fas cm-all fa-times',
                 action: function(node) {
                     tabSQLTemplate(
-                        'Drop View',
+                        '删除 View',
                         node.tree.tag.drop_view.replace(
                             '#view_name#',
                             node.text
@@ -474,7 +474,7 @@ function getTreeSqlite(p_div) {
         },
         'cm_refresh': {
             elements: [{
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {
@@ -495,9 +495,9 @@ function getTreeSqlite(p_div) {
     let v_autocomplete_switch_status = (v_connTabControl.selectedTab.tag.enable_autocomplete !== false) ? ' checked ' : '';
 
     v_connTabControl.selectedTab.tag.divDetails.innerHTML =
-        '<i class="fas fa-server mr-1"></i>selected DB: ' +
+        '<i class="fas fa-server mr-1"></i>当前数据库: ' +
         '<b>' + v_connTabControl.selectedTab.tag.selectedDatabase + '</b>' +
-        '<div class="omnidb__switch omnidb__switch--sm float-right" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<h5>Toggle autocomplete.</h5><div>Switch OFF <b>disables the autocomplete</b> on the inner tabs for this connection.</div>">' +
+        '<div class="omnidb__switch omnidb__switch--sm float-right" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<h5>自动语法补全</h5><div>Switch OFF <b>disables the autocomplete</b> on the inner tabs for this connection.</div>">' +
     	'    <input type="checkbox" ' + v_autocomplete_switch_status + ' id="autocomplete_toggler_' + v_connTabControl.selectedTab.tag.tab_id + '" class="omnidb__switch--input" onchange="toggleConnectionAutocomplete(\'autocomplete_toggler_' + v_connTabControl.selectedTab.tag.tab_id + '\')">' +
     	'    <label for="autocomplete_toggler_' + v_connTabControl.selectedTab.tag.tab_id + '" class="omnidb__switch--label"><span><i class="fas fa-spell-check"></i></span></label>' +
 		'</div>';
@@ -648,7 +648,7 @@ function getTreeDetailsSqlite(node) {
             node.tree.contextMenu.cm_server.elements = []
 
             node.tree.contextMenu.cm_server.elements.push({
-                text: 'Refresh',
+                text: '刷新',
                 icon: 'fas cm-all fa-sync-alt',
                 action: function(node) {
                     if (node.childNodes == 0) {

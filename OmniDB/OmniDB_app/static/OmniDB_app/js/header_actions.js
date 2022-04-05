@@ -315,7 +315,7 @@ function goToConnections() {
 /// </summary>
 function confirmSignout() {
 
-	showConfirm('Are you sure you want to sign out?',
+	showConfirm('确定退出吗?',
 		function() {
 
 			window.open("../logout","_self");

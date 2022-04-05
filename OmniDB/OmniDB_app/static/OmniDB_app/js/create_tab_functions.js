@@ -127,7 +127,7 @@ function initCreateTabFunctions() {
 	// 	v_curr_tabs.tabList[2].elementLi.onclick = function() {
 	//
 	// 		if (v_tag.alterTableObject.mode!='alter')
-	// 			showAlert('Create the table first.');
+	// 			showAlert('创建the table first.');
 	// 		else {
 	// 			v_curr_tabs.selectTabIndex(2);
 	// 			v_tag.alterTableObject.window = 'indexes';
@@ -379,13 +379,13 @@ function initCreateTabFunctions() {
 		v_connTabControl.createTab(
 	    {
 	      p_icon: '<i class="fas fa-plus"></i>',
-	      p_name: 'Add Connection',
+	      p_name: '连接管理',
 	      p_close: false,
 	      p_selectable: false,
 	      p_clickFunction: function(e) {
 	        showMenuNewTabOuter(e);
 	      },
-	      p_omnidb_tooltip_name: '<h5 class="my-1">Add/Select Connections</h5>'
+	      p_omnidb_tooltip_name: '<h5 class="my-1">新建/选择连接</h5>'
 	    }
 	  );
 	}
@@ -438,14 +438,14 @@ function beforeCloseTab(e,p_confirm_function) {
 				},
 				[
 					{
-						text: 'Confirm',
+						text: '确认',
 						icon: 'fas cm-all fa-check',
 						action: function() {
 							p_confirm_function();
 						}
 					},
 					{
-						text: 'Cancel',
+						text: '取消',
 						icon: 'fas cm-all fa-times',
 						action: function() {
 						}
