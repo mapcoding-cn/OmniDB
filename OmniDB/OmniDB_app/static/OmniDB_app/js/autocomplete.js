@@ -642,7 +642,7 @@ $(function() {
         return function (event) {
           event.preventDefault()
           event.stopPropagation()
-          close_autocomplete(group.elements[group.grid.getSelected()[0][0]].select_value);
+          close_autocomplete(event.target.innerText);
         }
       }(v_autocomplete_object.elements[i]));
 
