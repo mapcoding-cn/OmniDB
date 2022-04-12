@@ -4,6 +4,16 @@ OmniDB是一个开源的基于浏览器的DMS工具，它简化了专注于交�
 **体验地址**: https://db.mapcoding.cn 
 **如果对你有帮助,请star,感谢支持**
 
+**如何部署**
+``` 
+docker pull ccr.ccs.tencentyun.com/mapcoding/mapcoding:omnidb-cn
+docker run -d --name omnidb-cn -p 8000:8000  ccr.ccs.tencentyun.com/mapcoding/mapcoding:omnidb-cn
+# 或者拉取代码自行编译镜像
+docker build .
+docker run -d --name omnidb-cn -p 8000:8000  [imageId]
+
+```
+
 **CN版本主要特性** 
 + 进行了本地化适配和大量流程简化 
 + 权限管控增强,限制高危sql执行
