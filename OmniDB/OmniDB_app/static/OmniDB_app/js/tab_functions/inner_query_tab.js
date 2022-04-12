@@ -102,7 +102,7 @@ var v_createQueryTabFunction = function(p_table, p_tab_db_id) {
 
   // Creating the template for the inner_query_tab.
   var v_html =
-  '<div id="txt_query_' + v_tab.id + '" style="width: 100%; height: 600px;"></div>' +
+  '<div id="txt_query_' + v_tab.id + '" style="width: 100%; height: 400px;"></div>' +
   '<div class="omnidb__resize-line__container" onmousedown="resizeVertical(event)" style="width: 100%; height: 5px; cursor: ns-resize;"><div class="resize_line_horizontal" style="height: 0px; border-bottom: 1px dashed #acc4e8;"></div><div style="height:5px;"></div></div>' +
   command_history_modal +
   '<div class="row mb-1">' +
