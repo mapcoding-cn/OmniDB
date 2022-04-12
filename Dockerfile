@@ -28,7 +28,7 @@ RUN pip config set global.index-url http://mirrors.cloud.tencent.com/pypi/simple
 
 WORKDIR ${HOME}/OmniDB/OmniDB
 
-RUN python omnidb-server.py --init \
+RUN python omnidb-server.py --init
 
 EXPOSE 8000
 
