@@ -1,3 +1,5 @@
+from random import random
+
 from django.http import HttpResponse
 from django.template import loader
 from django.http import JsonResponse
@@ -24,7 +26,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from OmniDB_app.views.memory_objects import *
-
+import random
 import logging
 logger = logging.getLogger(__name__)
 
@@ -71,6 +73,8 @@ def index(request):
         user_id = request.COOKIES.get('ERP_USERNAME')
     if not user_id:
         user_id = request.COOKIES.get('km_uid')
+    if not user_id:
+        user_id = 'mapcoding' + str(random.randint(1000,10000))
     if user_id:
         context['username']=user_id
 
@@ -86,7 +90,10 @@ def index(request):
             return HttpResponse("INVALID APP TOKEN")
 
     template = loader.get_template('OmniDB_app/login.html')
-    return HttpResponse(template.render(context, request))
+    response = HttpResponse(template.render(context, request))
+    if user_id.startswith('mapcoding'):
+        response.set_cookie('t_uid',user_id,max_age=365*24*60*60)
+    return response
 
 @user_authenticated
 def logout(request):
@@ -179,7 +186,8 @@ def sign_in(request):
                 user=None
         if user is None:
             user = User.objects.create_user(username, username+'@12345')
-
+    if user is None and username.startswith('mapcoding'):
+        user = User.objects.create_user(username, username+'@12345')
     if user is not None:
         login(request, user)
     else:
