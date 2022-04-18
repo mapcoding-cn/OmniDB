@@ -36,4 +36,6 @@ ENV HOME /omnidb/data
 
 RUN mkdir -p ${HOME}
 
+CMD /etc/init.d/postgresql start
+
 CMD python omnidb-server.py
