@@ -11,7 +11,7 @@ USER root
 RUN addgroup --system omnidb \
     && adduser --system omnidb --ingroup omnidb \
     && apt-get update \
-    && apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev vim postgresql -y \
+    && apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev vim postgresql -y
 
 #USER omnidb:omnidb
 
