@@ -121,7 +121,7 @@ var v_createQueryTabFunction = function(p_table, p_tab_db_id) {
       '<button id="bt_cancel_' + v_tab.id + '" class="btn btn-sm btn-danger omnidb__tab-actions__btn" title="Cancel" style="display: none;" onclick="cancelSQL();">Cancel</button>' +
       '<div id="div_query_info_' + v_tab.id + '" class="omnidb__query-info"></div>' +
       '<button class="btn btn-sm omnidb__theme__btn--primary omnidb__tab-actions__btn ml-auto" title="导出数据" onclick="v_connTabControl.selectedTab.tag.tabControl.selectedTab.tag.exportData();"><i class="far fa-file fa-light"></i></button>' +
-      '<select id="sel_export_type_' + v_tab.id + '" class="form-control omnidb__tab-actions__select" style="width: 80px;"><option selected="selected" value="csv">CSV</option><option value="xlsx">XLSX</option></select>' +
+      '<select id="sel_export_type_' + v_tab.id + '" class="form-control omnidb__tab-actions__select" style="width: 80px;"><option selected="selected" value="csv">CSV</option><option value="xlsx">XLSX</option><option value="sql">SQL</option></select>' +
     '</div>' +
   '</div>' +
   '<div id="query_result_tabs_container' + v_tab.id + '" class="omnidb__query-result-tabs">' +

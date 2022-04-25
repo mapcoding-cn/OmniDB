@@ -26,6 +26,7 @@ import sqlparse
 import paramiko
 import OmniDB_app.include.custom_paramiko_expect as custom_paramiko_expect
 
+from OmniDB_app.views.sql_table_parse import extract_tables
 from django.contrib.auth.models import User
 from OmniDB_app.models.main import *
 
@@ -867,13 +868,15 @@ def thread_query(self,args):
             log_end_time = datetime.now()
             v_duration = GetDuration(log_start_time,log_end_time)
 
-            if v_cmd_type=='export_csv' or v_cmd_type=='export_xlsx':
+            if v_cmd_type=='export_csv' or v_cmd_type=='export_xlsx' or v_cmd_type == 'export_sql':
 
                 #cleaning temp folder
                 clean_temp_folder()
 
                 if v_cmd_type=='export_csv':
                     v_extension = 'csv'
+                elif v_cmd_type == 'export_sql':
+                    v_extension = 'sql'
                 else:
                     v_extension = 'xlsx'
 
@@ -888,7 +891,8 @@ def thread_query(self,args):
                 #    f = Spartacus.Utils.DataFileWriter(os.path.join(v_export_dir, v_file_name), v_data1.Columns, 'windows-1252')
                 #else:
                 #    f = Spartacus.Utils.DataFileWriter(os.path.join(v_export_dir, v_file_name), v_data1.Columns)
-                f = Spartacus.Utils.DataFileWriter(os.path.join(v_export_dir, v_file_name), v_data1.Columns,v_session.v_csv_encoding, v_session.v_csv_delimiter)
+                table_name = extract_tables(v_sql,False)
+                f = Spartacus.Utils.DataFileWriter(os.path.join(v_export_dir, v_file_name), v_data1.Columns,v_session.v_csv_encoding, v_session.v_csv_delimiter,p_table_name = table_name[0])
                 f.Open()
                 if v_database.v_connection.v_start:
                     f.Write(v_data1)
@@ -898,7 +902,9 @@ def thread_query(self,args):
                     v_hasmorerecords = True
                 else:
                     v_hasmorerecords = False
-                while v_hasmorerecords:
+                count = 0
+                while v_hasmorerecords and count < 100:
+                    count += 1
                     v_data1 = v_database.v_connection.QueryBlock(v_sql, 1000, False, True)
                     if v_database.v_connection.v_start:
                         f.Write(v_data1)

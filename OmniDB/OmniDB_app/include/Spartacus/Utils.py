@@ -36,6 +36,7 @@ import openpyxl
 from collections import OrderedDict
 import tempfile
 import hashlib
+import numbers
 
 import OmniDB_app.include.Spartacus as Spartacus
 
@@ -84,7 +85,7 @@ class Cryptor(object):
             raise Spartacus.Utils.Exception(str(exc))
 
 class DataFileWriter(object):
-    def __init__(self, p_filename, p_fieldnames=None, p_encoding='utf-8', p_delimiter=';', p_lineterminator='\n'):
+    def __init__(self, p_filename, p_fieldnames=None, p_encoding='utf-8', p_delimiter=';', p_lineterminator='\n', p_table_name=''):
         v_tmp = p_filename.split('.')
         if len(v_tmp) > 1:
             self.v_extension = v_tmp[-1].lower()
@@ -99,6 +100,7 @@ class DataFileWriter(object):
         self.v_delimiter = p_delimiter
         self.v_lineterminator = p_lineterminator
         self.v_currentrow = 1
+        self.v_table_name = p_table_name
         self.v_open = False
     def Open(self):
         try:
@@ -106,6 +108,9 @@ class DataFileWriter(object):
                 self.v_file = open(self.v_filename, 'w', encoding=self.v_encoding)
                 self.v_object = csv.writer(self.v_file, delimiter=self.v_delimiter, lineterminator=self.v_lineterminator)
                 self.v_object.writerow(self.v_header)
+                self.v_open = True
+            elif self.v_extension == 'sql':
+                self.v_file = open(self.v_filename, 'a+', encoding=self.v_encoding)
                 self.v_open = True
             elif self.v_extension == 'xlsx':
                 self.v_object = openpyxl.Workbook(write_only=True)
@@ -120,7 +125,25 @@ class DataFileWriter(object):
         try:
             if not self.v_open:
                 raise Spartacus.Utils.Exception('You need to call Open() first.')
-            if self.v_extension == 'csv':
+            if self.v_extension == 'sql':
+                sql_list = []
+                datatable_columns = p_datatable.Columns
+                columns = ",".join(datatable_columns)
+                for v_row in p_datatable.Rows:
+                    str_rows = []
+                    for val in v_row:
+                        if not val and val != 0:
+                            str_rows.append('null')
+                        elif isinstance(val, str):
+                            va = str(val).replace("'", "\'")
+                            str_rows.append("'" + va + "'")
+                        else:
+                            str_rows.append(str(val))
+                    row_val = ", ".join(str_rows)
+                    name = str(self.v_table_name)
+                    sql_list.append('INSERT INTO ' + name + ' (' + columns + ') VALUES (' + row_val + ');\n')
+                self.v_file.writelines(sql_list)
+            elif self.v_extension == 'csv':
                 for v_row in p_datatable.Rows:
                     self.v_object.writerow(v_row)
             else:
@@ -147,7 +170,7 @@ class DataFileWriter(object):
         try:
             if not self.v_open:
                 raise Spartacus.Utils.Exception('You need to call Open() first.')
-            if self.v_extension == 'csv':
+            if self.v_extension == 'csv' or self.v_extension == 'sql':
                 self.v_file.close()
             else:
                 self.v_object.save(self.v_filename)

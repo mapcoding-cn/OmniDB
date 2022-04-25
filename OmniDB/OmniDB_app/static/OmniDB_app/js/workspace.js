@@ -50,7 +50,7 @@ $(function () {
         p_close: false,
         p_selectable: false,
         p_clickFunction: function(e) {
-            alert("版本更新:\n  1.语法补全特性增强\n  2.切换为集群模式\n  3.单次查询限制10W条\n\n @mapcoding");
+            alert("版本更新:\n  1.语法补全特性增强\n  2.切换为集群模式\n  3.单次查询限制10W条\n  4.增加导出为sql格式\n\n@mapcoding-cn");
         },
       }
     );
