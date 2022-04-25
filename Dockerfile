@@ -17,6 +17,7 @@ RUN addgroup --system omnidb \
 
 ENV HOME /home/omnidb
 
+
 COPY . ${HOME}/OmniDB
 
 
