@@ -154,7 +154,7 @@ function cancelAjax() {
 			// Intercepting the workflow when the request returns with evaluated server errors.
  			if(p_return.v_error) {
  				if(p_return.v_error_id == 1) {
- 					showAlert('User not authenticated, please reload the page.');
+ 					showAlert('请求异常,请刷新页面');
  				}
  				else if(p_errorFunc) {
  					p_errorFunc(p_return);
@@ -183,7 +183,7 @@ function cancelAjax() {
 			else {
 				// Prompting error messages related to ajax error.
 	 			if(msg.readyState != 0) {
-	 				showAlert('Request error.')
+	 				showAlert('请求失败.')
 	 			}
 	 			else {
 	 				if(msg.statusText!='abort') {
@@ -201,6 +201,6 @@ function cancelAjax() {
  * Reporting that webserver is off.
  */
 function reportOffline() {
-	showAlert('Webserver was shutdown, please restart it and reload the application.');
+	showAlert('请求失败.');
 	var v_status_img = document.getElementById("ajax_status");
 }

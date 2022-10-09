@@ -196,12 +196,12 @@ function showConnectionList(p_open_modal, p_change_group) {
 				v_card_body_div.appendChild(v_card_body_buttons);
 
 				var v_button_select = document.createElement('button');
-				v_button_select.className = 'btn btn-success btn-sm omnidb__connections__btn--select';
+				v_button_select.className = 'btn btn-sm mx-1 omnidb__theme__btn--primary';
 				v_button_select.title = "Select";
 				/*if (v_conn_obj.locked==true) {
 					v_button_select.setAttribute("disabled",true);
 				}*/
-				v_button_select.innerHTML = '<svg width="15px" height="160px" viewBox="0 0 15 160" style="width: auto;height: 100%;stroke: none;stroke-width: 0;"><path stroke-width="0" stroke="none" d="M 0 0 L 15 80 L 0 160 Z"></path></svg><i class="fas fa-plug"></i>';
+				v_button_select.innerHTML = '连接'
 				v_card_body_buttons.appendChild(v_button_select);
 
         var v_button_edit = document.createElement('button');
@@ -210,8 +210,14 @@ function showConnectionList(p_open_modal, p_change_group) {
         /*if (v_conn_obj.locked==true) {
 					v_button_edit.setAttribute("disabled",true);
 				}*/
-        v_button_edit.innerHTML = '<i class="fas fa-pen"</i>'
+        v_button_edit.innerHTML = '编辑'
         v_card_body_buttons.appendChild(v_button_edit);
+
+		var v_button_share = document.createElement('button');
+		v_button_share.className = 'btn btn-sm mx-1 omnidb__theme__btn--primary';
+		v_button_share.title = "share";
+		v_button_share.innerHTML = '分享'
+		v_card_body_buttons.appendChild(v_button_share);
 
         var v_button_delete = document.createElement('button');
         v_button_delete.className = 'btn btn-danger btn-sm mx-1';
@@ -227,6 +233,21 @@ function showConnectionList(p_open_modal, p_change_group) {
 						selectConnection(conn_obj);
 					};
 				}(v_conn_obj));
+
+		  v_button_share.onclick = (function (conn_obj) {
+			  return function () {
+				  let message = "点击链接加入数据库: [" + conn_obj.alias + "]\n"
+				  let shareUrl = " http://" + document.location.host + "/share/" + conn_obj.share_code;
+				  try {
+					  navigator.clipboard.writeText(message + shareUrl).then(() => {
+					  alert('分享链接已经复制到剪贴板');
+				  });
+				  }catch (e) {
+					  prompt(message,shareUrl);
+				  }
+
+			  };
+		  }(v_conn_obj));
 
         v_button_edit.onclick = (function(conn_obj) {
           return function() {

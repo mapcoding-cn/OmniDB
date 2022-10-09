@@ -72,8 +72,8 @@ function showCommandList() {
 				"<span>Last 6 Hours</span> <i class='fa fa-caret-down'></i>" +
 			"</button>" +
 		"</div>" +
-		"<label class='mr-1'>关键字:</label>" +
-		"<input type='text' id='cl_input_contains_his_" + v_tabTag.tab_id + "' class='mr-2 form-control' onchange='refreshCommandList();' autofill='off' autocomplete='off'/>" +
+		"<label class='mr-1'>查询:</label>" +
+		"<input type='text' id='cl_input_contains_his_" + v_tabTag.tab_id + "' onchange='refreshCommandList();' autocomplete='off' autofill='off'/>" +
 	"</div>" +
 	"<div id='command_history_daterangepicker_container_" + v_tabTag.id  + "' style='position:relative;'></div>" +
 	"<div class='mb-2 d-flex justify-content-center align-items-center'>" +
