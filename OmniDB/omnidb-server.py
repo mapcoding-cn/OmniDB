@@ -23,79 +23,78 @@ parser = optparse.OptionParser(version=OmniDB.custom_settings.OMNIDB_VERSION)
 group = optparse.OptionGroup(parser, "General Options")
 
 group.add_option("-d", "--homedir", dest="homedir",
-                  default='', type=str,
-                  help="home directory containing config and log files")
+                 default='', type=str,
+                 help="home directory containing config and log files")
 
 group.add_option("-C", "--configfile", dest="conf",
-                  default='', type=str,
-                  help="configuration file")
+                 default='', type=str,
+                 help="configuration file")
 
 group.add_option("-i", "--init", dest="init",
-                  action="store_true",
-                  default=False,
-                  help="Create home directory containing config and log files")
+                 action="store_true",
+                 default=False,
+                 help="Create home directory containing config and log files")
 
 parser.add_option_group(group)
 
 group = optparse.OptionGroup(parser, "Webserver Options")
 
 group.add_option("-H", "--host", dest="host",
-                  default=None, type=str,
-                  help="listening address")
+                 default=None, type=str,
+                 help="listening address")
 
 group.add_option("-p", "--port", dest="port",
-                  default=None, type=int,
-                  help="listening port")
-
+                 default=None, type=int,
+                 help="listening port")
 
 group.add_option("-A", "--app", dest="app",
-                  action="store_true",
-                  default=False,
-                  help=optparse.SUPPRESS_HELP)
+                 action="store_true",
+                 default=False,
+                 help=optparse.SUPPRESS_HELP)
 
 group.add_option("-P", "--path", dest="path",
-                  default='', type=str,
-                  help="path to access the application, other than /")
+                 default='', type=str,
+                 help="path to access the application, other than /")
 
 parser.add_option_group(group)
 
 group = optparse.OptionGroup(parser, "Management Options",
                              "Options to list, create and drop users and connections.")
 group.add_option("-M", "--migratedatabase", dest="migratedb",
-                  nargs=1,metavar="dbfile",
-                  help="migrate users and connections from OmniDB 2 to 3: -M dbfile")
+                 nargs=1, metavar="dbfile",
+                 help="migrate users and connections from OmniDB 2 to 3: -M dbfile")
 group.add_option("-r", "--resetdatabase", dest="reset",
-                  default=False, action="store_true",
-                  help="reset user and session databases")
+                 default=False, action="store_true",
+                 help="reset user and session databases")
 group.add_option("-j", "--jsonoutput", dest="jsonoutput",
-                  default=False, action="store_true",
-                  help="format list output as json")
+                 default=False, action="store_true",
+                 help="format list output as json")
 group.add_option("-l", "--listusers", dest="listusers",
-                  default=False, action="store_true",
-                  help="list users")
+                 default=False, action="store_true",
+                 help="list users")
 group.add_option("-u", "--createuser", dest="createuser",
-                  nargs=2,metavar="username password",
-                  help="create user: -u username password")
+                 nargs=2, metavar="username password",
+                 help="create user: -u username password")
 group.add_option("-s", "--createsuperuser", dest="createsuperuser",
-                  nargs=2,metavar="username password",
-                  help="create super user: -s username password")
+                 nargs=2, metavar="username password",
+                 help="create super user: -s username password")
 group.add_option("-x", "--dropuser", dest="dropuser",
-                  nargs=1,metavar="username",
-                  help="drop user: -x username")
+                 nargs=1, metavar="username",
+                 help="drop user: -x username")
 group.add_option("-m", "--listconnections", dest="listconnections",
-                  nargs=1,metavar="username",
-                  help="list connections: -m username")
+                 nargs=1, metavar="username",
+                 help="list connections: -m username")
 group.add_option("-c", "--createconnection", dest="createconnection",
-                  nargs=8,metavar="username technology title host port database dbuser dbpassword",
-                  help="create connection: -c username technology host port database dbuser dbpassword")
+                 nargs=8, metavar="username technology title host port database dbuser dbpassword",
+                 help="create connection: -c username technology host port database dbuser dbpassword")
 group.add_option("-z", "--dropconnection", dest="dropconnection",
-                  nargs=1,metavar="connid",
-                  help="drop connection: -z connid")
+                 nargs=1, metavar="connid",
+                 help="drop connection: -z connid")
 parser.add_option_group(group)
 
 (options, args) = parser.parse_args()
 
-#Generate random token if in app mode
+# Generate random token if in app mode
 if options.app:
     OmniDB.custom_settings.DESKTOP_MODE = True
     OmniDB.custom_settings.APP_TOKEN = ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(50))
@@ -103,9 +102,9 @@ if options.app:
 else:
     app_version = False
 
-if options.homedir!='':
+if options.homedir != '':
     if not os.path.exists(options.homedir):
-        print("Home directory does not exist. Please specify a directory that exists.",flush=True)
+        print("Home directory does not exist. Please specify a directory that exists.", flush=True)
         sys.exit()
     else:
         OmniDB.custom_settings.HOME_DIR = options.homedir
@@ -116,20 +115,19 @@ else:
         OmniDB.custom_settings.HOME_DIR = os.path.join(os.path.expanduser('~'), '.omnidb', 'omnidb-server')
 
     if not os.path.exists(OmniDB.custom_settings.HOME_DIR):
-        print("Creating home directory.",flush=True)
+        print("Creating home directory.", flush=True)
         os.makedirs(OmniDB.custom_settings.HOME_DIR)
 
-
-if options.conf!='':
+if options.conf != '':
     if not os.path.exists(options.conf):
-        print("Config file not found. Please specify a file that exists.",flush=True)
+        print("Config file not found. Please specify a file that exists.", flush=True)
         sys.exit()
     else:
         config_file = options.conf
 else:
     config_file = os.path.join(OmniDB.custom_settings.HOME_DIR, 'config.py')
     if not os.path.exists(config_file):
-        print("Copying config file to home directory.",flush=True)
+        print("Copying config file to home directory.", flush=True)
         shutil.copyfile(os.path.join(OmniDB.custom_settings.BASE_DIR, 'config.py'), config_file)
 
 if options.init:
@@ -141,29 +139,29 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 omnidb_settings = module
 
-if options.host!=None:
+if options.host != None:
     listening_address = options.host
 else:
-    if hasattr(omnidb_settings,'LISTENING_ADDRESS'):
+    if hasattr(omnidb_settings, 'LISTENING_ADDRESS'):
         listening_address = omnidb_settings.LISTENING_ADDRESS
     else:
         listening_address = '127.0.0.1'
 
-if options.port!=None:
+if options.port != None:
     listening_port = options.port
 else:
-    if hasattr(omnidb_settings,'LISTENING_PORT'):
+    if hasattr(omnidb_settings, 'LISTENING_PORT'):
         listening_port = omnidb_settings.LISTENING_PORT
     else:
         listening_port = 8000
 
-if options.path!='':
+if options.path != '':
     OmniDB.custom_settings.PATH = options.path
 else:
-    if hasattr(omnidb_settings,'CUSTOM_PATH'):
+    if hasattr(omnidb_settings, 'CUSTOM_PATH'):
         OmniDB.custom_settings.PATH = omnidb_settings.CUSTOM_PATH
 
-if hasattr(omnidb_settings,'IS_SSL'):
+if hasattr(omnidb_settings, 'IS_SSL'):
     is_ssl = omnidb_settings.IS_SSL
     if is_ssl:
         OmniDB.custom_settings.SESSION_COOKIE_SECURE = True
@@ -171,32 +169,30 @@ if hasattr(omnidb_settings,'IS_SSL'):
 else:
     is_ssl = False
 
-if hasattr(omnidb_settings,'SSL_CERTIFICATE_FILE'):
+if hasattr(omnidb_settings, 'SSL_CERTIFICATE_FILE'):
     ssl_certificate_file = omnidb_settings.SSL_CERTIFICATE_FILE
 
     if is_ssl and not os.path.exists(ssl_certificate_file):
-        print("Certificate file not found. Please specify a file that exists.",flush=True)
+        print("Certificate file not found. Please specify a file that exists.", flush=True)
         sys.exit()
 else:
     ssl_certificate_file = ''
 
-if hasattr(omnidb_settings,'SSL_KEY_FILE'):
+if hasattr(omnidb_settings, 'SSL_KEY_FILE'):
     ssl_key_file = omnidb_settings.SSL_KEY_FILE
 
     if is_ssl and not os.path.exists(ssl_key_file):
-        print("Key file not found. Please specify a file that exists.",flush=True)
+        print("Key file not found. Please specify a file that exists.", flush=True)
         sys.exit()
 else:
     ssl_key_file = ''
 
-#importing settings after setting HOME_DIR and other required parameters
+# importing settings after setting HOME_DIR and other required parameters
 import OmniDB.settings
 
 # Adjust OmniDB settings based on the content of the config file
 for attribute, value in omnidb_settings.__dict__.items():
-    setattr(OmniDB.settings,attribute,value)
-
-
+    setattr(OmniDB.settings, attribute, value)
 
 import logging
 import logging.config
@@ -209,13 +205,14 @@ import OmniDB_app.apps
 os.environ['DJANGO_SETTINGS_MODULE'] = 'OmniDB.settings'
 import django
 from django.core.management import call_command
+
 django.setup()
 from OmniDB_app.models.main import *
 from django.contrib.auth.models import User
 from django.utils import timezone
 import django_sass
 
-print('''Running database migrations...''',flush=True)
+print('''Running database migrations...''', flush=True)
 logger.info('''Running Database Migrations...''')
 
 from os import devnull
@@ -223,16 +220,15 @@ try:
     call_command("migrate", interactive=False)
     call_command("clearsessions")
 except Exception as exc:
-    print(str(exc),flush=True)
+    print(str(exc), flush=True)
     logger.error(str(exc))
     sys.exit()
-
 
 # Migration from 2 to 3 ########################################################
 
 from omnidb_server_helper import *
 
-old_db_file = dbfile = os.path.expanduser(os.path.join(OmniDB.custom_settings.HOME_DIR,'omnidb.db'))
+old_db_file = dbfile = os.path.expanduser(os.path.join(OmniDB.custom_settings.HOME_DIR, 'omnidb.db'))
 
 # SQlite database file exists, proceed with migration
 if os.path.exists(old_db_file) and not options.migratedb:
@@ -242,7 +238,8 @@ if os.path.exists(old_db_file) and not options.migratedb:
 
 maintenance_action = False
 
-def create_user(p_user,p_pwd,p_superuser):
+
+def create_user(p_user, p_pwd, p_superuser):
     User.objects.create_user(username=p_user,
                              password=p_pwd,
                              email='',
@@ -254,12 +251,13 @@ def create_user(p_user,p_pwd,p_superuser):
                              is_active=True,
                              date_joined=timezone.now())
 
+
 if options.reset:
     maintenance_action = True
     print('*** ATENTION *** ALL USERS DATA WILL BE LOST')
     try:
         value = input('Would you like to continue? (y/n) ')
-        if value.lower()=='y':
+        if value.lower() == 'y':
             # Removing users
             User.objects.all().delete()
             # Create default admin user
@@ -270,6 +268,7 @@ if options.reset:
 
 if options.listusers:
     from OmniDB_app.include.Spartacus.Database import DataTable
+
     table = DataTable()
     table.AddColumn('id')
     table.AddColumn('username')
@@ -278,7 +277,7 @@ if options.listusers:
     maintenance_action = True
     users = User.objects.all()
     for user in users:
-        table.AddRow([user.id,user.username,user.is_superuser])
+        table.AddRow([user.id, user.username, user.is_superuser])
     if options.jsonoutput:
         print(table.Jsonify())
     else:
@@ -300,6 +299,7 @@ if options.listconnections:
     maintenance_action = True
 
     from OmniDB_app.include.Spartacus.Database import DataTable
+
     table = DataTable()
     table.AddColumn('id')
     table.AddColumn('technology')
@@ -366,7 +366,6 @@ if options.dropconnection:
     maintenance_action = True
     Connection.objects.get(id=options.dropconnection).delete()
 
-
 if options.migratedb:
     maintenance_action = True
     dbfile = os.path.expanduser(options.migratedb)
@@ -384,6 +383,7 @@ if maintenance_action == True:
 
 if platform.system() != 'Windows':
     import fcntl
+
     try:
         lockfile_pointer = os.open(OmniDB.custom_settings.HOME_DIR, os.O_RDONLY)
         fcntl.flock(lockfile_pointer, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -440,7 +440,7 @@ import urllib.request
 
 def check_port(port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR, 1)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     try:
         s.bind(("127.0.0.1", port))
     except socket.error as e:
@@ -448,6 +448,7 @@ def check_port(port):
         return False
     s.close()
     return True
+
 
 class DjangoApplication(object):
 
@@ -460,11 +461,11 @@ class DjangoApplication(object):
         }
         cherrypy.tree.mount(None, url, {'/': config})
 
-    def run(self,parameters):
-        #cherrypy.engine.unsubscribe('graceful', cherrypy.log.reopen_files)
+    def run(self, parameters):
+        # cherrypy.engine.unsubscribe('graceful', cherrypy.log.reopen_files)
 
         logging.config.dictConfig(OmniDB.settings.LOGGING)
-        #cherrypy.log.error_log.propagate = False
+        # cherrypy.log.error_log.propagate = False
         cherrypy.log.access_log.propagate = False
         self.mount_static(OmniDB.settings.STATIC_URL, OmniDB.settings.STATIC_ROOT)
 
@@ -473,13 +474,13 @@ class DjangoApplication(object):
         port = parameters['listening_port']
         num_attempts = 0
 
-        print('''Checking port availability...''',flush=True)
+        print('''Checking port availability...''', flush=True)
         logger.info('''Checking port availability...''')
 
         while not check_port(port):
-            print("Port {0} is busy, trying another port...".format(port),flush=True)
+            print("Port {0} is busy, trying another port...".format(port), flush=True)
             logger.info("Port {0} is busy, trying another port...".format(port))
-            port = random.randint(1025,32676)
+            port = random.randint(1025, 32676)
             num_attempts = num_attempts + 1
 
             if num_attempts == 20:
@@ -488,6 +489,7 @@ class DjangoApplication(object):
         if num_attempts < 20:
 
             v_cherrypy_config = {
+                'server.thread_pool': 50,
                 'server.socket_host': parameters['listening_address'],
                 'server.socket_port': port,
                 'engine.autoreload_on': False,
@@ -502,7 +504,7 @@ class DjangoApplication(object):
                 ssl_ctx.options |= ssl.OP_NO_TLSv1
                 ssl_ctx.options |= ssl.OP_NO_TLSv1_1
                 ssl_ctx.load_cert_chain(parameters['ssl_certificate_file'],
-                                       parameters['ssl_key_file'])
+                                        parameters['ssl_key_file'])
                 v_cherrypy_config['server.ssl_module'] = 'builtin'
                 v_cherrypy_config['server.ssl_certificate'] = parameters['ssl_certificate_file']
                 v_cherrypy_config['server.ssl_private_key'] = parameters['ssl_key_file']
@@ -516,9 +518,11 @@ class DjangoApplication(object):
 
             cherrypy.config.update(v_cherrypy_config)
 
-
-            print ("Starting server {0} at {1}:{2}{3}.".format(OmniDB.settings.OMNIDB_VERSION,parameters['listening_address'],str(port),OmniDB.settings.PATH),flush=True)
-            logger.info("Starting server {0} at {1}:{2}.".format(OmniDB.settings.OMNIDB_VERSION,parameters['listening_address'],str(port)))
+            print("Starting server {0} at {1}:{2}{3}.".format(OmniDB.settings.OMNIDB_VERSION,
+                                                              parameters['listening_address'], str(port),
+                                                              OmniDB.settings.PATH), flush=True)
+            logger.info("Starting server {0} at {1}:{2}.".format(OmniDB.settings.OMNIDB_VERSION,
+                                                                 parameters['listening_address'], str(port)))
 
             # Startup
             startup.startup_procedure()
@@ -526,33 +530,36 @@ class DjangoApplication(object):
             cherrypy.engine.start()
 
             if not app_version:
-                print ("Open OmniDB in your favorite browser",flush=True)
+                print("Open OmniDB in your favorite browser", flush=True)
                 if platform.system() != 'Windows':
-                    print ("Press Ctrl+C to exit",flush=True)
+                    print("Press Ctrl+C to exit", flush=True)
             else:
-                #Sending response to electron app
-                print ("http://localhost:{0}/omnidb_login/?user=admin&pwd=admin&token={1}".format(str(port),OmniDB.custom_settings.APP_TOKEN),flush=True)
+                # Sending response to electron app
+                print("http://localhost:{0}/omnidb_login/?user=admin&pwd=admin&token={1}".format(str(port),
+                                                                                                 OmniDB.custom_settings.APP_TOKEN),
+                      flush=True)
 
             cherrypy.engine.block()
             cherrypy.engine.exit()
         else:
-            print('Tried 20 different ports without success, closing...',flush=True)
+            print('Tried 20 different ports without success, closing...', flush=True)
             logger.info('Tried 20 different ports without success, closing...')
 
-print('''Starting OmniDB server...''',flush=True)
+
+print('''Starting OmniDB server...''', flush=True)
 logger.info('''Starting OmniDB server...''')
 
-#Removing Expired Sessions
+# Removing Expired Sessions
 SessionStore.clear_expired()
 
 try:
     DjangoApplication().run(
         {
-            'listening_address'   : listening_address,
-            'listening_port'      : listening_port,
-            'is_ssl'              : is_ssl,
+            'listening_address': listening_address,
+            'listening_port': listening_port,
+            'is_ssl': is_ssl,
             'ssl_certificate_file': ssl_certificate_file,
-            'ssl_key_file'        : ssl_key_file
+            'ssl_key_file': ssl_key_file
         }
     )
 except KeyboardInterrupt:

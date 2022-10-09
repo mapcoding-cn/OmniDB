@@ -23,7 +23,7 @@ SSL_KEY_FILE           = '/path/to/key_file'
 CSRF_TRUSTED_ORIGINS = []
 
 # Max number of threads that can used by each advanced object search request
-THREAD_POOL_MAX_WORKERS = 2
+THREAD_POOL_MAX_WORKERS = 100
 
 # List of domains that OmniDB can serve. '*' serves all domains
 ALLOWED_HOSTS = ['*']
