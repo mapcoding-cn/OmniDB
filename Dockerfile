@@ -8,15 +8,16 @@ SHELL ["/bin/bash", "-c"]
 
 USER root
 
+COPY sources.list /etc/apt/sources.list
+
 RUN addgroup --system omnidb \
     && adduser --system omnidb --ingroup omnidb \
     && apt-get update \
-    && apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev vim postgresql -y
+    && apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev vim postgresql net-tools lsof -y
 
 #USER omnidb:omnidb
 
 ENV HOME /home/omnidb
-
 
 COPY . ${HOME}/OmniDB
 
