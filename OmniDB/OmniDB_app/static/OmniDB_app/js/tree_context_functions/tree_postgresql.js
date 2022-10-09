@@ -3954,13 +3954,15 @@ function getTreePostgresql(p_div) {
         checkCurrentDatabase(node, false, v_customCallback);
     }
 
-    var node_server = tree.createNode('PostgreSQL', false,
+    var node_server = tree.createNode('PostgreSQL', true,
         'node-postgresql', null, {
             type: 'server'
         }, 'cm_server');
     node_server.createChildNode('', true, 'node-spin',
         null, null);
     tree.drawTree();
+
+   setTimeout(function (){getTreeDetailsPostgresql(node_server)},1000) ;
 
 }
 
@@ -4731,13 +4733,16 @@ function getTreeDetailsPostgresql(node) {
 
             node.setText(p_return.v_data.v_database_return.version);
 
-            var node_databases = node.createChildNode('Databases', false,
+            var node_databases = node.createChildNode('Databases', true,
                 'fas node-all fa-database node-database-list', {
                     type: 'database_list',
                     num_databases: 0
                 }, 'cm_databases');
             node_databases.createChildNode('', true,
                 'node-spin', null, null);
+            //自动展开
+            getDatabasesPostgresql(node_databases);
+
             var node_tablespaces = node.createChildNode('Tablespaces',
                 false, 'fas node-all fa-folder-open node-tablespace-list', {
                     type: 'tablespace_list',
@@ -4816,13 +4821,16 @@ function getDatabaseObjectsPostgresql(node) {
             node.tag.database_data = p_return.v_data;
 
             var node_schemas = node.createChildNode('Schemas',
-                false, 'fas node-all fa-layer-group node-schema-list', {
+                true, 'fas node-all fa-layer-group node-schema-list', {
                     type: 'schema_list',
                     num_schemas: 0,
                     database: v_connTabControl.selectedTab.tag.selectedDatabase
                 }, 'cm_schemas');
             node_schemas.createChildNode('', true,
                 'node-spin', null, null);
+            //自动展开
+            getSchemasPostgresql(node_schemas);
+
             var node_extensions = node.createChildNode(
                 'Extensions', false,
                 'fas node-all fa-cubes node-extension-list', {
@@ -4892,9 +4900,9 @@ function getDatabaseObjectsPostgresql(node) {
 /// <param name="node">Node object.</param>
 function getDatabasesPostgresql(node) {
 
-    //node.removeChildNodes();
-    //node.createChildNode('', false, 'node-spin', null,
-    //    null);
+    node.removeChildNodes();
+    node.createChildNode('', false, 'node-spin', null,
+       null);
 
     execAjax('/get_databases_postgresql/',
         JSON.stringify({
@@ -4910,21 +4918,22 @@ function getDatabasesPostgresql(node) {
 
             node.tag.num_databases = p_return.v_data.length;
 
+            var select_db;
             for (i = 0; i < p_return.v_data.length; i++) {
-
+                isSelect=v_connTabControl.selectedTab.tag.selectedDatabase == p_return.v_data[i].v_name.replace(/"/g, '');
                 v_node = node.createChildNode(p_return.v_data[i].v_name,
-                    false, 'fas node-all fa-database node-database', {
+                    isSelect, 'fas node-all fa-database node-database', {
                         type: 'database',
                         database: p_return.v_data[i].v_name.replace(
                             /"/g, ''),
                         oid: p_return.v_data[i].v_oid
                     }, 'cm_database', null, false);
 
-                if (v_connTabControl.selectedTab.tag.selectedDatabase ==
-                    p_return.v_data[i].v_name.replace(/"/g, '')) {
+                if (isSelect) {
                     v_node.setNodeBold();
                     v_connTabControl.selectedTab.tag.selectedDatabaseNode =
                         v_node;
+                    select_db=v_node;
                 }
 
                 v_node.createChildNode('', true,
@@ -4936,6 +4945,9 @@ function getDatabasesPostgresql(node) {
             node.drawChildNodes();
 
             afterNodeOpenedCallbackPostgreSQL(node);
+
+            //自动展开
+            getDatabaseObjectsPostgresql(select_db);
 
         },
         function(p_return) {
@@ -4983,6 +4995,8 @@ function getTablespacesPostgresql(node) {
             node.drawChildNodes();
 
             afterNodeOpenedCallbackPostgreSQL(node);
+
+            node.drawTree();
 
         },
         function(p_return) {
@@ -5109,18 +5123,19 @@ function getSchemasPostgresql(node) {
 
             node.tag.num_schemas = p_return.v_data.length;
 
+            var firstNode;
             for (i = 0; i < p_return.v_data.length; i++) {
 
                 v_node = node.createChildNode(p_return.v_data[i].v_name,
-                    false, 'fas node-all fa-layer-group node-schema', {
+                    i==0, 'fas node-all fa-layer-group node-schema', {
                         type: 'schema',
                         num_tables: 0,
                         database: v_connTabControl.selectedTab.tag.selectedDatabase,
                         schema: p_return.v_data[i].v_name,
                         oid: p_return.v_data[i].v_oid
                     }, 'cm_schema', null, false);
-
-                var node_tables = v_node.createChildNode('Tables', false,
+                if (i==0){firstNode=v_node;}
+                var node_tables = v_node.createChildNode('Tables', i==0,
                     'fas node-all fa-th node-table-list', {
                         type: 'table_list',
                         schema: p_return.v_data[i].v_name,
@@ -5319,6 +5334,10 @@ function getSchemasPostgresql(node) {
             node.drawChildNodes();
 
             afterNodeOpenedCallbackPostgreSQL(node);
+            //自动展开
+            firstNode.collapseNode();
+            firstNode.expandNode();
+            getTablesPostgresql(firstNode.childNodes[0]);
 
         },
         function(p_return) {
