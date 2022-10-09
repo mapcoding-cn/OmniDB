@@ -46,10 +46,10 @@ def user_authenticated(function):
             return function(request, *args, **kwargs)
         else:
             v_return = {}
-            v_return['v_data'] = ''
+            v_return['v_data'] = '用户未登录,请登录后重试'
             v_return['v_error'] = True
             v_return['v_error_id'] = 1
-            return JsonResponse(v_return)
+            return JsonResponse(v_return, json_dumps_params={'ensure_ascii': False})
     wrap.__doc__ = function.__doc__
     wrap.__name__ = function.__name__
     return wrap

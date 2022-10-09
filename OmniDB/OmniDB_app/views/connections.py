@@ -1,35 +1,19 @@
-from django.http import HttpResponse
-from django.template import loader
-from django.http import JsonResponse
-from django.core import serializers
-from django.shortcuts import redirect
-import json
-
-import sys
-
-import OmniDB_app.include.Spartacus as Spartacus
-import OmniDB_app.include.Spartacus.Database as Database
-import OmniDB_app.include.Spartacus.Utils as Utils
-import OmniDB_app.include.OmniDatabase as OmniDatabase
-from OmniDB_app.include.Session import Session
-from OmniDB import settings
-from datetime import datetime
-
-import time, os
-
-from OmniDB_app.models.main import *
+import datetime
+import hashlib
+import logging
 
 import paramiko
+from django.db.models import Q
 from sshtunnel import SSHTunnelForwarder
 
+from OmniDB import settings
+from OmniDB_app.models.main import *
 from OmniDB_app.views.memory_objects import *
 
-from django.db.models import Q
 
 @user_authenticated
 def get_connections(request):
-
-    #User not authenticated
+    # User not authenticated
     if not request.user.is_authenticated:
         v_return['v_error'] = True
         v_return['v_error_id'] = 1
@@ -75,10 +59,12 @@ def get_connections(request):
                 }
             }
 
+            v_conn_object['share_code'] = get_share_code(conn)
+
             if conn.id in v_tab_conn_id_list:
                 v_conn_object['locked'] = True
 
-            if (conn.technology.name!='terminal'):
+            if (conn.technology.name != 'terminal'):
                 v_conn_object['conn_string'] = conn.conn_string
                 v_conn_object['server'] = conn.server
                 v_conn_object['port'] = conn.port
@@ -98,15 +84,51 @@ def get_connections(request):
 
     return JsonResponse(v_return)
 
+
+@user_authenticated
+def share_connections(request, param):
+    v_return = {"success": False}
+    if not request.user.is_authenticated:
+        v_return['message'] = '用户未登录'
+        return JsonResponse(v_return, json_dumps_params={'ensure_ascii': False})
+    try:
+        for conn in Connection.objects.filter(Q(public=False) | Q(public=True)):
+            share_code = get_share_code(conn)
+            if share_code == param:
+                for my_conn in Connection.objects.filter(Q(user=request.user.id) & Q(server=conn.server)):
+                    if my_conn.port == conn.port and my_conn.database == conn.database and my_conn.username == conn.username:
+                        v_return['message'] = "你已经拥有该数据库权限[%s]" % my_conn.alias
+                        return JsonResponse(v_return, json_dumps_params={'ensure_ascii': False})
+
+                conn_save = Connection(
+                    user=request.user,
+                    technology=conn.technology,
+                    server=conn.server,
+                    port=conn.port,
+                    database=conn.database,
+                    username=conn.username,
+                    password=conn.password,
+                    alias="[分享]" + conn.alias
+                )
+                conn_save.save()
+                v_return['message'] = "已经将[%s]加入到你的连接列表" % conn.alias
+                v_return['success'] = True
+                return JsonResponse(v_return, json_dumps_params={'ensure_ascii': False})
+    except Exception as exc:
+        logging.error(exc)
+
+    v_return['message'] = '链接已失效,分享仅当日有效'
+    return JsonResponse(v_return, json_dumps_params={'ensure_ascii': False})
+
+
 @user_authenticated
 def get_groups(request):
-
     v_return = {}
     v_return['v_data'] = []
     v_return['v_error'] = False
     v_return['v_error_id'] = -1
 
-    #Invalid session
+    # Invalid session
     if not request.session.get('omnidb_session'):
         v_return['v_error'] = True
         v_return['v_error_id'] = 1
@@ -126,7 +148,7 @@ def get_groups(request):
         for group in Group.objects.filter(user=request.user):
             v_current_group_data = {
                 'id': group.id,
-                'name':  group.name,
+                'name': group.name,
                 'conn_list': []
             }
             for group_conn in GroupConnection.objects.filter(group=group):
@@ -142,6 +164,7 @@ def get_groups(request):
 
     return JsonResponse(v_return)
 
+
 @user_authenticated
 def new_group(request):
     v_return = {}
@@ -149,7 +172,7 @@ def new_group(request):
     v_return['v_error'] = False
     v_return['v_error_id'] = -1
 
-    #Invalid session
+    # Invalid session
     if not request.session.get('omnidb_session'):
         v_return['v_error'] = True
         v_return['v_error_id'] = 1
@@ -159,7 +182,7 @@ def new_group(request):
     p_name = json_object['p_name']
 
     try:
-        new_group = Group(user=request.user,name=p_name)
+        new_group = Group(user=request.user, name=p_name)
         new_group.save()
     except Exception as exc:
         v_return['v_data'] = str(exc)
@@ -167,6 +190,7 @@ def new_group(request):
         return JsonResponse(v_return)
 
     return JsonResponse(v_return)
+
 
 @user_authenticated
 def edit_group(request):
@@ -192,6 +216,7 @@ def edit_group(request):
 
     return JsonResponse(v_return)
 
+
 @user_authenticated
 def delete_group(request):
     v_return = {}
@@ -214,6 +239,7 @@ def delete_group(request):
 
     return JsonResponse(v_return)
 
+
 @user_authenticated
 def test_connection(request):
     v_return = {}
@@ -221,7 +247,7 @@ def test_connection(request):
     v_return['v_error'] = False
     v_return['v_error_id'] = -1
 
-    #Invalid session
+    # Invalid session
     if not request.session.get('omnidb_session'):
         v_return['v_error'] = True
         v_return['v_error_id'] = 1
@@ -232,39 +258,41 @@ def test_connection(request):
     json_object = json.loads(request.POST.get('data', None))
     p_type = json_object['type']
 
-    password=json_object['password'].strip()
-    ssh_password=json_object['tunnel']['password'].strip()
-    ssh_key=json_object['tunnel']['key']
+    password = json_object['password'].strip()
+    ssh_password = json_object['tunnel']['password'].strip()
+    ssh_key = json_object['tunnel']['key']
 
-    if json_object['id']!=-1:
+    if json_object['id'] != -1:
         conn = Connection.objects.get(id=json_object['id'])
-        if json_object['password'].strip()=='':
-            password=conn.password
-        if json_object['tunnel']['password'].strip()=='':
-            ssh_password=conn.ssh_password
-        if json_object['tunnel']['key'].strip()=='':
-            ssh_key=conn.ssh_key
+        if json_object['password'].strip() == '':
+            password = conn.password
+        if json_object['tunnel']['password'].strip() == '':
+            ssh_password = conn.ssh_password
+        if json_object['tunnel']['key'].strip() == '':
+            ssh_key = conn.ssh_key
 
-    if json_object['temp_password']!=None:
+    if json_object['temp_password'] != None:
         password = json_object['temp_password']
 
-
-    if p_type=='terminal':
+    if p_type == 'terminal':
 
         client = paramiko.SSHClient()
         client.load_system_host_keys()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
         try:
-            #ssh key provided
+            # ssh key provided
             if ssh_key.strip() != '':
-                v_file_name = '{0}'.format(str(time.time())).replace('.','_')
+                v_file_name = '{0}'.format(str(time.time())).replace('.', '_')
                 v_full_file_name = os.path.join(settings.TEMP_DIR, v_file_name)
-                with open(v_full_file_name,'w') as f:
+                with open(v_full_file_name, 'w') as f:
                     f.write(ssh_key)
-                client.connect(hostname=json_object['tunnel']['server'],username=json_object['tunnel']['user'],key_filename=v_full_file_name,passphrase=ssh_password,port=int(json_object['tunnel']['port']))
+                client.connect(hostname=json_object['tunnel']['server'], username=json_object['tunnel']['user'],
+                               key_filename=v_full_file_name, passphrase=ssh_password,
+                               port=int(json_object['tunnel']['port']))
             else:
-                client.connect(hostname=json_object['tunnel']['server'],username=json_object['tunnel']['user'],password=ssh_password,port=int(json_object['tunnel']['port']))
+                client.connect(hostname=json_object['tunnel']['server'], username=json_object['tunnel']['user'],
+                               password=ssh_password, port=int(json_object['tunnel']['port']))
 
             client.close()
             v_return['v_data'] = '连接成功.'
@@ -282,8 +310,8 @@ def test_connection(request):
             password,
             -1,
             '',
-            p_conn_string = json_object['connstring'],
-            p_parse_conn_string = True
+            p_conn_string=json_object['connstring'],
+            p_parse_conn_string=True
         )
 
         # create tunnel if enabled
@@ -291,15 +319,15 @@ def test_connection(request):
 
             try:
                 if ssh_key.strip() != '':
-                    v_file_name = '{0}'.format(str(time.time())).replace('.','_')
+                    v_file_name = '{0}'.format(str(time.time())).replace('.', '_')
                     v_full_file_name = os.path.join(settings.TEMP_DIR, v_file_name)
-                    with open(v_full_file_name,'w') as f:
+                    with open(v_full_file_name, 'w') as f:
                         f.write(ssh_key)
                     server = SSHTunnelForwarder(
                         (json_object['tunnel']['server'], int(json_object['tunnel']['port'])),
                         ssh_username=json_object['tunnel']['user'],
                         ssh_private_key_password=ssh_password,
-                        ssh_pkey = v_full_file_name,
+                        ssh_pkey=v_full_file_name,
                         remote_bind_address=(database.v_active_server, int(database.v_active_port)),
                         logger=None
                     )
@@ -335,6 +363,7 @@ def test_connection(request):
 
     return JsonResponse(v_return)
 
+
 @user_authenticated
 def save_connection(request):
     v_return = {}
@@ -342,7 +371,7 @@ def save_connection(request):
     v_return['v_error'] = False
     v_return['v_error_id'] = -1
 
-    #User not authenticated
+    # User not authenticated
     if not request.user.is_authenticated:
         v_return['v_error'] = True
         v_return['v_error_id'] = 1
@@ -375,7 +404,7 @@ def save_connection(request):
 
             )
             conn.save()
-        #update
+        # update
         else:
             conn = Connection.objects.get(id=p_id)
 
@@ -384,25 +413,25 @@ def save_connection(request):
                 v_return['v_error'] = True
                 return JsonResponse(v_return)
 
-            conn.technology=Technology.objects.get(name=json_object['type'])
-            conn.server=json_object['server']
-            conn.port=json_object['port']
-            conn.database=json_object['database']
-            conn.username=json_object['user']
-            if json_object['password'].strip()!='':
-                conn.password=json_object['password']
-            conn.alias=json_object['title']
-            conn.ssh_server=json_object['tunnel']['server']
-            conn.ssh_port=json_object['tunnel']['port']
-            conn.ssh_user=json_object['tunnel']['user']
-            if json_object['tunnel']['password'].strip()!='':
-                conn.ssh_password=json_object['tunnel']['password']
-            if json_object['tunnel']['key'].strip()!='':
-                conn.ssh_key=json_object['tunnel']['key']
+            conn.technology = Technology.objects.get(name=json_object['type'])
+            conn.server = json_object['server']
+            conn.port = json_object['port']
+            conn.database = json_object['database']
+            conn.username = json_object['user']
+            if json_object['password'].strip() != '':
+                conn.password = json_object['password']
+            conn.alias = json_object['title']
+            conn.ssh_server = json_object['tunnel']['server']
+            conn.ssh_port = json_object['tunnel']['port']
+            conn.ssh_user = json_object['tunnel']['user']
+            if json_object['tunnel']['password'].strip() != '':
+                conn.ssh_password = json_object['tunnel']['password']
+            if json_object['tunnel']['key'].strip() != '':
+                conn.ssh_key = json_object['tunnel']['key']
 
-            conn.use_tunnel=json_object['tunnel']['enabled']
-            conn.conn_string=json_object['connstring']
-            conn.public=public=json_object['public']
+            conn.use_tunnel = json_object['tunnel']['enabled']
+            conn.conn_string = json_object['connstring']
+            conn.public = public = json_object['public']
             conn.save()
 
         tunnel_information = {
@@ -423,13 +452,14 @@ def save_connection(request):
             conn.password,
             conn.id,
             conn.alias,
-            p_conn_string = conn.conn_string,
-            p_parse_conn_string = True
+            p_conn_string=conn.conn_string,
+            p_parse_conn_string=True
         )
 
         prompt_password = conn.password == ''
 
-        v_session.AddDatabase(conn.id,conn.technology.name,database,prompt_password,tunnel_information,conn.alias, json_object['public'])
+        v_session.AddDatabase(conn.id, conn.technology.name, database, prompt_password, tunnel_information, conn.alias,
+                              json_object['public'])
 
 
 
@@ -442,6 +472,7 @@ def save_connection(request):
 
     return JsonResponse(v_return)
 
+
 @user_authenticated
 def delete_connection(request):
     v_return = {}
@@ -449,7 +480,7 @@ def delete_connection(request):
     v_return['v_error'] = False
     v_return['v_error_id'] = -1
 
-    #User not authenticated
+    # User not authenticated
     if not request.user.is_authenticated:
         v_return['v_error'] = True
         v_return['v_error_id'] = 1
@@ -479,6 +510,7 @@ def delete_connection(request):
 
     return JsonResponse(v_return)
 
+
 @user_authenticated
 def save_group_connections(request):
     v_return = {}
@@ -486,7 +518,7 @@ def save_group_connections(request):
     v_return['v_error'] = False
     v_return['v_error_id'] = -1
 
-    #User not authenticated
+    # User not authenticated
     if not request.user.is_authenticated:
         v_return['v_error'] = True
         v_return['v_error_id'] = 1
@@ -501,7 +533,8 @@ def save_group_connections(request):
     for v_conn_data in p_conn_data_list:
         try:
             if not v_conn_data['selected']:
-                conn = GroupConnection.objects.get(group=group_obj,connection=Connection.objects.get(id=v_conn_data['id']))
+                conn = GroupConnection.objects.get(group=group_obj,
+                                                   connection=Connection.objects.get(id=v_conn_data['id']))
                 conn.delete()
             else:
                 conn = GroupConnection(
@@ -514,3 +547,12 @@ def save_group_connections(request):
             None
 
     return JsonResponse(v_return)
+
+
+def get_share_code(conn):
+    share = str(conn.id) + datetime.today().strftime("%Y%m%d") + str(conn.user.id)
+    share = share.encode(encoding='utf-8')
+    md_ = hashlib.md5()
+    md_.update(share)
+    share = md_.hexdigest()
+    return share
