@@ -1,0 +1,86 @@
+<head runat="server">
+    <title>OmniDB Tencent</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_folder }}/static/OmniDB_app/images/favicon.ico"/>
+
+    <!-- <link rel="stylesheet" type="text/css" href="{{url_folder}}/static/OmniDB_app/new/css/login.css?v3.0.3b.8a9cf4d1"/> -->
+    <link rel="stylesheet" href="{{ url_folder }}/static/OmniDB_app/lib/bootstrap/bootstrap.min.css?v3.0.3b.8a9cf4d1">
+    <link rel="stylesheet" href="{{ url_folder }}/static/OmniDB_app/css/omnidb.min.css?v3.0.3b.8a9cf4d1">
+    <link rel="stylesheet" href="{{ url_folder }}/static/OmniDB_app/css/login.min.css?v3.0.3b.8a9cf4d1">
+</head>
+<body class="omnidb--theme-light">
+
+<div class="omnidb__login" autofill="true">
+    <div class="omnidb__login__wrapper">
+        <div class="omnidb__login__logo">
+            {% include 'OmniDB_app/animated_assets/vintage.svg' %}
+        </div>
+        <div class="loginWrap-body">
+            <div class="omnidb__login__input-wrapper">
+                <input id="reg_user" type="text" style="text-align:center" placeholder="输入用户名">
+            </div>
+            <div class="omnidb__login__input-wrapper">
+                <input id="reg_pwd" type="text" style="text-align:center" placeholder="输入密码">
+            </div>
+            <button type="button" onclick="signIn()">点击注册</button>
+        </div>
+        <a href="/omnidb_login" class="small">已有账号?返回登录</a>
+
+    </div>
+
+</div>
+<script type="text/javascript"
+        src="{{ url_folder }}/static/OmniDB_app/lib/jquery/jquery.min.js?v3.0.3b.8a9cf4d1"></script>
+<script src="{{ url_folder }}/static/OmniDB_app/lib/bootstrap/bootstrap.min.js?v3.0.3b.8a9cf4d1"></script>
+<script type="text/javascript"
+        src="{{ url_folder }}/static/OmniDB_app/js/notification_control.js?v3.0.3b.8a9cf4d1"></script>
+<script type="text/javascript" src="{{ url_folder }}/static/OmniDB_app/js/ajax_control.js?v3.0.3b.8a9cf4d1"></script>
+<script type="text/javascript">
+    var v_url_folder = '{{ url_folder }}';
+    var v_csrf_cookie_name = '{{ csrf_cookie_name }}';
+    $(document).ready(function () {
+
+    });
+
+    function signIn() {
+        document.getElementById("reg_user").blur();
+        document.getElementById("reg_pwd").blur();
+
+        var v_user_name = document.getElementById('reg_user');
+        var v_pwd = document.getElementById('reg_pwd');
+
+        var csrftoken = getCookie(v_csrf_cookie_name);
+
+        $.ajax({
+                url: '/register_user/',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    data: JSON.stringify({"p_username": v_user_name.value, "p_pwd": v_pwd.value}),
+                    tab_token: ''
+                },
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                },
+                success: function (p_return) {
+                    if (p_return.v_data == '0') {
+                        alert("注册成功");
+                        window.open(v_url_folder + "/omnidb_login", '_self');
+                    } else
+                        alert(p_return.v_data);
+
+                },
+                error: function (p_return) {
+                    alert("请求失败");
+                },
+
+            }
+        );
+    }
+</script>
+
+</body>
+</html>
+{% csrf_token %}
