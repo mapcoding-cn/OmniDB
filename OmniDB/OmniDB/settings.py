@@ -6,19 +6,19 @@ import string
 import getpass
 from . import custom_settings
 
-#import ldap
-#import django_auth_ldap
-#import django_auth_ldap.config
+# import ldap
+# import django_auth_ldap
+# import django_auth_ldap.config
 
 # Development Mode
 DEBUG = custom_settings.DEV_MODE
 DESKTOP_MODE = custom_settings.DESKTOP_MODE
 BASE_DIR = custom_settings.BASE_DIR
 HOME_DIR = custom_settings.HOME_DIR
-TEMP_DIR = os.path.join(BASE_DIR,'OmniDB_app','static','temp')
-PLUGINS_DIR = os.path.join(BASE_DIR,'OmniDB_app','plugins')
-PLUGINS_STATIC_DIR = os.path.join(BASE_DIR,'OmniDB_app','static','plugins')
-APP_DIR = os.path.join(BASE_DIR,'OmniDB_app')
+TEMP_DIR = os.path.join(BASE_DIR, 'OmniDB_app', 'static', 'temp')
+PLUGINS_DIR = os.path.join(BASE_DIR, 'OmniDB_app', 'plugins')
+PLUGINS_STATIC_DIR = os.path.join(BASE_DIR, 'OmniDB_app', 'static', 'plugins')
+APP_DIR = os.path.join(BASE_DIR, 'OmniDB_app')
 
 SESSION_COOKIE_SECURE = custom_settings.SESSION_COOKIE_SECURE
 CSRF_COOKIE_SECURE = custom_settings.CSRF_COOKIE_SECURE
@@ -112,7 +112,7 @@ WSGI_APPLICATION = 'OmniDB.wsgi.application'
 #AUTH_LDAP_GROUP_CACHE_TIMEOUT = 1  # 1 hour cache
 
 AUTHENTICATION_BACKENDS = [
-    #'django_auth_ldap.backend.LDAPBackend',
+    # 'django_auth_ldap.backend.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -139,6 +139,8 @@ TIME_ZONE = 'Asia/Shanghai'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+# 最大请求数为512kb
+DATA_UPLOAD_MAX_MEMORY_SIZE = 1024 * 512
 
 PATH = custom_settings.PATH
 # Processing PATH
@@ -147,9 +149,8 @@ if PATH == '/':
 elif PATH != '':
     if PATH[0] != '/':
         PATH = '/' + PATH
-    if PATH[len(PATH)-1] == '/':
+    if PATH[len(PATH) - 1] == '/':
         PATH = PATH[:-1]
-
 
 LOGIN_URL = PATH + '/omnidb_login'
 LOGIN_REDIRECT_URL = PATH + '/'
@@ -159,65 +160,65 @@ STATIC_ROOT = os.path.join(BASE_DIR, "OmniDB_app/static")
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
-#OMNIDB LOGGING
+# OMNIDB LOGGING
 
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
         'standard': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt' : "%m/%d/%Y %H:%M:%S"
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%m/%d/%Y %H:%M:%S"
         },
     },
     'handlers': {
         'logfile_omnidb': {
-            'class':'logging.handlers.RotatingFileHandler',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(HOME_DIR, 'omnidb.log'),
-            'maxBytes': 1024*1024*5, # 5 MB
+            'maxBytes': 1024 * 1024 * 1000,  # 5 MB
             'backupCount': 5,
             'formatter': 'standard',
         },
         'logfile_django': {
-            'class':'logging.handlers.RotatingFileHandler',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(HOME_DIR, 'omnidb.log'),
-            'maxBytes': 1024*1024*5, # 5 MB
+            'maxBytes': 1024 * 1024 * 1000,  # 5 MB
             'backupCount': 5,
             'formatter': 'standard',
-            'level':'ERROR',
+            'level': 'ERROR',
         },
-        'console_django':{
-            'class':'logging.StreamHandler',
+        'console_django': {
+            'class': 'logging.StreamHandler',
             'formatter': 'standard'
         },
-        'console_omnidb_app':{
-            'class':'logging.StreamHandler',
+        'console_omnidb_app': {
+            'class': 'logging.StreamHandler',
             'formatter': 'standard',
-            'level':'ERROR',
+            'level': 'ERROR',
         },
     },
     'loggers': {
         'django': {
-            'handlers':['logfile_django','console_django'],
+            'handlers': ['logfile_django', 'console_django'],
             'propagate': False,
         },
         'OmniDB_app': {
-            'handlers': ['logfile_omnidb','console_omnidb_app'],
+            'handlers': ['logfile_omnidb', 'console_omnidb_app'],
             'propagate': False,
-            'level':'INFO',
+            'level': 'INFO',
         },
         'cherrypy.error': {
-            'handlers': ['logfile_django','console_omnidb_app'],
+            'handlers': ['logfile_django', 'console_omnidb_app'],
             'level': 'INFO',
             'propagate': False
         }
     }
 }
 
-#OMNIDB PARAMETERS
-OMNIDB_VERSION                 = custom_settings.OMNIDB_VERSION
-OMNIDB_SHORT_VERSION           = custom_settings.OMNIDB_SHORT_VERSION
-CH_CMDS_PER_PAGE               = 20
-PWD_TIMEOUT_TOTAL              = 1800
-PWD_TIMEOUT_REFRESH            = 300
-THREAD_POOL_MAX_WORKERS        = 2
+# OMNIDB PARAMETERS
+OMNIDB_VERSION = custom_settings.OMNIDB_VERSION
+OMNIDB_SHORT_VERSION = custom_settings.OMNIDB_SHORT_VERSION
+CH_CMDS_PER_PAGE = 100
+PWD_TIMEOUT_TOTAL = 1800
+PWD_TIMEOUT_REFRESH = 300
+THREAD_POOL_MAX_WORKERS = 100
