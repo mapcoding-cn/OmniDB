@@ -4,7 +4,7 @@ OmniDB是一个开源的基于浏览器的DMS工具,支持智能sql编辑器,上
 **体验地址**: https://db.mapcoding.cn 
 **如果对你有帮助,请star感谢支持**
 
-**如何部署**
+**如何部署**\
 管理员默认密码**admin/admin**
 ``` 
 docker pull ccr.ccs.tencentyun.com/mapcoding/mapcoding:dev-20221009
