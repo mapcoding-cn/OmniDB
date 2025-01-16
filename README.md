@@ -5,6 +5,7 @@ OmniDB是一个开源的基于浏览器的DMS工具,支持智能sql编辑器,上
 **如果对你有帮助,请star感谢支持**
 
 **如何部署**
+管理员默认密码**admin/admin**
 ``` 
 docker pull ccr.ccs.tencentyun.com/mapcoding/mapcoding:dev-20221009
 docker run -d --name omnidb-cn -p 8000:8000  ccr.ccs.tencentyun.com/mapcoding/mapcoding:dev-20221009
